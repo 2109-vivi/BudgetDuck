@@ -1,12 +1,10 @@
 import React from 'react';
 import { PlaidLink } from 'react-plaid-link';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // import axios from "axios";
 
 const ConnectPlaid = (props) => {
-  console.log('linktoken on line 7', props.linkToken);
-  console.log('props-----', props);
-
+  const dispatch = useDispatch();
   const onExit = (error, metadata) => console.log('onExit', error, metadata);
 
   const onEvent = (eventName, metadata) => {
@@ -18,8 +16,7 @@ const ConnectPlaid = (props) => {
 
   const onSuccess = (token, metadata) => {
     //console.log('onSuccess', token, metadata);
-    console.log('line 18 in connectplaid component', token);
-    props.getAccessToken(token);
+    dispatch(props.getAccessToken(token));
   };
 
   return (

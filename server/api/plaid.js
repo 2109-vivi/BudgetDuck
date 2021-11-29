@@ -45,7 +45,6 @@ router.post('/create_link_token', async (req, res) => {
 
 router.post('/get_access_token', async (req, res) => {
   const { linkToken } = req.body;
-  console.log('this is req.body', req.body);
   const response = await plaidClient
     .itemPublicTokenExchange({ public_token: linkToken })
     .catch((err) => {
@@ -58,19 +57,18 @@ router.post('/get_access_token', async (req, res) => {
 
 router.post('/transactions', async (req, res) => {
   const { accessToken } = req.body;
-  const response = await plaidClient
-    .getTransactions(accessToken, '2020-01-01', '2021-11-29', {
-      count: 250,
-      offset: 0,
-    })
-    .catch((err) => {
-      if (!accessToken) {
-        return 'no access token';
-      }
-    });
-  const transactions = response.transactions;
-  console.log(transactions);
-  return res.send({ transactions: transactions });
+  const request = {
+    access_token: accessToken,
+    start_date: '2018-01-01',
+    end_date: '2021-11-28',
+  };
+  try {
+    const response = await plaidClient.transactionsGet(request);
+    let transactions = response.data.transactions;
+    res.send(transactions);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 module.exports = router;
