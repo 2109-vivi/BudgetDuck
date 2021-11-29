@@ -2,7 +2,6 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
-const keys = require('../keys');
 const { Configuration, PlaidApi, PlaidEnvironments } = require('plaid');
 
 // logging middleware

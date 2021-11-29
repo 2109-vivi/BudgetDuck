@@ -1,6 +1,6 @@
+require('dotenv').config();
 const router = require('express').Router();
 // const plaidClient = require('../app.js');
-const keys = require('../../keys');
 const {
   Configuration,
   PlaidApi,
@@ -12,8 +12,8 @@ const configuration = new Configuration({
   basePath: PlaidEnvironments['sandbox'],
   baseOptions: {
     headers: {
-      'PLAID-CLIENT-ID': keys.PLAID_CLIENT_ID,
-      'PLAID-SECRET': keys.PLAID_SECRET,
+      'PLAID-CLIENT-ID': process.env.PLAID_CLIENT_ID,
+      'PLAID-SECRET': process.env.PLAID_SECRET,
     },
   },
 });
