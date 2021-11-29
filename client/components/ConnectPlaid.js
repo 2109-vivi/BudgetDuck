@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux';
 // import axios from "axios";
 
 const ConnectPlaid = (props) => {
-  console.log(props.linkToken);
+  console.log('linktoken on line 7', props.linkToken);
+  console.log('props-----', props);
 
   const onExit = (error, metadata) => console.log('onExit', error, metadata);
 
@@ -19,8 +20,6 @@ const ConnectPlaid = (props) => {
     //console.log('onSuccess', token, metadata);
     console.log('line 18 in connectplaid component', token);
     props.getAccessToken(token);
-    const accessToken = useSelector((state) => state.accessToken);
-    console.log(accessToken);
   };
 
   return (

@@ -7,8 +7,8 @@ import Routes from './Routes';
 
 const App = () => {
   const dispatch = useDispatch();
-  const linkToken = useSelector((state) => state.linkToken);
-  const accessToken = useSelector((state) => state.accessToken);
+  const linkToken = useSelector((state) => state.plaid.linkToken);
+  const accessToken = useSelector((state) => state.plaid.accessToken);
 
   useEffect(() => {
     dispatch(getLinkToken());
@@ -16,6 +16,7 @@ const App = () => {
 
   return (
     <div>
+      {console.log('linktoken in line 19', linkToken)}
       {/* <Navbar />
       <Routes /> */}
       <ConnectPlaid

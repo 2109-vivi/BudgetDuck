@@ -16,7 +16,7 @@ export const getLinkToken = () => {
   return async (dispatch) => {
     try {
       const response = await axios.post('/api/plaid/create_link_token');
-      console.log(response);
+      console.log('response on line 19', response);
       dispatch(setLinkToken(response.data.link_token));
     } catch (e) {
       console.log('something went wrong');
@@ -35,6 +35,7 @@ export const getAccessToken = async (linkToken) => {
         localStorage.setItem('accessToken', response.data.access_token);
         dispatch(setAccessToken(response.data.access_token));
       }
+      console.log('no link token in thunk');
       return;
     } catch (e) {
       console.log('something went wrong');
@@ -46,7 +47,7 @@ export const getAccessToken = async (linkToken) => {
 export default function (state = {}, action) {
   switch (action.type) {
     case SET_LINK_TOKEN:
-      return { linkToken: action.linkToken };
+      return { ...state, linkToken: action.linkToken };
     case SET_ACCESS_TOKEN:
       return { ...state, accessToken: action.accessToken };
     default:
