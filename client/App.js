@@ -4,7 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 import { getLinkToken, getAccessToken } from './store/plaid.js';
 import ConnectPlaid from './components/ConnectPlaid.js';
 import TransactionsContainer from './components/TransactionsContainer.js';
-import Navbar from './components/Navbar';
+import PieChartComponent from './components/PieChartComponent.js';
+// import Navbar from './components/Navbar';
 import Routes from './Routes';
 
 const App = () => {
@@ -31,7 +32,7 @@ const App = () => {
           <Route
             path='/home'
             render={(routerprops) => (
-              <TransactionsContainer accessToken={accessToken} />
+              <PieChartComponent accessToken={accessToken} />
             )}
           />
         </Switch>
