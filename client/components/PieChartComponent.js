@@ -38,6 +38,10 @@ const PieChartComponent = (props) => {
     }
   });
 
+  const customLabel = (value) => {
+    return `$${value.value}`;
+  };
+
   console.log(output);
   return (
     <div>
@@ -50,7 +54,7 @@ const PieChartComponent = (props) => {
           cy='50%'
           outerRadius={300}
           fill='#8884d8'
-          label
+          label={customLabel}
         />
         <Tooltip />
       </PieChart>
