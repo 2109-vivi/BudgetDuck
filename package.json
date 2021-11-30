@@ -1,7 +1,7 @@
 {
-  "name": "fs-app-template",
+  "name": "budget-duck",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "A budgeting app for those that fit the bill",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -9,6 +9,7 @@
     "seed": "node script/seed.js",
     "start": "node server",
     "start:dev": "npm run build:dev & npm run start-server",
+    "start:dev-windows": "set JWT=shh && nodemon server -e html,js,scss --ignore public --ignore client",
     "start:dev:logger": "LOGGING=true npm run start:dev",
     "start:dev:seed": "SEED=true npm run start:dev",
     "start-server": "JWT=shh nodemon server -e html,js,scss --ignore public --ignore client",
@@ -17,7 +18,7 @@
     "test:dev:models": "npm run test:dev -- --grep=model",
     "test:dev:routes": "npm run test:dev -- --grep=route"
   },
-  "author": "Fullstack Academy of Code",
+  "author": "2109-team-vivi",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
