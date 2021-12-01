@@ -4,15 +4,14 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>Budget Duck</h1>
+  <div style={{backgroundColor: '#3DD7B2'}}>
     <nav>
-      {/* <img src={require('./logo.png')} /> */}
+      <img src='/assets/logo.png' style={{ height: '100px' }}/>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
-          <Link to="/home">Transactions</Link>
+          <Link to="/transactions">Transactions</Link>
           <Link to="/budget">Budget</Link>
           <a href="#" onClick={handleClick}>
             Logout
@@ -23,6 +22,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
+          <Link to="/settings">Settings</Link>
         </div>
       )}
     </nav>
