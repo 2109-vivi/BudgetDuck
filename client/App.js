@@ -5,23 +5,23 @@ import { getLinkToken, getAccessToken } from './store/plaid.js';
 import ConnectPlaid from './components/ConnectPlaid.js';
 import TransactionsContainer from './components/TransactionsContainer.js';
 import PieChartComponent from './components/PieChartComponent.js';
-// import Navbar from './components/Navbar';
+import Navbar from './components/Navbar';
 import Routes from './Routes';
 
 const App = () => {
-  const dispatch = useDispatch();
-  const linkToken = useSelector((state) => state.plaid.linkToken);
-  const accessToken = useSelector((state) => state.plaid.accessToken);
+  // const dispatch = useDispatch();
+  // const linkToken = useSelector((state) => state.plaid.linkToken);
+  // const accessToken = useSelector((state) => state.plaid.accessToken);
 
-  useEffect(() => {
-    dispatch(getLinkToken());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getLinkToken());
+  // }, []);
 
   return (
     <div>
-      {/* <Navbar />
-      <Routes /> */}
-      {accessToken == null ? (
+      <Navbar />
+      <Routes />
+      {/* {accessToken == null ? (
         <ConnectPlaid
           linkToken={linkToken}
           accessToken={accessToken}
@@ -36,7 +36,7 @@ const App = () => {
             )}
           />
         </Switch>
-      )}
+      )} */}
     </div>
   );
 };
