@@ -8,7 +8,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <nav>
       <img src='/assets/logo.png' style={{ height: '100px' }}/>
       {isLoggedIn ? (
-        <div>
+        <>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           <Link to="/transactions">Transactions</Link>
@@ -16,7 +16,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-        </div>
+        </>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
@@ -26,7 +26,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </div>
       )}
     </nav>
-    <hr />
   </div>
 )
 

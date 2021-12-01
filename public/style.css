@@ -10,9 +10,20 @@ label {
   display: block;
 }
 
+/* Navbar CSS */
+nav {
+  align-items: center;
+  display: flex;
+  height: 80px;
+  padding: 10px;
+  justify-content: left;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
+  color: white;
+  font-size: 18px;
 }
 
 form div {
