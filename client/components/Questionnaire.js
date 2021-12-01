@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { getLinkToken, getAccessToken } from '../store/plaid.js';
+import { getTransactionsFromPlaid } from '../store/transactions';
+import ConnectPlaid from './ConnectPlaid.js';
 
 class Questionnaire extends React.Component {
   constructor() {
@@ -15,6 +19,7 @@ class Questionnaire extends React.Component {
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
   }
+  componentDidMount() {}
 
   handleChange(evt) {
     const { name, value } = evt.target;
@@ -86,7 +91,6 @@ class Questionnaire extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <React.Fragment>
         <div className='questionnaire-wrapper'>
@@ -100,7 +104,7 @@ class Questionnaire extends React.Component {
             handleChange={this.handleChange}
             budget={this.state.budget}
           />
-          <Step3 currentStep={this.state.currentStep} />
+          {this.state.currentStep == 3 ? <Step3 /> : null}
 
           {this.previousButton()}
           {this.nextButton()}
@@ -151,14 +155,25 @@ const Step2 = (props) => {
   );
 };
 
-const Step3 = (props) => {
-  if (props.currentStep != 3) {
-    return null;
-  }
+const Step3 = () => {
+  const dispatch = useDispatch();
+  const linkToken = useSelector((state) => state.plaid.linkToken);
+  const accessToken = useSelector((state) => state.plaid.accessToken);
+
+  useEffect(() => {
+    dispatch(getLinkToken());
+    dispatch(getTransactionsFromPlaid(accessToken));
+  }, []);
+
   return (
     <div>
       plaid link component goes here wooohoo looking forward to hooking it up
       /saracsm
+      <ConnectPlaid
+        linkToken={linkToken}
+        accessToken={accessToken}
+        getAccessToken={getAccessToken}
+      />
     </div>
   );
 };

@@ -5,10 +5,10 @@ const {
 const { requireToken } = require('./gatekeeping');
 
 // get all transactions in the database per user
-router.post('/transactions', requireToken, async (req, res, next) => {
+router.get('/transactions', requireToken, async (req, res, next) => {
   try {
     const { user } = req.body;
-    const allTransactions = Transaction.findAll({
+    const allTransactions = await Transaction.findAll({
       where: { userId: user.id },
     });
 
@@ -24,7 +24,7 @@ router.post('/transactions', requireToken, async (req, res, next) => {
     const { transaction } = req.body;
     const { user } = req.body;
     const newTransaction = await Transaction.create({
-      transaction,
+      ...transaction,
       userId: user.id,
     });
 
