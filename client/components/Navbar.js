@@ -3,8 +3,10 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
+import './Navbar.css';
+
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div style={{backgroundColor: '#3DD7B2'}}>
+  <div className='navbar'>
     <nav>
       <img src='/assets/logo.png' style={{ height: '100px' }}/>
       {isLoggedIn ? (
