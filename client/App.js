@@ -9,13 +9,13 @@ import Navbar from './components/Navbar';
 import Routes from './Routes';
 
 const App = () => {
-  const dispatch = useDispatch();
-  const linkToken = useSelector((state) => state.plaid.linkToken);
-  const accessToken = useSelector((state) => state.plaid.accessToken);
+  // const dispatch = useDispatch();
+  // const linkToken = useSelector((state) => state.plaid.linkToken);
+  // const accessToken = useSelector((state) => state.plaid.accessToken);
 
-  useEffect(() => {
-    dispatch(getLinkToken());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getLinkToken());
+  // }, []);
 
   return (
     <div>
