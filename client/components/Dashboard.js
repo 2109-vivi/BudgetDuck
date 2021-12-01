@@ -13,14 +13,30 @@ export const Dashboard = (props) => {
     <div className={"dash-container"}>
 
       <div className={"left-container"}>
-        <h4>Transactions List</h4>
-        <div className={"listed-transaction"}>listed transaction
-        <button>singleTransaction</button>
+        <h4>Todays Transactions
+        <button>+</button>
+        </h4>
+
+        <div className={"listed-transaction"}>
+          listed transaction
+          <button>singleTransaction</button>
         </div>
-        <div className={"listed-transaction"}>listed transaction
-        <button>singleTransaction</button></div>
-        <div className={"listed-transaction"}>listed transaction
-        <button>singleTransaction</button></div>
+        <div className={"listed-transaction"}>
+          listed transaction
+          <button>singleTransaction</button>
+        </div>
+        <div className={"listed-transaction"}>
+          listed transaction
+          <button>singleTransaction</button>
+        </div>
+        <div className={"listed-transaction"}>
+          listed transaction
+          <button>singleTransaction</button>
+        </div>
+        <div className={"listed-transaction"}>
+          listed transaction
+          <button>singleTransaction</button>
+        </div>
       </div>
 
       <div className={"right-container"}>

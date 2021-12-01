@@ -24,6 +24,7 @@ form div {
   box-sizing: border-box;
   display: flex;
   border: 1px solid black;
+  border-radius: 25px;
   height: 400px;
 }
 
@@ -32,16 +33,18 @@ form div {
   left: 10px;
   height: 100%;
   width: 50%;
+  overflow: auto;
   padding:10px;
   box-sizing:border-box;
   border: 1px black;
 }
 
 .listed-transaction {
-  flex-wrap:inherit;
+  flex-shrink:0;
   background-color: aquamarine;
   border-radius: 25px;
-  padding: 10px;
+  padding: 20px;
+  margin: 10px;
   right: 10px;
   height: 20px;
 }
@@ -50,7 +53,6 @@ form div {
   display: flex;
   height: 100%;
   max-width: 50%;
-  flex-wrap: wrap;
   padding: 10px;
   border: 1px black;
 }
