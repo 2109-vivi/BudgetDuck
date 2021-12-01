@@ -1,9 +1,8 @@
 'use strict';
 
-const {
-  db,
-  models: { User },
-} = require('../server/db');
+const { db, models: { User, Transaction, Category, Budget, BudgetCategory }} = require('../server/db');
+
+const userTransactionsArray = require ('./userTransactions');  //transactions.js
 
 /**
  * seed - this function clears the database, updates tables to
@@ -23,10 +22,81 @@ async function seed() {
       monthlyBudget: 4000,
       income: 90000,
     }),
+    User.create({
+      email: 'murphy@gmail.com',
+      password: '123',
+      firstName: 'murphy',
+      lastName: 'lastname',
+      monthlyBudget: 10000,
+      income: 270000,
+    }),
   ]);
 
+  const category = await Promise.all([
+    Category.create({
+      categoryName: 'Food',
+    }),
+    Category.create({
+      categoryName: 'Entertainment',
+    }),
+    Category.create({
+      categoryName: 'Travel',
+    }),
+    Category.create({
+      categoryName: 'Utilities',
+    }),
+    Category.create({
+      categoryName: 'Rent',
+    }),
+    Category.create({
+      categoryName: 'Groceries',
+    }),
+  ]);
+
+  const transactions = await Promise.all([
+    Transaction.bulkCreate(userTransactionsArray),
+  ]);
+
+  await users[0].setTransactions(transactions[0]);
+  const budgetCategory = await Promise.all([
+    BudgetCategory.create({
+    userId: 1,
+    categoryId: 1,
+    budgetForCategory: 1000,
+  }),
+  BudgetCategory.create({
+    userId: 1,
+    categoryId: 2,
+    budgetForCategory: 1000,
+  }),
+  BudgetCategory.create({
+    userId: 1,
+    categoryId: 3,
+    budgetForCategory: 1000,
+  }),
+  BudgetCategory.create({
+    userId: 1,
+    categoryId: 4,
+    budgetForCategory: 1000,
+  }),
+  BudgetCategory.create({
+    userId: 1,
+    categoryId: 5,
+    budgetForCategory: 1000,
+  }),
+]);
+
+  await Budget.create({
+    userId: 1,
+    budget: 4000,
+    date: Date.now(),
+  });
+
+
   console.log(`seeded ${users.length} users`);
+  console.log(`seeded transactions`);
   console.log(`seeded successfully`);
+  console.log(`seeded categories`);
   return {
     users: {
       cody: users[0],
