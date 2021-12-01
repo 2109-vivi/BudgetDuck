@@ -11,7 +11,6 @@ router.get('/transactions', requireToken, async (req, res, next) => {
     const allTransactions = await Transaction.findAll({
       where: { userId: user.id },
     });
-
     res.send(allTransactions);
   } catch (e) {
     next(e);

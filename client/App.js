@@ -7,11 +7,16 @@ import TransactionsContainer from './components/TransactionsContainer.js';
 import PieChartComponent from './components/PieChartComponent.js';
 import Navbar from './components/Navbar';
 import Routes from './Routes';
+import { getTransactionsFromDatabase } from './store/transactions.js';
 
 const App = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const linkToken = useSelector((state) => state.plaid.linkToken);
   // const accessToken = useSelector((state) => state.plaid.accessToken);
+  const token = localStorage.getItem('token')
+  useEffect(() => {
+    dispatch(getTransactionsFromDatabase(token))
+  },[])
 
   // useEffect(() => {
   //   dispatch(getLinkToken());
