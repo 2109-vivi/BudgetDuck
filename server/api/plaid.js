@@ -3,7 +3,7 @@ const { requireToken } = require('./gatekeeping.js');
 const router = require('express').Router();
 const {
   models: { Transaction },
-} = require('./db');
+} = require('../db');
 
 const {
   Configuration,
