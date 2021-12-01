@@ -4,6 +4,7 @@ import { login } from '../store';
 
 const Login = (props) => {
   const dispatch = useDispatch();
+  const error = useSelector((state) => state.auth.error);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -23,6 +24,7 @@ const Login = (props) => {
           Password
           <input name='password' type='password' />
         </label>
+        {error && error.response && <div> {error.response.data} </div>}
         <button type='submit'>Log in to your account</button>
       </form>
     </div>

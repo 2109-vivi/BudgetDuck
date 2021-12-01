@@ -26,7 +26,10 @@ class Questionnaire extends React.Component {
   async handleSubmit(evt) {
     evt.preventDefault();
     const { income, budget } = this.state;
-
+    console.log('sending axios request with req.body => ', {
+      income,
+      monthlyBudget: budget,
+    });
     // ========> make request to axios to update
     // current User's income and budget information + potential Plaid access token
 
@@ -83,6 +86,7 @@ class Questionnaire extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <React.Fragment>
         <div className='questionnaire-wrapper'>

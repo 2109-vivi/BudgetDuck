@@ -4,6 +4,7 @@ import { signup } from '../store';
 
 const Signup = (props) => {
   const dispatch = useDispatch();
+  const error = useSelector((state) => state.auth.error);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -33,6 +34,8 @@ const Signup = (props) => {
           Last Name
           <input name='lastName' type='text' />
         </label>
+        {error && error.response && <div> {error.response.data} </div>}
+
         <button type='submit'>Create your account</button>
       </form>
     </div>
