@@ -5,7 +5,8 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Questionnaire from './components/Questionnaire';
 import Home from './components/Home';
-import { me } from './store';
+import {me} from './store'
+import Budget from './components/BudgetChart'
 
 /**
  * COMPONENT
@@ -22,7 +23,8 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route path='/home' component={Home} />
+            <Route path="/budget" component={Budget}/>
+            <Route path="/home" component={Home} />
             <Route path='/questionnaire' component={Questionnaire} />
           </Switch>
         ) : (

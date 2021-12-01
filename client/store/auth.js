@@ -28,6 +28,7 @@ export const me = () => async (dispatch) => {
   }
 };
 
+
 export const login = (email, password) => async (dispatch) => {
   try {
     const res = await axios.post('/auth/login', { email, password });
