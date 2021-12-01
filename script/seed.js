@@ -32,7 +32,7 @@ async function seed() {
     }),
   ]);
 
-  const category = await Promise.all([
+  const categories = await Promise.all([
     Category.create({
       categoryName: 'Food',
     }),
@@ -58,33 +58,39 @@ async function seed() {
   ]);
 
   await users[0].setTransactions(transactions[0]);
+
   const budgetCategory = await Promise.all([
     BudgetCategory.create({
-    userId: 1,
-    categoryId: 1,
-    budgetForCategory: 1000,
-  }),
-  BudgetCategory.create({
-    userId: 1,
-    categoryId: 2,
-    budgetForCategory: 1000,
-  }),
-  BudgetCategory.create({
-    userId: 1,
-    categoryId: 3,
-    budgetForCategory: 1000,
-  }),
-  BudgetCategory.create({
-    userId: 1,
-    categoryId: 4,
-    budgetForCategory: 1000,
-  }),
-  BudgetCategory.create({
-    userId: 1,
-    categoryId: 5,
-    budgetForCategory: 1000,
-  }),
-]);
+      userId: 1,
+      categoryId: 1,
+      budgetForCategory: 1000,
+    }),
+    BudgetCategory.create({
+      userId: 1,
+      categoryId: 2,
+      budgetForCategory: 1000,
+    }),
+    BudgetCategory.create({
+      userId: 1,
+      categoryId: 3,
+      budgetForCategory: 1000,
+    }),
+    BudgetCategory.create({
+      userId: 1,
+      categoryId: 4,
+      budgetForCategory: 1000,
+    }),
+    BudgetCategory.create({
+      userId: 1,
+      categoryId: 5,
+      budgetForCategory: 1000,
+    }),
+    BudgetCategory.create({
+      userId: 1,
+      categoryId: 6,
+      budgetForCategory: 1000,
+    }),
+  ]);
 
   await Budget.create({
     userId: 1,
@@ -92,11 +98,16 @@ async function seed() {
     date: Date.now(),
   });
 
+  for(let i = 0; i < transactions[0].length; i++) {
+    //random number from 1 to 6
+    let randomCategory = Math.floor(Math.random() * 6);
+    await transactions[0][i].setCategory(categories[randomCategory]);
+  }
 
   console.log(`seeded ${users.length} users`);
-  console.log(`seeded transactions`);
+  console.log(`seeded ${transactions[0].length} transactions`);
+  console.log(`seeded ${categories.length} categories`);
   console.log(`seeded successfully`);
-  console.log(`seeded categories`);
   return {
     users: {
       cody: users[0],
