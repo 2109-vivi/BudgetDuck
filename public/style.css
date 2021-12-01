@@ -19,3 +19,33 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.dash-container {
+  box-sizing: border-box;
+  display: flex;
+  border: 1px solid black;
+}
+
+.left-container {
+  flex: 1 1 auto;
+  left: 10px;
+  height: 100%;
+  width: 50%;
+  box-sizing:border-box;
+  background-color: aquamarine;
+  border: 1px black;
+}
+.right-container {
+  flex: 0 1 50%;
+  display: flex;
+  height: 100%;
+  max-width: 50%;
+  flex-wrap: wrap;
+  border: 1px black;
+}
+.half-containers {
+  flex: 0 0 100%;
+  height: 50%;
+  width: 50%;
+  border: 1px black;
+}
