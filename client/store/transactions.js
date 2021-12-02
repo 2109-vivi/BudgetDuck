@@ -1,52 +1,59 @@
 import axios from 'axios';
 
 // action types
-const SET_TRANSACTIONS = 'SET_TRANSACTIONS';
 const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
+const CLEAR_TRANSACTIONS = 'CLEAR_TRANSACTIONS';
 
 // action creators
-const setTransactions = (transactions) => ({
-  type: SET_TRANSACTIONS,
-  transactions,
-});
-
 const getTransactions = (transactions) => ({
   type: GET_TRANSACTIONS,
   transactions,
 });
+
+export const clearTransactions = () => ({ type: CLEAR_TRANSACTIONS });
+
 // thunks
-export const getTransactionsFromPlaid = (accessToken) => {
+export const getTransactionsFromPlaid = (accessToken, JWToken) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post('/api/plaid/transactions', {
-        accessToken,
-      });
-      let transactions = response.data;
-      dispatch(setTransactions(transactions));
+      const response = await axios.post(
+        '/api/plaid/transactions',
+        {
+          accessToken,
+        },
+        { headers: { token: JWToken } }
+      );
+      const transactions = response.data;
+      dispatch(getTransactions(transactions));
     } catch (e) {
       console.log('somethign went wrong');
     }
   };
 };
 
-export const getTransactionsFromDatabase= (token) => {
+export const getTransactionsFromDatabase = (isLoggedIn) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('/api/transactions/getTransactions', {headers: {token}})
-      dispatch(getTransactions(response.data))
+      if (isLoggedIn) {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('/api/transactions/', {
+          headers: { token },
+        });
+        const transactions = response.data;
+        dispatch(getTransactions(transactions));
+      }
+    } catch (e) {
+      console.log('Failed to fetch Transactions');
     }
-    catch(e){
-      console.log("Failed to fetch Transactions")
-    }
-  }
-}
+  };
+};
 // reducer
 export default function (state = [], action) {
   switch (action.type) {
-    case SET_TRANSACTIONS:
-      return [...state, ...action.transactions];
     case GET_TRANSACTIONS:
-      return action.transactions
+      return [...state, ...action.transactions];
+    case CLEAR_TRANSACTIONS:
+      return [];
     default:
       return state;
   }

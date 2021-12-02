@@ -11,12 +11,13 @@ import { getTransactionsFromDatabase } from './store/transactions.js';
 
 const App = () => {
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.id);
   // const linkToken = useSelector((state) => state.plaid.linkToken);
   // const accessToken = useSelector((state) => state.plaid.accessToken);
-  const token = localStorage.getItem('token')
+
   useEffect(() => {
-    dispatch(getTransactionsFromDatabase(token))
-  },[])
+    dispatch(getTransactionsFromDatabase(!!currentUser));
+  }, [currentUser]);
 
   // useEffect(() => {
   //   dispatch(getLinkToken());
