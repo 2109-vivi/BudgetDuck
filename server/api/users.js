@@ -33,7 +33,7 @@ router.put('/budget', requireToken, async (req, res, next) => {
         budget: monthlyBudget,
         userId: user.id,
       });
-      res.status(201).send('success');
+      res.status(201).send(monthlyBudget);
     } else {
       res.send(`Your budget is already $${monthlyBudget}`);
     }
@@ -48,7 +48,7 @@ router.put('/income', requireToken, async (req, res, next) => {
     await user.update({
       income,
     });
-    res.send('Income has been updated');
+    res.status(201).send(income);
   } catch (e) {
     next(e);
   }
