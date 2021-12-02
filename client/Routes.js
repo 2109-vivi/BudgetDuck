@@ -25,11 +25,11 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route path= '/' exact component={Dashboard}/>
-            <Route path="/budget" component={Budget}/>
+            <Route path='/' exact component={Dashboard} />
+            <Route path='/budget' component={Budget} />
             <Route path='/questionnaire' component={Questionnaire} />
             <Route path='/transactions' component={AllTransactions} />
-            <Route path ='/dashboard' component= {Dashboard}/>
+            <Route path='/dashboard' component={Dashboard} />
           </Switch>
         ) : (
           <Switch>
