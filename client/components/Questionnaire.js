@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { getLinkToken, getAccessToken } from '../store/plaid.js';
 import { getTransactionsFromPlaid } from '../store/transactions';
 import ConnectPlaid from './ConnectPlaid.js';
+import { updateBudgetThunk, updateIncomeThunk } from '../store/auth.js';
 
 class Questionnaire extends React.Component {
   constructor() {
@@ -34,6 +35,8 @@ class Questionnaire extends React.Component {
       income,
       monthlyBudget: budget,
     });
+    this.props.updateBudget(budget)
+    this.props.updateIncome(income)
     // ========> make request to axios to update
     // current User's income and budget information + potential Plaid access token
 
@@ -175,4 +178,10 @@ const Step3 = () => {
   );
 };
 
-export default Questionnaire;
+const mapDispatchToProps = (dispatch) => {
+  return {
+     updateBudget: (budget) => dispatch(updateBudgetThunk(budget)),
+     updateIncome: (income) => dispatch(updateIncomeThunk(income))
+  }
+}
+export default connect(null, mapDispatchToProps)(Questionnaire);

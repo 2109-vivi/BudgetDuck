@@ -6,21 +6,24 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContaine
 const BudgetChart = () => {
   const budget = useSelector((state) => state.auth.monthlyBudget)
   const transactions = useSelector((state) => state.transactions)
-  // const token = localStorage.getItem('token')
-  // const dispatch = useDispatch()
 
+const date = new Date()
+const month = date.getMonth()+1
 
-  // useEffect(() => {
-  //   dispatch(getTransactionsFromDatabase(token))
-  // },[])
+//Test to see if date is formattted correctly (if it returns empty array, check date formator there aren't any transactions with that date.)
+// const test = transactions.filter((item) => {
+//   return month == item.date.slice(5,7)
+// })
 
-
-
-  const totalTransactionAmount = transactions.map((item) => {
+const totalTransactionAmount = transactions.filter((item) => {
+  //Filter transaction based on what month it is (Based on Date format in database)
+    return month == item.date.slice(5,7)
+  }).map((item) => {
     //convert each amount to an int
     return Number(item.amount)
+  })
     //Ensure that each amount is a positive number (to avoid added fund transactions)
-  }).filter((amount) => {
+  .filter((amount) => {
     return amount > 0
     //Total everything
   }).reduce((acc, total) => {
@@ -30,13 +33,13 @@ const BudgetChart = () => {
   const data = [
     {
       "name": "Current Spending",
-      "Amount": totalTransactionAmount
+      "Amount": +totalTransactionAmount.toFixed(0)
     }
   ]
   return (
     (transactions.length > 0 ? (
       <div>
-        {console.log(totalTransactionAmount)}
+        {/* {console.log(totalTransactionAmount)} */}
           <h1 style={{textAlign : 'center'}}>
             Your Budget is: {`$${budget}`}
           </h1>
