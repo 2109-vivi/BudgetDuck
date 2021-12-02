@@ -9,6 +9,7 @@ const TransactionsContainer = (props) => {
     dispatch(getTransactionsFromPlaid(props.accessToken));
   }, []);
 
+console.log(props)
   return <div className='transactions-list-container'></div>;
 };
 

@@ -19,3 +19,87 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.dash-container {
+  box-sizing: border-box;
+  justify-items: auto;
+  display: flex;
+  background-color:#3dd7b2;
+  border: 1px solid black;
+  margin-top: 30px;
+  margin-left: 20px;
+  border-radius: 25px;
+  height: 600px;
+  width: auto;
+}
+
+.left-container {
+  flex: 1 1 50%;
+  flex-direction: column;
+
+  left: 10px;
+  border-top: 10px;
+  width: 50%;
+  overflow:auto;
+  padding:10px;
+  box-sizing:border-box;
+  box-shadow: 10px;
+  border: 1px black;
+}
+
+.list-header {
+  display: flex;
+  justify-content:space-between;
+}
+
+.listed-transaction {
+  flex-shrink: 1;
+  background-color:#C4C4C4;
+  justify-content: space-between;
+  border-radius: 25px;
+  padding: 20px;
+  margin: 10px;
+  right: 10px;
+  height: 20px;
+}
+.listed-transaction:hover {
+  background-color: whitesmoke;
+  color:#3dd7b2;
+  transition: 0.5s;
+}
+
+.right-container {
+  flex: 0 1 50%;
+  flex-wrap: wrap;
+  display: flex;
+  height: 100%;
+  max-width: 50%;
+  padding: 10px;
+  border-radius: 25px;
+  border: 1px black;
+}
+.half-containers {
+  flex: 0 0 100%;
+  align-items: center;
+  overflow:auto;
+  height: 50%;
+  border-radius: 25px;
+  border: 1px black;
+  background-color: #3dd7b2;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
