@@ -35,4 +35,18 @@ router.post('/', requireToken, async (req, res, next) => {
   }
 });
 
+router.delete('/:id', requireToken, async (req, res, next) => {
+  try {
+    const { user } = req.body;
+    const transactionToDelete = await Transaction.findOne({
+      where: { id: req.params.id, userId: user.id },
+    });
+    await transactionToDelete.destroy();
+    res.send(transactionToDelete);
+  } catch (e) {
+    next(e);
+  }
+});
+
+
 module.exports = router;
