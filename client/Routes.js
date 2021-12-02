@@ -7,6 +7,7 @@ import Questionnaire from './components/Questionnaire';
 import Home from './components/Home';
 import {me} from './store'
 import Budget from './components/BudgetChart'
+import AllTransactions from './components/AllTransactions';
 
 /**
  * COMPONENT
@@ -26,6 +27,7 @@ class Routes extends Component {
             <Route path="/budget" component={Budget}/>
             <Route path="/home" component={Home} />
             <Route path='/questionnaire' component={Questionnaire} />
+            <Route path='/transactions' component={AllTransactions} />
           </Switch>
         ) : (
           <Switch>

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-  models: { Transaction },
+  models: { Transaction, Category },
 } = require('../db');
 const { requireToken } = require('./gatekeeping');
 
@@ -11,6 +11,8 @@ router.get('/getTransactions', requireToken, async (req, res, next) => {
 
      const allTransactions = await Transaction.findAll({
       where: { userId: user.id },
+      include: [
+        { model: Category, as: 'category' }]
     });
     res.send(allTransactions);
   } catch (e) {
