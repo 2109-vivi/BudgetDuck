@@ -20,12 +20,11 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.put('/budget', requireToken, (req, res, next) => {
+router.put('/budget', requireToken, async (req, res, next) => {
   try {
-    const { user } = req.body;
-    const { monthlyBudget } = req.body;
+    const { user, monthlyBudget } = req.body;
     if (user.monthlyBudget != monthlyBudget) {
-      user.update({
+      await user.update({
         monthlyBudget,
       });
       const date = Date.now();
@@ -38,6 +37,18 @@ router.put('/budget', requireToken, (req, res, next) => {
     } else {
       res.send(`Your budget is already $${monthlyBudget}`);
     }
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.put('/income', requireToken, async (req, res, next) => {
+  try {
+    const { user, income } = req.body;
+    await user.update({
+      income,
+    });
+    res.send('Income has been updated');
   } catch (e) {
     next(e);
   }
