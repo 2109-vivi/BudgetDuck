@@ -19,7 +19,6 @@ class Questionnaire extends React.Component {
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
   }
-  componentDidMount() {}
 
   handleChange(evt) {
     const { name, value } = evt.target;
