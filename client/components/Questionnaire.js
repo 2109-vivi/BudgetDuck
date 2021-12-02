@@ -162,17 +162,15 @@ const Step3 = () => {
 
   useEffect(() => {
     dispatch(getLinkToken());
-    dispatch(getTransactionsFromPlaid(accessToken));
   }, []);
 
   return (
-    <div>
-      plaid link component goes here wooohoo looking forward to hooking it up
-      /saracsm
+    <div className='plaid-link-wrapper'>
       <ConnectPlaid
         linkToken={linkToken}
         accessToken={accessToken}
         getAccessToken={getAccessToken}
+        getTransactionsFromPlaid={getTransactionsFromPlaid}
       />
     </div>
   );
