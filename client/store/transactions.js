@@ -4,6 +4,8 @@ import axios from 'axios';
 const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 const CLEAR_TRANSACTIONS = 'CLEAR_TRANSACTIONS';
 
+const DELETE_TRANSACTIONS = 'DELETE_TRANSACTIONS';
+
 // action creators
 const getTransactions = (transactions) => ({
   type: GET_TRANSACTIONS,
@@ -11,6 +13,11 @@ const getTransactions = (transactions) => ({
 });
 
 export const clearTransactions = () => ({ type: CLEAR_TRANSACTIONS });
+
+const deleteTransaction = (transactions) => ({
+  type: DELETE_TRANSACTIONS,
+  transactions,
+});
 
 // thunks
 export const getTransactionsFromPlaid = (accessToken, JWToken) => {
@@ -47,6 +54,20 @@ export const getTransactionsFromDatabase = (isLoggedIn) => {
     }
   };
 };
+
+//Single Transaction Thunks
+export const deleteTransactionThunk = (id) => async(dispatch) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.delete(`/api/transactions/${id}`,
+    { headers: { token }}
+    );
+    console.log(response);
+    dispatch(deleteTransaction(response.data));
+  } catch (error) {
+    console.error(error);
+  }
+}
 // reducer
 export default function (state = [], action) {
   switch (action.type) {
@@ -54,6 +75,8 @@ export default function (state = [], action) {
       return [...state, ...action.transactions];
     case CLEAR_TRANSACTIONS:
       return [];
+    case DELETE_TRANSACTIONS:
+      return state.filter((transaction) => transaction.id !== action.transactions.id);
     default:
       return state;
   }

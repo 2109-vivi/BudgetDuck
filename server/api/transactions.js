@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-  models: { Transaction },
+  models: { Transaction, Category },
 } = require('../db');
 const { requireToken } = require('./gatekeeping');
 
@@ -10,6 +10,8 @@ router.get('/', requireToken, async (req, res, next) => {
     const { user } = req.body;
     const allTransactions = await Transaction.findAll({
       where: { userId: user.id },
+      include: [
+        { model: Category, as: 'category' }]
     });
     res.send(allTransactions);
   } catch (e) {
@@ -32,5 +34,19 @@ router.post('/', requireToken, async (req, res, next) => {
     next(e);
   }
 });
+
+router.delete('/:id', requireToken, async (req, res, next) => {
+  try {
+    const { user } = req.body;
+    const transactionToDelete = await Transaction.findOne({
+      where: { id: req.params.id, userId: user.id },
+    });
+    await transactionToDelete.destroy();
+    res.send(transactionToDelete);
+  } catch (e) {
+    next(e);
+  }
+});
+
 
 module.exports = router;

@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import {me} from './store'
 import Budget from './components/BudgetChart'
+import AllTransactions from './components/AllTransactions';
 
 /**
  * COMPONENT
@@ -27,6 +28,7 @@ class Routes extends Component {
             <Route path= '/' exact component={Dashboard}/>
             <Route path="/budget" component={Budget}/>
             <Route path='/questionnaire' component={Questionnaire} />
+            <Route path='/transactions' component={AllTransactions} />
             <Route path ='/dashboard' component= {Dashboard}/>
           </Switch>
         ) : (
