@@ -31,9 +31,11 @@ export const getAccessToken = (linkToken) => {
         const response = await axios.post('/api/plaid/get_access_token', {
           linkToken,
         });
-        localStorage.setItem('access_token', response.data.access_token);
-        dispatch(setAccessToken(response.data.access_token));
+        const accessToken = response.data.access_token;
+        localStorage.setItem('access_token', accessToken);
+        dispatch(setAccessToken(accessToken));
         history.push('/home');
+        return accessToken;
       }
       return;
     } catch (e) {

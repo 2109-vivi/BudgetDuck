@@ -5,18 +5,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const ConnectPlaid = (props) => {
   const dispatch = useDispatch();
-  const onExit = (error, metadata) => console.log('onExit', error, metadata);
 
-  const onEvent = (eventName, metadata) => {
-    console.log('onEvent', eventName, metadata);
-    // if(metadata === 'OPEN') {
-    // props.getToken()
-    // }
-  };
-
-  const onSuccess = (token, metadata) => {
-    //console.log('onSuccess', token, metadata);
-    dispatch(props.getAccessToken(token));
+  const onSuccess = async (token, metadata) => {
+    const accessToken = await dispatch(props.getAccessToken(token));
+    dispatch(
+      props.getTransactionsFromPlaid(accessToken, localStorage.getItem('token'))
+    );
   };
 
   return (
@@ -25,11 +19,9 @@ const ConnectPlaid = (props) => {
         className='CustomButton'
         style={{ padding: '20px', fontSize: '16px', cursor: 'pointer' }}
         token={props.linkToken ? props.linkToken : ''}
-        onExit={onExit}
         onSuccess={onSuccess}
-        onEvent={onEvent}
       >
-        Open Link and connect your bank!
+        Connect with Plaid and link transactions!
       </PlaidLink>
     </>
   );

@@ -66,40 +66,54 @@ router.post('/transactions', requireToken, async (req, res) => {
   const request = {
     access_token: accessToken,
     start_date: '2018-01-01',
-    end_date: Date.now(),
+    end_date: '2021-12-01',
   };
   try {
     // fetch all transactions
     const response = await plaidClient.transactionsGet(request);
     let transactions = response.data.transactions;
 
-    transactions = transactions.map(async (transactionFromPlaid) => {
-      // check whether each transaction already exists within our db
-      const dbCheck = await Transaction.findOne({
+    let filteredTransactions = [];
+
+    for (const transactionFromPlaid of transactions) {
+      // TransactionIDs from plaid change on every request so we have no way to identify existing bank transactions in database. This is our scuffed way of working around the issue
+      const transAlreadyExists = await Transaction.findOne({
         where: {
-          bankTransactionId: transactionFromPlaid.transaction_id,
+          userId: user.id,
+          amount: transactionFromPlaid.amount,
+          date: transactionFromPlaid.date,
+          merchantName: transactionFromPlaid.merchant_name,
+          name: transactionFromPlaid.name,
         },
       });
+
       // if it doesn't, create new transaction and associate with the logged in user
-      if (!dbCheck) {
-        return await Transaction.create({
+      if (!transAlreadyExists) {
+        const addedTransaction = await Transaction.create({
           bankTransactionId: transactionFromPlaid.transaction_id,
           name: transactionFromPlaid.name,
           merchantName: transactionFromPlaid.merchant_name,
           amount: transactionFromPlaid.amount,
           date: transactionFromPlaid.date,
           userId: user.id,
-          categoryId: await Category.findOne({
-            where: {
-              categoryName: transactionFromPlaid.category[0],
-            },
-          }),
+          categoryId: 1,
         });
+        filteredTransactions.push(addedTransaction);
       }
-    });
+    }
 
     // returns only transactions that are not currently in our db
-    res.send(transactions);
+    res.send(filteredTransactions);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.get('/categories/get', async (req, res, next) => {
+  try {
+    const response = await plaidClient.categoriesGet({});
+    const categories = response.data.categories;
+    res.send(categories);
   } catch (e) {
     console.log(e);
   }
