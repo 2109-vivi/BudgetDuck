@@ -2,6 +2,7 @@ import axios from 'axios';
 import history from '../history';
 
 const TOKEN = 'token';
+const ACCESS_TOKEN = 'access_token';
 
 /**
  * ACTION TYPES
@@ -27,7 +28,6 @@ export const me = () => async (dispatch) => {
     return dispatch(setAuth(res.data));
   }
 };
-
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -58,6 +58,7 @@ export const signup =
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN);
+  window.localStorage.removeItem(ACCESS_TOKEN);
   history.push('/login');
   return {
     type: SET_AUTH,

@@ -1,7 +1,8 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout } from '../store';
+import { clearTransactions } from '../store/transactions';
 
 import './Navbar.css';
 
@@ -29,23 +30,24 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       )}
     </nav>
   </div>
-)
+);
 
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
-    isLoggedIn: !!state.auth.id
-  }
-}
+    isLoggedIn: !!state.auth.id,
+  };
+};
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleClick() {
-      dispatch(logout())
-    }
-  }
-}
+      dispatch(logout());
+      dispatch(clearTransactions());
+    },
+  };
+};
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(Navbar);
