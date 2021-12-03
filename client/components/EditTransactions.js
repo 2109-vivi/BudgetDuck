@@ -15,9 +15,9 @@ const EditTransactions = (props) => {
   console.log(transactions);
   return transactions.length === 0 ? ( <h1>loading</h1> ) : (
     <div>
-      <h1>Transactions</h1>
+      <h1>Edit Transactions</h1>
       <header>
-        <button>Add Transaction</button>
+        <Link to="/add-transactions">Add Transaction</Link>
         <Link to="/transactions">Back to Transactions</Link>
         <button>Select Category</button>
       </header>
@@ -33,7 +33,7 @@ const EditTransactions = (props) => {
       </main>
       <Prompt
         when={true}
-        message="Are you sure you want to delete this transaction?"
+        message="Are you done editing your transactions?"
       />
     </div>
   );
