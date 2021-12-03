@@ -50,7 +50,6 @@ router.put('/:id', requireToken, async (req, res, next) => {
     await updatedTransaction.update({
       ...transaction
     });
-    console.log(updatedTransaction);
     updatedTransaction.dataValues.category = await Category.findOne({
       where: { id: transaction.categoryId }
     });

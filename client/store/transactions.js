@@ -113,13 +113,13 @@ export default function (state = [], action) {
     case CREATE_TRANSACTIONS:
       return [...state, action.transactions];
     case EDIT_TRANSACTIONS:
-      state.forEach((transactions) => {
-        console.log(transactions.id)
+      return state.map((transactions) => {
         if (+transactions.id === +action.transactions.id) {
-          transactions = action.transactions;
+          return action.transactions;
+        } else {
+          return transactions;
         }
       });
-      return [...state];
     case DELETE_TRANSACTIONS:
       return state.filter((transaction) => transaction.id !== action.transactions.id);
     case CLEAR_TRANSACTIONS:

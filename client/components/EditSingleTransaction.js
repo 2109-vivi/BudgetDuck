@@ -21,7 +21,6 @@ const EditSingleTransaction = (props) => {
     history.push('/transactions')
   }
 
-  console.log(values);
   return (
     <div>
       <h1>Edit Transaction</h1>
@@ -52,7 +51,7 @@ const EditSingleTransaction = (props) => {
             placeholder='0.00'
             step='0.01'
             min='0'
-            onChange={(e) => setValues({ ...values, amount: e.target.value })}
+            onChange={(e) => setValues({ ...values, amount: +e.target.value })}
           />
         </div>
         <div>

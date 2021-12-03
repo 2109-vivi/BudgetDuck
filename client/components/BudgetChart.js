@@ -36,7 +36,6 @@ const BudgetChart = () => {
   return (
     (transactions.length > 0 ? (
       <div>
-        {console.log(totalTransactionAmount)}
           <h1 style={{textAlign : 'center'}}>
             Your Budget is: {`$${budget}`}
           </h1>
