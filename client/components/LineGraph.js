@@ -1,8 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, } from 'recharts'
 
 
 const LineGraph = () => {
+  const showState = useSelector((state) => state)
 
   const data = [
     {
@@ -50,11 +52,15 @@ const LineGraph = () => {
   ]
   return (
     <div>
+      {console.log(showState)}
+    <h1 style={{textAlign : 'center'}}>
+            Cool Description Here
+          </h1>
     <ResponsiveContainer width="100%" height={400}>
-      <LineChart width={500} height={300} data={data} margin={{top: 5,right: 30,left: 20 ,bottom: 5,}}>
+      <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
-        <YAxis domain ={[0,10000]}/>
+        <YAxis domain ={[0,6000]}/>
         <Tooltip />
         <Legend verticalAlign="bottom"/>
         <Line type="monotone" dataKey="Budget" stroke="#118C4F" activeDot={{ r: 8 }} />
