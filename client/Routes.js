@@ -33,8 +33,6 @@ class Routes extends Component {
             <Route path='/' exact component={Dashboard} />
             <Route path='/budget' component={Budget} />
             <Route path='/questionnaire' component={Questionnaire} />
-            <Route path ='/dashboard' component= {Dashboard}/>
-            <Route path='/transactions' component={AllTransactions} />
             <Route path='/dashboard' component={Dashboard} />
             <Route path='/calendar' component={DashboardCalendar} />
             <Route path='/userProfile' component={UserProfile} />
