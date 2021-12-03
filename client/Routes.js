@@ -5,11 +5,11 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Questionnaire from './components/Questionnaire';
 import Dashboard from './components/Dashboard';
-// import Home from './components/Home';
-import {me} from './store'
-import Budget from './components/BudgetChart'
+import { me } from './store';
+import Budget from './components/BudgetChart';
 import AllTransactions from './components/AllTransactions';
 import UserProfile from './components/UserProfile';
+import DashboardCalendar from './components/DashboardCalendar';
 
 /**
  * COMPONENT
@@ -31,7 +31,8 @@ class Routes extends Component {
             <Route path='/questionnaire' component={Questionnaire} />
             <Route path='/transactions' component={AllTransactions} />
             <Route path='/dashboard' component={Dashboard} />
-            <Route path ='/userProfile' component={UserProfile} />
+            <Route path='/calendar' component={DashboardCalendar} />
+            <Route path='/userProfile' component={UserProfile} />
           </Switch>
         ) : (
           <Switch>
