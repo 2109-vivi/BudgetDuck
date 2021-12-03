@@ -4,25 +4,20 @@ const {
   models: { Category, Transaction, BudgetCategory },
 } = require('../db');
 
-// get all categories
+// get all categories and budgets by user
 router.get('/', async (req, res, next) => {
   try {
-    res.send(await Category.findAll({ attributes: ['id', 'categoryName'] }));
-  } catch (e) {
-    next(e);
-  }
-});
-
-// get budgets for each category
-router.get('/budgets', requireToken, async (req, res, next) => {
-  try {
-    const { user } = req.body;
-    const budgetsPerCategory = await BudgetCategory.findAll({
-      where: { userId: user.id },
-      include: [{ model: Category, as: 'category' }],
-      // attributes: ['budgetForCategory', 'categoryName'],
-    });
-    res.send(budgetsPerCategory);
+    res.send(
+      await Category.findAll({
+        include: [
+          {
+            model: BudgetCategory,
+            attributes: ['budgetForCategory'],
+          },
+        ],
+        attributes: ['id', 'categoryName'],
+      })
+    );
   } catch (e) {
     next(e);
   }
