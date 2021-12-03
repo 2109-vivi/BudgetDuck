@@ -11,6 +11,7 @@ import Budget from './components/BudgetChart'
 import AllTransactions from './components/AllTransactions';
 import AddTransactions from './components/AddTransactions';
 import EditTransactions from './components/EditTransactions';
+import EditSingleTransaction from './components/EditSingleTransaction';
 
 /**
  * COMPONENT
@@ -34,9 +35,10 @@ class Routes extends Component {
             <Route path ='/dashboard' component= {Dashboard}/>
           </Switch>
           <Switch>
-            <Route path='/transactions' component={AllTransactions} />
-            <Route path='/edit-transactions' component={EditTransactions} />
-            <Route path='/add-transactions' component={AddTransactions} />
+            <Route exact path='/transactions' component={AllTransactions} />
+            <Route exact path='/transactions/edit' component={EditTransactions} />
+            <Route path='/transactions/edit/:id' component={EditSingleTransaction} />
+            <Route path='/transactions/add' component={AddTransactions} />
           </Switch>
           </>
         ) : (

@@ -4,7 +4,7 @@ import axios from 'axios';
 const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 const CLEAR_TRANSACTIONS = 'CLEAR_TRANSACTIONS';
 const CREATE_TRANSACTIONS = 'CREATE_TRANSACTIONS';
-
+const EDIT_TRANSACTIONS = 'EDIT_TRANSACTIONS';
 const DELETE_TRANSACTIONS = 'DELETE_TRANSACTIONS';
 
 // action creators
@@ -15,6 +15,11 @@ const getTransactions = (transactions) => ({
 
 const createTransaction = (transactions) => ({
   type: CREATE_TRANSACTIONS,
+  transactions,
+});
+
+const editTransactions = (transactions) => ({
+  type: EDIT_TRANSACTIONS,
   transactions,
 });
 
@@ -75,6 +80,19 @@ export const createTransactionThunk = (transaction) => async(dispatch) => {
   }
 }
 
+export const editTransactionThunk = (transaction, id) => async(dispatch) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.put(`/api/transactions/${id}`, {transaction}, {
+      headers: { token },
+    });
+    const editedTransaction = response.data;
+    dispatch(editTransactions(editedTransaction));
+  } catch (error) {
+    console.log('Failed to edit Transaction');
+  }
+}
+
 export const deleteTransactionThunk = (id) => async(dispatch) => {
   try {
     const token = localStorage.getItem('token');
@@ -94,10 +112,18 @@ export default function (state = [], action) {
       return [...action.transactions];
     case CREATE_TRANSACTIONS:
       return [...state, action.transactions];
-    case CLEAR_TRANSACTIONS:
-      return [];
+    case EDIT_TRANSACTIONS:
+      state.forEach((transactions) => {
+        console.log(transactions.id)
+        if (+transactions.id === +action.transactions.id) {
+          transactions = action.transactions;
+        }
+      });
+      return [...state];
     case DELETE_TRANSACTIONS:
       return state.filter((transaction) => transaction.id !== action.transactions.id);
+    case CLEAR_TRANSACTIONS:
+      return [];
     default:
       return state;
   }

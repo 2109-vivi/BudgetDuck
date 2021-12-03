@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Prompt } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { deleteTransactionThunk } from '../store/transactions';
+import history from '../history';
 
 
 const EditTransactions = (props) => {
   const dispatch = useDispatch();
   const transactions = useSelector((state) => state.transactions);
 
+  const handleEdit = (id) => {
+    history.push(`/transactions/edit/${id}`);
+  }
+
   const handleDelete = (id) => {
     dispatch(deleteTransactionThunk(id));
   };
 
-  console.log(transactions);
   return transactions.length === 0 ? ( <h1>loading</h1> ) : (
     <div>
-      <h1>Edit Transactions</h1>
+      <h1>Delete Transactions</h1>
       <header>
-        <Link to="/add-transactions">Add Transaction</Link>
-        <Link to="/transactions">Back to Transactions</Link>
-        <button>Select Category</button>
+        <Link to="/transactions/add">Add Transaction</Link>
+        <Link style={{padding: '10px'}} to="/transactions">Back to Transactions</Link>
       </header>
       <main>
         {transactions.map((transaction) => (
@@ -27,14 +30,15 @@ const EditTransactions = (props) => {
             <div>{transaction.name}</div>
             <div>{transaction.category.categoryName}</div>
             <div>${(Math.round(transaction.amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)}</div>
+            <Link to={{
+                pathname: `/transactions/edit/${transaction.id}`,
+                state: { transaction }
+              }}
+            >Edit</Link>
             <button onClick={() => handleDelete(transaction.id)}>delete</button>
           </div>
         ))}
       </main>
-      <Prompt
-        when={true}
-        message="Are you done editing your transactions?"
-      />
     </div>
   );
 };

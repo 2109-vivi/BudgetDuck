@@ -1,41 +1,45 @@
-import React, {useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, Prompt } from 'react-router-dom';
-import { createTransactionThunk } from '../store/transactions';
-import history from '../history';
+import React, {useState} from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import history from "../history";
+import { editTransactionThunk } from "../store/transactions";
 
-const AddTransactions = (props) => {
+const EditSingleTransaction = (props) => {
+  const transaction = props.location.state.transaction
   const dispatch = useDispatch();
 
   const [values, setValues] = useState({
-    name: '',
-    amount: '',
-    date: '',
-    categoryId: 1,
+    name: transaction.name,
+    amount: transaction.amount,
+    date: transaction.date,
+    categoryId: transaction.categoryId,
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createTransactionThunk(values));
-    history.push('/transactions');
+    dispatch(editTransactionThunk(values, transaction.id));
+    history.push('/transactions')
   }
 
+  console.log(values);
   return (
-  <div>
-    <form id='transaction-form' onSubmit={(e)=>{handleSubmit(e)}}>
-      <h1>Create a Transaction</h1>
-      <div>
-        <div>
-          <label htmlFor='transactionName'>
+    <div>
+      <h1>Edit Transaction</h1>
+      <header>
+        <Link to="/transactions">Back to Transactions</Link>
+        <Link style={{padding: '10px'}} to="/transactions/edit">Go Back</Link>
+      </header>
+      <form id="edit-transaction-form" onSubmit={(e)=>handleSubmit(e)}>
+        <div className="form-group">
+          <label htmlFor="transaction-name">
             <h4>Transaction Name: </h4>
           </label>
           <input
-            type='text'
-            name='name'
+            type="text"
+            name="name"
             value={values.name}
-            onChange={(e) => setValues({ ...values, name: e.target.value })}
+            onChange={(e) => setValues({...values, name: e.target.value})}
           />
-          <span className="error">{}</span>
         </div>
         <div>
           <label htmlFor='transactionAmount'>
@@ -55,7 +59,7 @@ const AddTransactions = (props) => {
           <label htmlFor='transactionCategory'>
             <h4>Category: </h4>
           </label>
-          <select className='select' name='priority' onChange={(e) => setValues({...values, categoryId: e.target.value})}>
+          <select className='select' value={values.categoryId} name='priority' onChange={(e) => setValues({...values, categoryId: e.target.value})}>
             {/* filler Array number values */}
           { Array.from({length: 6}, (ele, index) => index + 1)
           .map( number => { return (
@@ -75,13 +79,11 @@ const AddTransactions = (props) => {
           />
         </div>
         <p>
-          <button className='create-button' type='submit'>Create Transaction</button>
+          <button className='edit-button' type='submit'>Edit Transaction</button>
         </p>
-        <Link to={`/transactions`}>Back</Link>
-      </div>
-    </form>
-  </div>
-  );
+      </form>
+    </div>
+  )
 }
 
-export default AddTransactions;
+export default EditSingleTransaction;

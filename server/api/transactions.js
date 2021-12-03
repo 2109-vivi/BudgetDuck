@@ -40,6 +40,26 @@ router.post('/', requireToken, async (req, res, next) => {
   }
 });
 
+router.put('/:id', requireToken, async (req, res, next) => {
+  try {
+    const { user } = req.body;
+    const { transaction } = req.body;
+    const updatedTransaction = await Transaction.findOne({
+      where: { id: req.params.id, userId: user.id },
+    });
+    await updatedTransaction.update({
+      ...transaction
+    });
+    console.log(updatedTransaction);
+    updatedTransaction.dataValues.category = await Category.findOne({
+      where: { id: transaction.categoryId }
+    });
+    res.send(updatedTransaction);
+  } catch (e) {
+    next(e);
+  }
+});
+
 router.delete('/:id', requireToken, async (req, res, next) => {
   try {
     const { user } = req.body;
