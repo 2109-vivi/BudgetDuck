@@ -2,8 +2,8 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const Budget = db.define('budget', {
-  date: {
-    type: Sequelize.DATE,
+  month: {
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
   budget: {

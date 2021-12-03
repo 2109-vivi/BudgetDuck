@@ -32,16 +32,9 @@ class Questionnaire extends React.Component {
   async handleSubmit(evt) {
     evt.preventDefault();
     const { income, budget } = this.state;
-    console.log('sending axios request with req.body => ', {
-      income,
-      monthlyBudget: budget,
-    });
+
     this.props.updateBudget(budget);
     this.props.updateIncome(income);
-    // ========> make request to axios to update
-    // current User's income and budget information + potential Plaid access token
-
-    // await axios.put('/set-user-information', { income, monthlyBudget: budget });
   }
 
   next() {
