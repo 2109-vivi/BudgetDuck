@@ -21,6 +21,20 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/budget', requireToken, async (req, res, next) => {
+  try {
+    const { user } = req.body
+    const budgets = await Budget.findAll({
+      where: {userId: user.id}
+    })
+    res.send(budgets)
+  }
+  catch (err){
+    console.log("Couldn't get budgets :(")
+    next(err)
+  }
+})
+
 router.put('/budget', requireToken, async (req, res, next) => {
   try {
     const { user, monthlyBudget } = req.body;

@@ -34,8 +34,6 @@ class Routes extends Component {
             <Route path='/budget' component={Budget} />
             <Route path='/questionnaire' component={Questionnaire} />
             <Route path ='/dashboard' component= {Dashboard}/>
-            <Route path='/transactions' component={AllTransactions} />
-            <Route path='/dashboard' component={Dashboard} />
             <Route path='/userProfile' component={UserProfile} />
             <Route path='/linegraph' component={LineGraph} />
           </Switch>
