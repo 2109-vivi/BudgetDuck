@@ -8,6 +8,7 @@ import PieChartComponent from './components/PieChartComponent.js';
 import Navbar from './components/Navbar';
 import Routes from './Routes';
 import { getTransactionsFromDatabase } from './store/transactions.js';
+import { fetchAllBudgets } from './store/auth.js';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,9 @@ const App = () => {
     dispatch(getTransactionsFromDatabase(!!currentUser));
   }, [currentUser]);
 
+  useEffect(() => {
+    dispatch(fetchAllBudgets())
+  }, [])
   // useEffect(() => {
   //   dispatch(getLinkToken());
   // }, []);
