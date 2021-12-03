@@ -3,10 +3,13 @@ import { useSelector } from 'react-redux'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, } from 'recharts'
 
 
-const LineGraph = () => {
+const BudgetHistoryLineGraph = () => {
   const budgetHistory = useSelector((state) => state.auth.historicalBudgets || [])
   const transactions = useSelector((state) => state.transactions || [])
 
+   const test = transactions.map((item) => {
+     return item.date.slice(0,4)
+   })
   const monthChart = {
     1: "January",
     2: "February",
@@ -26,10 +29,16 @@ const LineGraph = () => {
     return {
       "name" : monthChart[element.month],
       "Budget": element.budget,
-      "transactions": transactions.filter((item) => {
+      //Filters based on the transactions with the same MONTH
+      "Transactions": transactions.filter((item) => {
         return element.month == item.date.slice(5,7)
-      }).map((item) => {
-        return Number(item.amount)
+      })
+      //Filters based on the transactions with the same YEAR
+      .filter((budgetYear)=> {
+        return element.year == budgetYear.date.slice(0,4)
+      })
+      .map((item) => {
+        return +item.amount
       })
       .filter((amount) => {
         return amount > 0
@@ -42,22 +51,23 @@ const LineGraph = () => {
 
   return (
     <div>
+      {console.log(budgetData)}
     <h1 style={{textAlign : 'center'}}>
         Cool Description Here
     </h1>
     <ResponsiveContainer width="100%" height={400}>
       <LineChart data={budgetData}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis domain ={[0,6000]}/>
+        <XAxis dataKey="name" domain= {[5, "dataMax"]}/>
+        <YAxis domain ={[0,'dataMax + 1000']}/>
         <Tooltip />
         <Legend verticalAlign="bottom" height={-100}/>
         <Line type="monotone" dataKey="Budget" stroke="#118C4F" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="transactions" stroke="#5929D1" />
+        <Line type="monotone" dataKey="Transactions" stroke="#5929D1" />
       </LineChart>
     </ResponsiveContainer>
     </div>
   )
 }
 
-export default LineGraph
+export default BudgetHistoryLineGraph

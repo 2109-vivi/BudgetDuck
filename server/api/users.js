@@ -23,9 +23,14 @@ router.get('/', async (req, res, next) => {
 
 router.get('/budget', requireToken, async (req, res, next) => {
   try {
+    const date = new Date
+    const year = date.getFullYear()
     const { user } = req.body
     const budgets = await Budget.findAll({
-      where: {userId: user.id}
+      where: {
+        userId: user.id,
+        year: year
+      }
     })
     res.send(budgets)
   }
