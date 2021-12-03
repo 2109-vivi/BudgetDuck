@@ -6,13 +6,13 @@ import Signup from './components/Signup';
 import Questionnaire from './components/Questionnaire';
 import Dashboard from './components/Dashboard';
 import { me } from './store';
-import Budget from './components/BudgetChart';
 import AllTransactions from './components/AllTransactions';
 import AddTransactions from './components/AddTransactions';
 import EditTransactions from './components/EditTransactions';
 import EditSingleTransaction from './components/EditSingleTransaction';
 import UserProfile from './components/UserProfile';
 import DashboardCalendar from './components/DashboardCalendar';
+import GraphContainer from './components/GraphContainer';
 
 /**
  * COMPONENT
@@ -31,7 +31,7 @@ class Routes extends Component {
           <>
           <Switch>
             <Route path='/' exact component={Dashboard} />
-            <Route path='/budget' component={Budget} />
+            <Route path='/graphs' component={GraphContainer} />
             <Route path='/questionnaire' component={Questionnaire} />
             <Route path='/dashboard' component={Dashboard} />
             <Route path='/calendar' component={DashboardCalendar} />
