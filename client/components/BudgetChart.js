@@ -39,10 +39,6 @@ const totalTransactionAmount = transactions.filter((item) => {
   return (
     (transactions.length > 0 ? (
       <div>
-<<<<<<< HEAD
-=======
-        {/* {console.log(totalTransactionAmount)} */}
->>>>>>> main
           <h1 style={{textAlign : 'center'}}>
             Your Budget is: {`$${budget}`}
           </h1>
