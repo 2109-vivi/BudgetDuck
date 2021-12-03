@@ -14,16 +14,24 @@ const ConnectPlaid = (props) => {
   };
 
   return (
-    <>
-      <PlaidLink
-        className='CustomButton'
-        style={{ padding: '20px', fontSize: '16px', cursor: 'pointer' }}
-        token={props.linkToken ? props.linkToken : ''}
-        onSuccess={onSuccess}
-      >
-        Connect with Plaid and link transactions!
-      </PlaidLink>
-    </>
+    <PlaidLink
+      className='plaidlinkbutton'
+      style={{
+        padding: '20px',
+        fontSize: '16px',
+        cursor: 'pointer',
+        borderRadius: '16px',
+        border: 'none',
+        backgroundColor: '#9ed6eb',
+      }}
+      token={props.linkToken ? props.linkToken : ''}
+      onSuccess={onSuccess}
+    >
+      <div className='plaid-link-button-text'>
+        <div>Connect with Plaid </div>
+        <div>and link transactions!</div>
+      </div>
+    </PlaidLink>
   );
 };
 
