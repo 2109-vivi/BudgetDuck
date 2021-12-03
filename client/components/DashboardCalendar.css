@@ -1,0 +1,25 @@
+/* .under-budget {
+  background: green;
+}
+
+.over-budget {
+  background: red;
+} */
+
+.react-calendar .red {
+  outline: solid;
+  background: rgb(237, 57, 57);
+  color: white;
+}
+
+.react-calendar .green {
+  outline: solid;
+  background: rgb(50, 213, 50);
+  color: white;
+}
+
+.react-calendar .grey {
+  outline: solid;
+  background: rgb(109, 109, 109);
+  color: white;
+}
