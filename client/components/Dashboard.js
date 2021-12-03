@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import BudgetChart from "./BudgetChart";
 import { DashboardSingleTransaction } from "./DashboardSingleTransaction";
 import { Link } from "react-router-dom";
+
+import './Dashboard.css'
 //API CALLS TO /api/transactions
 
 /**
@@ -24,11 +26,15 @@ export const Dashboard = (props) => {
           All Transactions
           <button>+</button>
         </h4>
-        {transactions.map(transaction =>{
+
+        {transactions.map((transaction) => {
           return (
-            <DashboardSingleTransaction transaction = {transaction}/>
-          )
+            <div key={transaction.id}>
+              <DashboardSingleTransaction transaction={transaction} />
+            </div>
+          );
         })}
+
       </div>
       <div className={"right-container"}>
         <div className={"half-containers"}>Categorical Spending Component</div>

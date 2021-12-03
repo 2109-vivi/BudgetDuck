@@ -5,9 +5,9 @@ import { useSelector } from "react-redux";
 export const DashboardSingleTransaction = (props) => {
 
   return (
-    <div id={props.transaction.id} className="listed-transaction">
-      <p>{props.transaction.name}</p>
-      <p>${props.transaction.amount}</p>
+    <div key={props.transaction.id} className="listed-transaction">
+      <h5>{props.transaction.name}</h5>
+      <h5>${props.transaction.amount}</h5>
     </div>
   );
 };
