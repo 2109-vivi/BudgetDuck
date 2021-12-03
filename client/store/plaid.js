@@ -34,7 +34,6 @@ export const getAccessToken = (linkToken) => {
         const accessToken = response.data.access_token;
         localStorage.setItem('access_token', accessToken);
         dispatch(setAccessToken(accessToken));
-        history.push('/home');
         return accessToken;
       }
       return;

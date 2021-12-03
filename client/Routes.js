@@ -5,13 +5,14 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Questionnaire from './components/Questionnaire';
 import Dashboard from './components/Dashboard';
-import Home from './components/Home';
+// import Home from './components/Home';
 import {me} from './store'
 import Budget from './components/BudgetChart'
 import AllTransactions from './components/AllTransactions';
 import AddTransactions from './components/AddTransactions';
 import EditTransactions from './components/EditTransactions';
 import EditSingleTransaction from './components/EditSingleTransaction';
+import UserProfile from './components/UserProfile';
 
 /**
  * COMPONENT
@@ -29,10 +30,13 @@ class Routes extends Component {
         {isLoggedIn ? (
           <>
           <Switch>
-            <Route path= '/' exact component={Dashboard}/>
-            <Route path="/budget" component={Budget}/>
+            <Route path='/' exact component={Dashboard} />
+            <Route path='/budget' component={Budget} />
             <Route path='/questionnaire' component={Questionnaire} />
             <Route path ='/dashboard' component= {Dashboard}/>
+            <Route path='/transactions' component={AllTransactions} />
+            <Route path='/dashboard' component={Dashboard} />
+            <Route path ='/userProfile' component={UserProfile} />
           </Switch>
           <Switch>
             <Route exact path='/transactions' component={AllTransactions} />
