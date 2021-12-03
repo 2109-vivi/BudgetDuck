@@ -63,47 +63,49 @@ router.post('/get_access_token', async (req, res) => {
 router.post('/transactions', requireToken, async (req, res) => {
   const { user } = req.body;
   const { accessToken } = req.body;
-  const request = {
+  const { dateOfLastPull } = user;
+
+  // start_date would be the day of the user's last pull from plaid
+  // end_date would be the the day before today's date
+  let end_date = new Date();
+  end_date.setDate(end_date.getDate() - 1);
+  end_date = end_date.toISOString().slice(0, 10);
+
+  let request = {
     access_token: accessToken,
-    start_date: '2018-01-01',
-    end_date: '2021-12-01',
+    start_date: dateOfLastPull,
+    end_date,
   };
+
+  // if the user never pulled from plaid, update their lastPulledDate to today, and change the start_date to way back when
+  if (dateOfLastPull == null) {
+    let dateToday = new Date();
+    dateToday = dateToday.toISOString().slice(0, 10);
+    await user.update({
+      dateOfLastPull: dateToday,
+    });
+    request.start_date = '2015-01-01';
+  }
   try {
-    // fetch all transactions
+    // fetch all transactions according to the date constraints
     const response = await plaidClient.transactionsGet(request);
     let transactions = response.data.transactions;
 
-    let filteredTransactions = [];
-
+    let responseArray = [];
     for (const transactionFromPlaid of transactions) {
-      // TransactionIDs from plaid change on every request so we have no way to identify existing bank transactions in database. This is our scuffed way of working around the issue
-      const transAlreadyExists = await Transaction.findOne({
-        where: {
-          userId: user.id,
-          amount: transactionFromPlaid.amount,
-          date: transactionFromPlaid.date,
-          merchantName: transactionFromPlaid.merchant_name,
-          name: transactionFromPlaid.name,
-        },
+      const transToAdd = await Transaction.create({
+        bankTransactionId: transactionFromPlaid.transaction_id,
+        name: transactionFromPlaid.name,
+        merchantName: transactionFromPlaid.merchant_name,
+        amount: transactionFromPlaid.amount,
+        date: transactionFromPlaid.date,
+        userId: user.id,
+        categoryId: 1,
       });
-
-      // if it doesn't, create new transaction and associate with the logged in user
-      if (!transAlreadyExists) {
-        const addedTransaction = await Transaction.create({
-          bankTransactionId: transactionFromPlaid.transaction_id,
-          name: transactionFromPlaid.name,
-          merchantName: transactionFromPlaid.merchant_name,
-          amount: transactionFromPlaid.amount,
-          date: transactionFromPlaid.date,
-          userId: user.id,
-          categoryId: 1,
-        });
-        filteredTransactions.push(addedTransaction);
-      }
+      responseArray.push(transToAdd);
     }
-
     // returns only transactions that are not currently in our db
-    res.send(filteredTransactions);
+    res.send(responseArray);
   } catch (e) {
     console.log(e);
   }

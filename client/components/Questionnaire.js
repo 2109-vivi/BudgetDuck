@@ -5,6 +5,7 @@ import { getLinkToken, getAccessToken } from '../store/plaid.js';
 import { getTransactionsFromPlaid } from '../store/transactions';
 import ConnectPlaid from './ConnectPlaid.js';
 import { updateBudgetThunk, updateIncomeThunk } from '../store/auth.js';
+import './Questionnaire.css';
 
 class Questionnaire extends React.Component {
   constructor() {
@@ -56,7 +57,11 @@ class Questionnaire extends React.Component {
     let currentStep = this.state.currentStep;
     if (currentStep !== 1) {
       return (
-        <button type='button' onClick={this.prev}>
+        <button
+          className='questionnaire-button'
+          type='button'
+          onClick={this.prev}
+        >
           Previous
         </button>
       );
@@ -68,7 +73,11 @@ class Questionnaire extends React.Component {
     let currentStep = this.state.currentStep;
     if (currentStep < 3) {
       return (
-        <button type='button' onClick={this.next}>
+        <button
+          className='questionnaire-button'
+          type='button'
+          onClick={this.next}
+        >
           Next
         </button>
       );
@@ -79,7 +88,9 @@ class Questionnaire extends React.Component {
   submitButton() {
     if (this.state.currentStep == 3) {
       return (
-        <button onClick={this.handleSubmit}>Go to our site woohooooo</button>
+        <button className='questionnaire-button' onClick={this.handleSubmit}>
+          Go to our site woohoo
+        </button>
       );
     }
     return null;
@@ -87,8 +98,11 @@ class Questionnaire extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className='questionnaire-component-container'>
         <div className='questionnaire-wrapper'>
+          <h2 className='questionnaire-header'>
+            What are your budgeting goals?
+          </h2>
           <Step1
             currentStep={this.state.currentStep}
             handleChange={this.handleChange}
@@ -100,12 +114,13 @@ class Questionnaire extends React.Component {
             budget={this.state.budget}
           />
           {this.state.currentStep == 3 ? <Step3 /> : null}
-
-          {this.previousButton()}
-          {this.nextButton()}
-          {this.submitButton()}
+          <div className='questionnaire-buttons-container'>
+            {this.previousButton()}
+            {this.nextButton()}
+            {this.submitButton()}
+          </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }
@@ -116,7 +131,7 @@ const Step1 = (props) => {
   }
 
   return (
-    <div>
+    <div className='questionnaire-step'>
       <label htmlFor='income'>What is your yearly income?</label>
       <input
         className='questionnaire-input'
@@ -136,7 +151,7 @@ const Step2 = (props) => {
   }
 
   return (
-    <div>
+    <div className='questionnaire-step'>
       <label htmlFor='budget'>What would you like your budget to be?</label>
       <input
         className='questionnaire-input'
@@ -160,7 +175,7 @@ const Step3 = () => {
   }, []);
 
   return (
-    <div className='plaid-link-wrapper'>
+    <div className='plaid-link-wrapper questionnaire-step'>
       <ConnectPlaid
         linkToken={linkToken}
         accessToken={accessToken}

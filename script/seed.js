@@ -109,6 +109,24 @@ async function seed() {
     month: currentDate.getMonth() + 1,
   });
 
+  await Budget.create({
+    userId: 1,
+    budget: 5000,
+    month: 11
+  });
+
+  await Budget.create({
+    userId: 1,
+    budget: 5000,
+    month: 10
+  });
+
+  await Budget.create({
+    userId: 1,
+    budget: 5000,
+    month: 9
+  });
+
   for (let i = 0; i < transactions[0].length; i++) {
     //random number from 1 to 6
     let randomCategory = Math.floor(Math.random() * 6);

@@ -25,6 +25,10 @@ Budget.belongsTo(User);
 User.belongsToMany(Category, { through: BudgetCategory });
 Category.belongsToMany(User, { through: BudgetCategory });
 
+// this might bite us in the ass later
+Category.hasMany(BudgetCategory);
+BudgetCategory.belongsTo(Category);
+
 module.exports = {
   db,
   models: {

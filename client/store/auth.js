@@ -10,6 +10,7 @@ const ACCESS_TOKEN = 'access_token';
 const SET_AUTH = 'SET_AUTH';
 const UPDATE_BUDGET = 'UPDATE_BUDGET'
 const UPDATE_INCOME = 'UPDATE_INCOME'
+const GET_BUDGETS = 'GET_BUDGET'
 
 /**
  * ACTION CREATORS
@@ -25,7 +26,11 @@ const updateBudget = (budget) => ({
 const updateIncome = (income) => ({
   type: UPDATE_INCOME,
   income
-})
+});
+const getBudgets = (budget) => ({
+  type: GET_BUDGETS,
+  budget
+});
 
 /**
  * THUNK CREATORS
@@ -109,6 +114,20 @@ export const updateIncomeThunk = (income) => {
     }
   }
 }
+
+export const fetchAllBudgets = () => {
+  return async (dispatch) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('/api/users/budget', {
+        headers: {token}})
+        dispatch(getBudgets(response.data))
+    }
+    catch(e) {
+      console.log("Failed to get budgets")
+    }
+  }
+}
 /**
  * REDUCER
  */
@@ -116,6 +135,8 @@ export default function (state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
       return action.auth;
+    case GET_BUDGETS:
+      return {...state, historicalBudgets: action.budget}
     case UPDATE_BUDGET:
       return {...state, monthlyBudget: action.budget}
     case UPDATE_INCOME:
