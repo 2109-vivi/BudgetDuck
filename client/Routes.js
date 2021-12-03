@@ -8,6 +8,9 @@ import Dashboard from './components/Dashboard';
 import { me } from './store';
 import Budget from './components/BudgetChart';
 import AllTransactions from './components/AllTransactions';
+import AddTransactions from './components/AddTransactions';
+import EditTransactions from './components/EditTransactions';
+import EditSingleTransaction from './components/EditSingleTransaction';
 import UserProfile from './components/UserProfile';
 import DashboardCalendar from './components/DashboardCalendar';
 
@@ -25,15 +28,24 @@ class Routes extends Component {
     return (
       <div>
         {isLoggedIn ? (
+          <>
           <Switch>
             <Route path='/' exact component={Dashboard} />
             <Route path='/budget' component={Budget} />
             <Route path='/questionnaire' component={Questionnaire} />
+            <Route path ='/dashboard' component= {Dashboard}/>
             <Route path='/transactions' component={AllTransactions} />
             <Route path='/dashboard' component={Dashboard} />
             <Route path='/calendar' component={DashboardCalendar} />
             <Route path='/userProfile' component={UserProfile} />
           </Switch>
+          <Switch>
+            <Route exact path='/transactions' component={AllTransactions} />
+            <Route exact path='/transactions/edit' component={EditTransactions} />
+            <Route path='/transactions/edit/:id' component={EditSingleTransaction} />
+            <Route path='/transactions/add' component={AddTransactions} />
+          </Switch>
+          </>
         ) : (
           <Switch>
             <Route path='/' exact component={Login} />
