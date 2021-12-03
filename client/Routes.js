@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { me } from './store';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Questionnaire from './components/Questionnaire';
 import Dashboard from './components/Dashboard';
-import { me } from './store';
 import Budget from './components/BudgetChart';
 import AllTransactions from './components/AllTransactions';
+import DashboardCalendar from './components/DashboardCalendar';
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ class Routes extends Component {
             <Route path='/questionnaire' component={Questionnaire} />
             <Route path='/transactions' component={AllTransactions} />
             <Route path='/dashboard' component={Dashboard} />
+            <Route path='/calendar' component={DashboardCalendar} />
           </Switch>
         ) : (
           <Switch>

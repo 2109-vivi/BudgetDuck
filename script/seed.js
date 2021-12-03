@@ -1,8 +1,11 @@
 'use strict';
 
-const { db, models: { User, Transaction, Category, Budget, BudgetCategory }} = require('../server/db');
+const {
+  db,
+  models: { User, Transaction, Category, Budget, BudgetCategory },
+} = require('../server/db');
 
-const userTransactionsArray = require ('./userTransactions');  //transactions.js
+const userTransactionsArray = require('./userTransactions'); //transactions.js
 
 /**
  * seed - this function clears the database, updates tables to
@@ -32,26 +35,28 @@ async function seed() {
     }),
   ]);
 
-  const categories = await Promise.all([
-    Category.create({
-      categoryName: 'Food',
-    }),
-    Category.create({
-      categoryName: 'Entertainment',
-    }),
-    Category.create({
-      categoryName: 'Travel',
-    }),
-    Category.create({
-      categoryName: 'Utilities',
-    }),
-    Category.create({
-      categoryName: 'Rent',
-    }),
-    Category.create({
-      categoryName: 'Groceries',
-    }),
-  ]);
+  const categoriesArray = [
+    'Bank Fees',
+    'Cash Advance',
+    'Community',
+    'Food and Drink',
+    'Healthcare',
+    'Interest',
+    'Payment',
+    'Recreation',
+    'Service',
+    'Shops',
+    'Tax',
+    'Transfer',
+    'Travel',
+    'Other',
+  ];
+
+  const categories = [];
+  for (const category of categoriesArray) {
+    const toAdd = await Category.create({ categoryName: category });
+    categories.push(toAdd);
+  }
 
   const transactions = await Promise.all([
     Transaction.bulkCreate(userTransactionsArray),
@@ -91,14 +96,20 @@ async function seed() {
       budgetForCategory: 1000,
     }),
   ]);
-
+  const currentDate = new Date();
   await Budget.create({
     userId: 1,
     budget: 4000,
-    date: Date.now(),
+    month: currentDate.getMonth() + 1,
   });
 
-  for(let i = 0; i < transactions[0].length; i++) {
+  await Budget.create({
+    userId: 2,
+    budget: 10000,
+    month: currentDate.getMonth() + 1,
+  });
+
+  for (let i = 0; i < transactions[0].length; i++) {
     //random number from 1 to 6
     let randomCategory = Math.floor(Math.random() * 6);
     await transactions[0][i].setCategory(categories[randomCategory]);
