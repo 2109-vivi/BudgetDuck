@@ -28,7 +28,12 @@ router.post('/', requireToken, async (req, res, next) => {
       ...transaction,
       userId: user.id,
     });
-
+    //by setting category to the datavalues inside newTransactions
+    //we are able to make a query for the transaction including the category
+    //so that the front end components do not shit the bed
+    newTransaction.dataValues.category = await Category.findOne({
+      where: { id: transaction.categoryId }
+    });
     res.send(newTransaction);
   } catch (e) {
     next(e);

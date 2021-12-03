@@ -3,6 +3,7 @@ import axios from 'axios';
 // action types
 const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 const CLEAR_TRANSACTIONS = 'CLEAR_TRANSACTIONS';
+const CREATE_TRANSACTIONS = 'CREATE_TRANSACTIONS';
 
 const DELETE_TRANSACTIONS = 'DELETE_TRANSACTIONS';
 
@@ -12,12 +13,17 @@ const getTransactions = (transactions) => ({
   transactions,
 });
 
-export const clearTransactions = () => ({ type: CLEAR_TRANSACTIONS });
+const createTransaction = (transactions) => ({
+  type: CREATE_TRANSACTIONS,
+  transactions,
+});
 
 const deleteTransaction = (transactions) => ({
   type: DELETE_TRANSACTIONS,
   transactions,
 });
+
+export const clearTransactions = () => ({ type: CLEAR_TRANSACTIONS });
 
 // thunks
 export const getTransactionsFromPlaid = (accessToken, JWToken) => {
@@ -54,8 +60,21 @@ export const getTransactionsFromDatabase = (isLoggedIn) => {
     }
   };
 };
-
 //Single Transaction Thunks
+
+export const createTransactionThunk = (transaction) => async(dispatch) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.post('/api/transactions/', {transaction}, {
+      headers: { token },
+    });
+    const newTransaction = response.data;
+    dispatch(createTransaction(newTransaction));
+  } catch (error) {
+    console.log('Failed to create Transaction');
+  }
+}
+
 export const deleteTransactionThunk = (id) => async(dispatch) => {
   try {
     const token = localStorage.getItem('token');
@@ -72,7 +91,9 @@ export const deleteTransactionThunk = (id) => async(dispatch) => {
 export default function (state = [], action) {
   switch (action.type) {
     case GET_TRANSACTIONS:
-      return [...state, ...action.transactions];
+      return [...action.transactions];
+    case CREATE_TRANSACTIONS:
+      return [...state, action.transactions];
     case CLEAR_TRANSACTIONS:
       return [];
     case DELETE_TRANSACTIONS:
