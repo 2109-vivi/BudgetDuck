@@ -2,7 +2,10 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import BudgetChart from "./BudgetChart";
+import { DashboardSingleTransaction } from "./DashboardSingleTransaction";
 import { Link } from "react-router-dom";
+
+import './Dashboard.css'
 //API CALLS TO /api/transactions
 
 /**
@@ -14,6 +17,8 @@ export const Dashboard = (props) => {
 
   const transactions = useSelector((state) => state.transactions);
 
+  console.log(transactions);
+
   return (
     <div className={"dash-container"}>
       <div className={"left-container"}>
@@ -21,16 +26,15 @@ export const Dashboard = (props) => {
           All Transactions
           <button>+</button>
         </h4>
+
         {transactions.map((transaction) => {
           return (
-            <div key={transaction.id} className={"listed-transaction"}>
-              <Link to="/transactions">
-                <h5>{transaction.name}</h5>
-                <p>${transaction.amount}</p>
-              </Link>
+            <div key={transaction.id}>
+              <DashboardSingleTransaction transaction={transaction} />
             </div>
           );
         })}
+
       </div>
       <div className={"right-container"}>
         <div className={"half-containers"}>Categorical Spending Component</div>

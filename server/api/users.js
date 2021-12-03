@@ -21,7 +21,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// update budget for the user
+// update/create budget for the user
 router.put('/budget', requireToken, async (req, res, next) => {
   try {
     const { user, monthlyBudget } = req.body;
@@ -64,6 +64,7 @@ router.put('/budget', requireToken, async (req, res, next) => {
   }
 });
 
+// update income for user
 router.put('/income', requireToken, async (req, res, next) => {
   try {
     const { user, income } = req.body;
