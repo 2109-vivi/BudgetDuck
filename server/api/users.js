@@ -24,8 +24,6 @@ router.get('/', async (req, res, next) => {
 router.put('/budget', requireToken, async (req, res, next) => {
   try {
     const { user, monthlyBudget } = req.body;
-    console.log('monthlybudget in req.body', monthlyBudget);
-    console.log('user.budget ===', user.monthlBudget);
 
     // check if the user's budget is already the value they entered into the form
     if (user.monthlyBudget != monthlyBudget) {
@@ -42,7 +40,6 @@ router.put('/budget', requireToken, async (req, res, next) => {
         },
         order: [['month', 'DESC']],
       });
-      console.log('doesBudgetExist=====> ', doesBudgetExist);
       // if they are a new User, create a new Budget associated with that User
       if (!doesBudgetExist) {
         await Budget.create({
@@ -56,7 +53,7 @@ router.put('/budget', requireToken, async (req, res, next) => {
           budget: monthlyBudget,
         });
       }
-      res.status(201).send('success');
+      res.status(201).send(monthlyBudget);
     } else {
       res.send(`Your budget is already $${monthlyBudget}`);
     }
@@ -71,7 +68,7 @@ router.put('/income', requireToken, async (req, res, next) => {
     await user.update({
       income,
     });
-    res.send('Income has been updated');
+    res.status(201).send(income);
   } catch (e) {
     next(e);
   }
