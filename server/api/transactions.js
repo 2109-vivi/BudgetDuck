@@ -28,8 +28,32 @@ router.post('/', requireToken, async (req, res, next) => {
       ...transaction,
       userId: user.id,
     });
-
+    //by setting category to the datavalues inside newTransactions
+    //we are able to make a query for the transaction including the category
+    //so that the front end components do not shit the bed
+    newTransaction.dataValues.category = await Category.findOne({
+      where: { id: transaction.categoryId }
+    });
     res.send(newTransaction);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.put('/:id', requireToken, async (req, res, next) => {
+  try {
+    const { user } = req.body;
+    const { transaction } = req.body;
+    const updatedTransaction = await Transaction.findOne({
+      where: { id: req.params.id, userId: user.id },
+    });
+    await updatedTransaction.update({
+      ...transaction
+    });
+    updatedTransaction.dataValues.category = await Category.findOne({
+      where: { id: transaction.categoryId }
+    });
+    res.send(updatedTransaction);
   } catch (e) {
     next(e);
   }
