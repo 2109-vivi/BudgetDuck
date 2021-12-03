@@ -21,20 +21,21 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// get historical budgets per User
 router.get('/budget', requireToken, async (req, res, next) => {
   try {
-    const { user } = req.body
+    const { user } = req.body;
     const budgets = await Budget.findAll({
-      where: {userId: user.id}
-    })
-    res.send(budgets)
+      where: { userId: user.id },
+    });
+    res.send(budgets);
+  } catch (err) {
+    console.log("Couldn't get budgets :(");
+    next(err);
   }
-  catch (err){
-    console.log("Couldn't get budgets :(")
-    next(err)
-  }
-})
+});
 
+// create/ update monthlyBudgets per User
 router.put('/budget', requireToken, async (req, res, next) => {
   try {
     const { user, monthlyBudget } = req.body;
@@ -77,6 +78,7 @@ router.put('/budget', requireToken, async (req, res, next) => {
   }
 });
 
+// update income for user
 router.put('/income', requireToken, async (req, res, next) => {
   try {
     const { user, income } = req.body;

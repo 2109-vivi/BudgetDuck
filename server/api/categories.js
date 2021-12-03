@@ -1,13 +1,23 @@
 const router = require('express').Router();
 const { requireToken } = require('./gatekeeping.js');
 const {
-  models: { Category, Transaction },
+  models: { Category, Transaction, BudgetCategory },
 } = require('../db');
 
-// get all categories
+// get all categories and budgets by user
 router.get('/', async (req, res, next) => {
   try {
-    res.send(await Category.findAll({ attributes: ['id', 'categoryName'] }));
+    res.send(
+      await Category.findAll({
+        include: [
+          {
+            model: BudgetCategory,
+            attributes: ['budgetForCategory'],
+          },
+        ],
+        attributes: ['id', 'categoryName'],
+      })
+    );
   } catch (e) {
     next(e);
   }

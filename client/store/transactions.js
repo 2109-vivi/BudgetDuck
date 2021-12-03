@@ -67,49 +67,57 @@ export const getTransactionsFromDatabase = (isLoggedIn) => {
 };
 //Single Transaction Thunks
 
-export const createTransactionThunk = (transaction) => async(dispatch) => {
+export const createTransactionThunk = (transaction) => async (dispatch) => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.post('/api/transactions/', {transaction}, {
-      headers: { token },
-    });
+    const response = await axios.post(
+      '/api/transactions/',
+      { transaction },
+      {
+        headers: { token },
+      }
+    );
     const newTransaction = response.data;
     dispatch(createTransaction(newTransaction));
   } catch (error) {
     console.log('Failed to create Transaction');
   }
-}
+};
 
-export const editTransactionThunk = (transaction, id) => async(dispatch) => {
+export const editTransactionThunk = (transaction, id) => async (dispatch) => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.put(`/api/transactions/${id}`, {transaction}, {
-      headers: { token },
-    });
+    const response = await axios.put(
+      `/api/transactions/${id}`,
+      { transaction },
+      {
+        headers: { token },
+      }
+    );
     const editedTransaction = response.data;
     dispatch(editTransactions(editedTransaction));
   } catch (error) {
     console.log('Failed to edit Transaction');
   }
-}
+};
 
-export const deleteTransactionThunk = (id) => async(dispatch) => {
+export const deleteTransactionThunk = (id) => async (dispatch) => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.delete(`/api/transactions/${id}`,
-    { headers: { token }}
-    );
+    const response = await axios.delete(`/api/transactions/${id}`, {
+      headers: { token },
+    });
     console.log(response);
     dispatch(deleteTransaction(response.data));
   } catch (error) {
     console.error(error);
   }
-}
+};
 // reducer
 export default function (state = [], action) {
   switch (action.type) {
     case GET_TRANSACTIONS:
-      return [...action.transactions];
+      return [...state, ...action.transactions];
     case CREATE_TRANSACTIONS:
       return [...state, action.transactions];
     case EDIT_TRANSACTIONS:
@@ -121,7 +129,9 @@ export default function (state = [], action) {
         }
       });
     case DELETE_TRANSACTIONS:
-      return state.filter((transaction) => transaction.id !== action.transactions.id);
+      return state.filter(
+        (transaction) => transaction.id !== action.transactions.id
+      );
     case CLEAR_TRANSACTIONS:
       return [];
     default:
