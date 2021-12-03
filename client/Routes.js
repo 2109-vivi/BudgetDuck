@@ -29,22 +29,27 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <>
-          <Switch>
-            <Route path='/' exact component={Dashboard} />
-            <Route path='/budget' component={Budget} />
-            <Route path='/questionnaire' component={Questionnaire} />
-            <Route path ='/dashboard' component= {Dashboard}/>
-            <Route path='/transactions' component={AllTransactions} />
-            <Route path='/dashboard' component={Dashboard} />
-            <Route path='/calendar' component={DashboardCalendar} />
-            <Route path='/userProfile' component={UserProfile} />
-          </Switch>
-          <Switch>
-            <Route exact path='/transactions' component={AllTransactions} />
-            <Route exact path='/transactions/edit' component={EditTransactions} />
-            <Route path='/transactions/edit/:id' component={EditSingleTransaction} />
-            <Route path='/transactions/add' component={AddTransactions} />
-          </Switch>
+            <Switch>
+              <Route path='/' exact component={Dashboard} />
+              <Route path='/budget' component={Budget} />
+              <Route path='/questionnaire' component={Questionnaire} />
+              <Route path='/dashboard' component={Dashboard} />
+              <Route path='/calendar' component={DashboardCalendar} />
+              <Route path='/userProfile' component={UserProfile} />
+            </Switch>
+            <Switch>
+              <Route exact path='/transactions' component={AllTransactions} />
+              <Route
+                exact
+                path='/transactions/edit'
+                component={EditTransactions}
+              />
+              <Route
+                path='/transactions/edit/:id'
+                component={EditSingleTransaction}
+              />
+              <Route path='/transactions/add' component={AddTransactions} />
+            </Switch>
           </>
         ) : (
           <Switch>

@@ -21,6 +21,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// update budget for the user
 router.put('/budget', requireToken, async (req, res, next) => {
   try {
     const { user, monthlyBudget } = req.body;

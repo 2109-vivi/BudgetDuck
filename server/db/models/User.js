@@ -44,6 +44,9 @@ const User = db.define('user', {
       min: 0,
     },
   },
+  dateOfLastPull: {
+    type: Sequelize.DATEONLY,
+  },
 });
 
 module.exports = User;
