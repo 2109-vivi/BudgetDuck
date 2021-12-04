@@ -24,14 +24,12 @@ router.get('/', async (req, res, next) => {
 // get historical budgets per User
 router.get('/budget', requireToken, async (req, res, next) => {
   try {
-<<<<<<< HEAD
-    const date = new Date
-    const year = date.getFullYear()
+    const currentYear = new Date().getFullYear()
     const { user } = req.body
     const budgets = await Budget.findAll({
       where: {
         userId: user.id,
-        year: year
+        year: currentYear
       }
     })
     res.send(budgets)
@@ -39,16 +37,6 @@ router.get('/budget', requireToken, async (req, res, next) => {
   catch (err){
     console.log("Couldn't get budgets :(")
     next(err)
-=======
-    const { user } = req.body;
-    const budgets = await Budget.findAll({
-      where: { userId: user.id },
-    });
-    res.send(budgets);
-  } catch (err) {
-    console.log("Couldn't get budgets :(");
-    next(err);
->>>>>>> 6c41362b5f37240c2144237bbf426ad1cfe9d480
   }
 });
 
