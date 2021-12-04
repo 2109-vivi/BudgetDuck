@@ -5,8 +5,8 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Questionnaire from './components/Questionnaire';
 import Dashboard from './components/Dashboard';
-import {me} from './store'
-import Budget from './components/BudgetChart'
+import { me } from './store';
+import Budget from './components/BudgetChart';
 import AllTransactions from './components/AllTransactions';
 import AddTransactions from './components/AddTransactions';
 import EditTransactions from './components/EditTransactions';
@@ -29,20 +29,27 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <>
-          <Switch>
-            <Route path='/' exact component={Dashboard} />
-            <Route path='/budget' component={Budget} />
-            <Route path='/questionnaire' component={Questionnaire} />
-            <Route path ='/dashboard' component= {Dashboard}/>
-            <Route path='/userProfile' component={UserProfile} />
-            <Route path='/linegraph' component={BudgetHistoryLineGraph} />
-          </Switch>
-          <Switch>
-            <Route exact path='/transactions' component={AllTransactions} />
-            <Route exact path='/transactions/edit' component={EditTransactions} />
-            <Route path='/transactions/edit/:id' component={EditSingleTransaction} />
-            <Route path='/transactions/add' component={AddTransactions} />
-          </Switch>
+            <Switch>
+              <Route path='/' exact component={Dashboard} />
+              <Route path='/budget' component={Budget} />
+              <Route path='/questionnaire' component={Questionnaire} />
+              <Route path='/dashboard' component={Dashboard} />
+              <Route path='/userProfile' component={UserProfile} />
+              <Route path='/linegraph' component={BudgetHistoryLineGraph} />
+            </Switch>
+            <Switch>
+              <Route exact path='/transactions' component={AllTransactions} />
+              <Route
+                exact
+                path='/transactions/edit'
+                component={EditTransactions}
+              />
+              <Route
+                path='/transactions/edit/:id'
+                component={EditSingleTransaction}
+              />
+              <Route path='/transactions/add' component={AddTransactions} />
+            </Switch>
           </>
         ) : (
           <Switch>

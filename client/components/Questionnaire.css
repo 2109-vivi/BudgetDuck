@@ -1,0 +1,59 @@
+.questionnaire-component-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 84vh;
+}
+
+.questionnaire-wrapper {
+  background-color: #9eebd9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 600px;
+  border: 2px black;
+  border-radius: 40px;
+  gap: 180px;
+}
+
+.questionnaire-step {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  gap: 20px;
+}
+
+/* plaid link button */
+
+/* questionaire buttons */
+.questionnaire-buttons-container {
+  display: flex;
+  gap: 30px;
+}
+.questionnaire-button {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  border-radius: 500px;
+  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-duration: 0.3s;
+  border: 1px solid transparent;
+  letter-spacing: 2px;
+  min-width: 160px;
+  text-transform: uppercase;
+  white-space: normal;
+  font-weight: 700;
+  text-align: center;
+  padding: 16px 14px 18px;
+  color: #fff;
+  background-color: #15883e;
+  height: 48px;
+}
+.questionnaire-button:hover {
+  background-color: #1db954;
+}
