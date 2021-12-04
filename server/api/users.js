@@ -51,17 +51,18 @@ router.put('/budget', requireToken, async (req, res, next) => {
         monthlyBudget,
       });
 
-      // check to see if see there is a historical Budget object associated with the User (if they are an existing user)
+      // check to see if see there is a historical Budget object associated with the User and the current month (if they are an existing user)
       const currentMonth = new Date().getMonth() + 1;
       const doesBudgetExist = await Budget.findOne({
         where: {
           userId: user.id,
+          month: currentMonth
         },
         order: [['month', 'DESC']],
       });
 
-      // if there is no historical Budget currently in our db (new user), create a new Budget for the user
-      if (!doesBudgetExist) {
+      // if there is no historical Budget currently in our db (new user) or a budget for a particular month, create a new Budget for the user
+      if (!doesBudgetExist ) {
         await Budget.create({
           month: currentMonth,
           budget: monthlyBudget,

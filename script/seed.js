@@ -97,11 +97,11 @@ async function seed() {
     }),
   ]);
   const currentDate = new Date();
-  await Budget.create({
-    userId: 1,
-    budget: 4000,
-    month: currentDate.getMonth() + 1,
-  });
+  // await Budget.create({
+  //   userId: 1,
+  //   budget: 4000,
+  //   month: currentDate.getMonth() + 1,
+  // });
 
   await Budget.create({
     userId: 2,

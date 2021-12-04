@@ -7,9 +7,6 @@ const BudgetHistoryLineGraph = () => {
   const budgetHistory = useSelector((state) => state.auth.historicalBudgets || [])
   const transactions = useSelector((state) => state.transactions || [])
 
-   const test = transactions.map((item) => {
-     return item.date.slice(0,4)
-   })
   const monthChart = {
     1: "January",
     2: "February",
@@ -24,8 +21,10 @@ const BudgetHistoryLineGraph = () => {
     11:"November",
     12: "December",
   }
-
-  const budgetData = budgetHistory.map((element) => {
+//Sorts so months are formatted Jan -> Dec
+  const budgetData = budgetHistory.sort((a,b) =>  {
+    return a.month - b.month
+  }).map((element) => {
     return {
       "name" : monthChart[element.month],
       "Budget": element.budget,
@@ -47,11 +46,10 @@ const BudgetHistoryLineGraph = () => {
         return acc + total
         },0)
     }
-  }).reverse()
+  })
 
   return (
     <div>
-      {console.log(budgetData)}
     <h1 style={{textAlign : 'center'}}>
         Cool Description Here
     </h1>
@@ -61,7 +59,7 @@ const BudgetHistoryLineGraph = () => {
         <XAxis dataKey="name" domain= {[5, "dataMax"]}/>
         <YAxis domain ={[0,'dataMax + 1000']}/>
         <Tooltip />
-        <Legend verticalAlign="bottom" height={-100}/>
+        <Legend verticalAlign="bottom"/>
         <Line type="monotone" dataKey="Budget" stroke="#118C4F" activeDot={{ r: 8 }} />
         <Line type="monotone" dataKey="Transactions" stroke="#5929D1" />
       </LineChart>
