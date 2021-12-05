@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { connect } from "react-redux";
-import BudgetChart from "./BudgetChart";
+import BudgetChart from "../components/ChartComponents/BudgetChart";
 import { DashboardSingleTransaction } from "./DashboardSingleTransaction";
 import { Link } from "react-router-dom";
 
