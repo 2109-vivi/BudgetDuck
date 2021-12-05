@@ -5,7 +5,8 @@ import { PieChart, Pie, Sector, Cell, Tooltip, ResponsiveContainer, Legend } fro
 const CategoryBudgetPieChart = () => {
 const budgetCategories = useSelector((state) => state.auth.categoricalBudgets || [])
 const monthlyBudget = useSelector((state) => state.auth.monthlyBudget)
-//For some reason the useSelector is not causing the labels to render on the pie chart. This is an ongoing issue in recharts. Delete the use selector to get the labels to show and the animation to go
+
+//For some reason the useSelector is not causing the labels to render on the pie chart. This is an ongoing issue in recharts. Since I set isAnimationActive to false, everything works, there just isn't an animation.
 
 const test= budgetCategories.filter((item)=> {
   if(item.budgetCategories.length > 0){
@@ -18,17 +19,23 @@ map((element) => {
     "budget": element.budgetCategories[0].budgetForCategory
   }
 })
-//Add the another data point which consists of the amount
+
+//This gets the total amount allocated towards budgets
+const totalAmountAllocated = test.reduce((acc,total) => {
+  return acc + total.budget
+},0)
+
+//Adds another data point which consists of the amount that is unallocated
 test.push({
     "name": "Unallocated",
-    "budget": 9000 - 6000 //monthlyBudget - budgetcategory total
+    "budget": monthlyBudget - totalAmountAllocated//monthlyBudget - budgetcategory total
 })
-//You need to get the total amount of all the budgets (using the test const) and subtract it from the current Budget
-const totalAmountSpent = "wow"
 
   return(
   <div>
-    {console.log(test)}
+    {/* {console.log("Monthly Budget -->",monthlyBudget)}
+    {console.log("Total Budget Amount Spent --->",totalAmountSpent)}
+    {console.log("dataArray",test)} */}
   <h1 style={{textAlign : 'center'}}>
     Category Budget Distribution
   </h1>
