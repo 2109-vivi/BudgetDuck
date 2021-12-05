@@ -22,7 +22,7 @@ const AllTransactions = (props) => {
           style={{ padding: '10px' }}
         >
           <div>{transaction.name}</div>
-          <div>{transaction.category.categoryName}</div>
+          <div>{transaction.category?.categoryName}</div>
           <div>${(Math.round(transaction.amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)}</div>
         </div>
       ))}

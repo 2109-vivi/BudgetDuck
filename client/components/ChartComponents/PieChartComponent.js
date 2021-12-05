@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { PieChart, Pie, Sector, Cell, Tooltip } from 'recharts';
-import { getTransactionsFromPlaid } from '../store/transactions';
+import { getTransactionsFromPlaid } from '../../store/transactions';
 
 const PieChartComponent = (props) => {
   const dispatch = useDispatch();
