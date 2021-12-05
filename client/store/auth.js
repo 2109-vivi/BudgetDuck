@@ -8,28 +8,33 @@ const ACCESS_TOKEN = 'access_token';
  * ACTION TYPES
  */
 const SET_AUTH = 'SET_AUTH';
-const UPDATE_BUDGET = 'UPDATE_BUDGET'
-const UPDATE_INCOME = 'UPDATE_INCOME'
-const GET_BUDGETS = 'GET_BUDGET'
+const UPDATE_BUDGET = 'UPDATE_BUDGET';
+const UPDATE_INCOME = 'UPDATE_INCOME';
+const GET_BUDGETS = 'GET_BUDGET';
+const GET_CATEGORICAL_BUDGETS = 'GET_CATEGORICAL_BUDGETS';
 
 /**
  * ACTION CREATORS
  */
 const setAuth = (auth) => ({
   type: SET_AUTH,
-  auth
+  auth,
 });
 const updateBudget = (budget) => ({
   type: UPDATE_BUDGET,
-  budget
+  budget,
 });
 const updateIncome = (income) => ({
   type: UPDATE_INCOME,
-  income
+  income,
 });
 const getBudgets = (budget) => ({
   type: GET_BUDGETS,
-  budget
+  budget,
+});
+const setCategoricalBudgets = (categoricalBudgets) => ({
+  type: GET_CATEGORICAL_BUDGETS,
+  categoricalBudgets,
 });
 
 /**
@@ -87,47 +92,68 @@ export const logout = () => {
 
 export const updateBudgetThunk = (budget) => {
   return async (dispatch) => {
-    try{
+    try {
       const token = localStorage.getItem('token');
-      const response  = await axios.put('/api/users/budget',{monthlyBudget: budget},{
-        headers: { token }})
-      const newBudget = response.data
-      dispatch(updateBudget(newBudget))
+      const response = await axios.put(
+        '/api/users/budget',
+        { monthlyBudget: budget },
+        {
+          headers: { token },
+        }
+      );
+      const newBudget = response.data;
+      dispatch(updateBudget(newBudget));
+    } catch (e) {
+      console.log('Failed to update Budget');
     }
-    catch(e){
-      console.log("Failed to update Budget")
-    }
-  }
-}
+  };
+};
 
 export const updateIncomeThunk = (income) => {
   return async (dispatch) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put('/api/users/income', {income}, {
-        headers: {token}})
-      const newIncome = response.data
-      dispatch(updateIncome(newIncome))
+      const response = await axios.put(
+        '/api/users/income',
+        { income },
+        {
+          headers: { token },
+        }
+      );
+      const newIncome = response.data;
+      dispatch(updateIncome(newIncome));
+    } catch (e) {
+      console.log('Failed to update income');
     }
-    catch(e) {
-      console.log("Failed to update income")
-    }
-  }
-}
+  };
+};
 
 export const fetchAllBudgets = () => {
   return async (dispatch) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get('/api/users/budget', {
-        headers: {token}})
-        dispatch(getBudgets(response.data))
+        headers: { token },
+      });
+      dispatch(getBudgets(response.data));
+    } catch (e) {
+      console.log('Failed to get budgets');
     }
-    catch(e) {
-      console.log("Failed to get budgets")
+  };
+};
+
+export const getCategoricalBudgets = () => {
+  return async (dispatch) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('/api/categories');
+      const categoricalBudgets = response.data;
+      dispatch(setCategoricalBudgets(categoricalBudgets));
+    } catch (e) {
+      console.log("couldn't get budgets for categories");
     }
-  }
-}
+  };
+};
 /**
  * REDUCER
  */
@@ -136,11 +162,13 @@ export default function (state = {}, action) {
     case SET_AUTH:
       return action.auth;
     case GET_BUDGETS:
-      return {...state, historicalBudgets: action.budget}
+      return { ...state, historicalBudgets: action.budget };
     case UPDATE_BUDGET:
-      return {...state, monthlyBudget: action.budget}
+      return { ...state, monthlyBudget: action.budget };
     case UPDATE_INCOME:
-      return {...state, income: action.income}
+      return { ...state, income: action.income };
+    case GET_CATEGORICAL_BUDGETS:
+      return { ...state, categoricalBudgets: action.categoricalBudgets };
     default:
       return state;
   }

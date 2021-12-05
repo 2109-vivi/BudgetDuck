@@ -1,0 +1,6 @@
+.user-profile-component {
+  display: flex;
+  justify-content: space-around;
+  border-radius: 36px;
+  padding-top: 2vh;
+}

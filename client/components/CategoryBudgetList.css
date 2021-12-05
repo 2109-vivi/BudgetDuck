@@ -1,0 +1,61 @@
+.category-budget-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-radius: 10px;
+  background-color: #c6f2c5;
+  padding: 18px;
+  width: 700px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.cbl-header {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 40px;
+}
+
+.cbl-small-options {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+}
+
+.cbl-small-options > small {
+  display: flex;
+  flex-direction: column-reverse;
+  color: #313131;
+  min-width: 160px;
+  position: absolute;
+}
+
+.category-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  height: 100%;
+}
+
+.cbl-entry-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 350px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: rgb(128 208 130);
+  transition-duration: 0.3s;
+  cursor: pointer;
+  flex: 40%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.cbl-entry-wrapper:hover {
+  background-color: rgb(93 210 216);
+}
+
+.cbl-entry-text {
+  cursor: pointer;
+  margin: 20px;
+}

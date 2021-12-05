@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 a {
@@ -14,4 +14,3 @@ form div {
   margin: 1em;
   display: inline-block;
 }
-
