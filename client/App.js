@@ -18,15 +18,9 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getTransactionsFromDatabase(!!currentUser));
-  }, [currentUser]);
-
-  useEffect(() => {
     dispatch(fetchAllBudgets());
     dispatch(getCategoricalBudgets());
-  }, []);
-  // useEffect(() => {
-  //   dispatch(getLinkToken());
-  // }, []);
+  }, [currentUser]);
 
   return (
     <div>
