@@ -51,9 +51,15 @@ const LineGraph = () => {
         <XAxis dataKey="name" />
         <YAxis domain ={[0,6000]}/>
         <Tooltip />
+<<<<<<< Updated upstream:client/components/LineGraph.js
         <Legend verticalAlign="bottom" height={-100}/>
         <Line type="monotone" dataKey="Budget" stroke="#118C4F" activeDot={{ r: 8 }} />
         <Line type="monotone" dataKey="transactions" stroke="#5929D1" />
+=======
+        <Legend verticalAlign="bottom" wrapperStyle={{ position: 'relative' }}/>
+        <Line type="linear" dataKey="Budget" stroke="#118C4F" activeDot={{ r: 8 }} />
+        <Line type="linear" dataKey="Transactions" stroke="#5929D1" />
+>>>>>>> Stashed changes:client/components/BudgetHistoryLineGraph.js
       </LineChart>
     </ResponsiveContainer>
     </div>
