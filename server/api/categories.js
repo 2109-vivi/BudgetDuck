@@ -41,6 +41,7 @@ router.get('/:id', requireToken, async (req, res, next) => {
 router.post('/:id', requireToken, async (req, res, next) => {
   try {
     const { user, newBudget } = req.body;
+
     // get the total of every categorical budget
     let totalOfBudgetCategories = 0;
     const usersBudgetCategories = await BudgetCategory.findAll({
@@ -65,7 +66,7 @@ router.post('/:id', requireToken, async (req, res, next) => {
         res.send(await budgetCategoryExists.update({ budgetForCategory: newBudget }));
         return;
       } else {
-        res.send("Your categorical budgets can't exceed your monthly budget!").status(409);
+        res.sendStatus(409);
         return;
       }
       // if the newBudget is less than the current categorical budget, make the change
@@ -84,7 +85,7 @@ router.post('/:id', requireToken, async (req, res, next) => {
         })
       );
     } else {
-      res.send("Your categorical budgets can't exceed your monthly budget!").status(409);
+      res.sendStatus(409);
     }
   } catch (e) {
     next(e);

@@ -12,6 +12,7 @@ const UPDATE_BUDGET = 'UPDATE_BUDGET';
 const UPDATE_INCOME = 'UPDATE_INCOME';
 const GET_BUDGETS = 'GET_BUDGET';
 const GET_CATEGORICAL_BUDGETS = 'GET_CATEGORICAL_BUDGETS';
+const UPDATE_CATEGORICAL_BUDGET = 'UPDATE_CATEGORICAL_BUDGET';
 const CLEAR_ERROR = 'CLEAR_ERROR';
 
 /**
@@ -36,6 +37,10 @@ const getBudgets = (budget) => ({
 const setCategoricalBudgets = (categoricalBudgets) => ({
   type: GET_CATEGORICAL_BUDGETS,
   categoricalBudgets,
+});
+const _updateCatgoricalBudget = (categoricalBudget) => ({
+  type: UPDATE_CATEGORICAL_BUDGET,
+  categoricalBudget,
 });
 
 export const _clearError = () => ({ type: CLEAR_ERROR });
@@ -66,22 +71,21 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-export const signup =
-  (email, password, firstName, lastName) => async (dispatch) => {
-    try {
-      const res = await axios.post('/auth/signup', {
-        email,
-        password,
-        firstName,
-        lastName,
-      });
-      window.localStorage.setItem(TOKEN, res.data.token);
-      dispatch(me());
-      history.push('/questionnaire');
-    } catch (authError) {
-      return dispatch(setAuth({ error: authError }));
-    }
-  };
+export const signup = (email, password, firstName, lastName) => async (dispatch) => {
+  try {
+    const res = await axios.post('/auth/signup', {
+      email,
+      password,
+      firstName,
+      lastName,
+    });
+    window.localStorage.setItem(TOKEN, res.data.token);
+    dispatch(me());
+    history.push('/questionnaire');
+  } catch (authError) {
+    return dispatch(setAuth({ error: authError }));
+  }
+};
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN);
@@ -161,6 +165,23 @@ export const getCategoricalBudgets = (isLoggedIn) => {
     }
   };
 };
+
+export const updateCategoricalBudget = (categoryId, newBudget) => {
+  return async (dispatch) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post(
+        `/api/categories/${categoryId}`,
+        { newBudget: Number(newBudget) },
+        { headers: { token } }
+      );
+      const newCategoricalBudget = response.data;
+      dispatch(_updateCatgoricalBudget(newCategoricalBudget));
+    } catch (e) {
+      console.log("Couldn't update Categorical Budget");
+    }
+  };
+};
 /**
  * REDUCER
  */
@@ -176,6 +197,19 @@ export default function (state = {}, action) {
       return { ...state, income: action.income };
     case GET_CATEGORICAL_BUDGETS:
       return { ...state, categoricalBudgets: action.categoricalBudgets };
+    case UPDATE_CATEGORICAL_BUDGET: {
+      let newCategoricalBudgets = state.categoricalBudgets.map((categoricalBudget) => {
+        if (categoricalBudget.id == action.categoricalBudget.categoryId) {
+          return {
+            ...categoricalBudget,
+            budgetCategories: [{ budgetForCategory: action.categoricalBudget.budgetForCategory }],
+          };
+        } else {
+          return categoricalBudget;
+        }
+      });
+      return { ...state, categoricalBudgets: newCategoricalBudgets };
+    }
     case CLEAR_ERROR:
       return { ...state, error: null };
     default:
