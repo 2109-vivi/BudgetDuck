@@ -17,20 +17,18 @@ const Login = (props) => {
   return (
     <div className='login-component-container'>
       <div className='login-wrapper'>
-        <div className='login-header'>Sign in to your account</div>
-        <form onSubmit={handleSubmit} className='form'>
+        <h2 className='login-header'>Sign in to your account</h2>
+        <form onSubmit={handleSubmit} className='login-component-form'>
           <div className='login-input-wrapper'>
-            <div className='label-for-login'>Email</div>
-            <input name='email' type='text' />
+            <input name='email' type='text' placeholder='Email' />
           </div>
 
           <div className='login-input-wrapper'>
-            <div className='label-for-login'>Password</div>
-            <input name='password' type='password' />
+            <input name='password' type='password' placeholder='Password' />
           </div>
-
-          {error && error.response && <div> {error.response.data} </div>}
-
+          {error && error.response && (
+            <div className='login-helper-text'> {error.response.data}</div>
+          )}
           <div>
             <button id='login-button' type='submit'>
               Log in to your account

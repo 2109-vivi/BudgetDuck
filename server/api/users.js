@@ -70,9 +70,8 @@ router.put('/budget', requireToken, async (req, res, next) => {
         });
       }
       res.status(201).send(monthlyBudget);
-    } else {
-      res.send(`Your budget is already $${monthlyBudget}`);
     }
+    res.sendStatus(400);
   } catch (e) {
     next(e);
   }

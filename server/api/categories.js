@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// get all transactions associated with a User by category
+// get all transactions associated with a User by categoryId
 router.get('/:id', requireToken, async (req, res, next) => {
   try {
     const { user } = req.body;
@@ -32,6 +32,24 @@ router.get('/:id', requireToken, async (req, res, next) => {
       where: { userId: user.id, categoryId: req.params.id },
     });
     res.send(transactionsPerCategory);
+  } catch (e) {
+    next(e);
+  }
+});
+
+// update budget by categoryId
+router.put('/:id', requireToken, async (req, res, next) => {
+  try {
+    const { user, newBudget } = req.body;
+    const budgetCategoryToUpdate = await BudgetCategory.findOne({
+      where: {
+        categoryId: req.params.id,
+      },
+    });
+    await budgetCategoryToUpdate.update({
+      budgetForCategory: newBudget,
+    });
+    res.send(budgetCategoryToUpdate);
   } catch (e) {
     next(e);
   }
