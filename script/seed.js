@@ -128,8 +128,8 @@ async function seed() {
   });
 
   for (let i = 0; i < transactions[0].length; i++) {
-    //random number from 1 to 6
-    let randomCategory = Math.floor(Math.random() * 6);
+    //random number from 1 to 13
+    let randomCategory = Math.floor(Math.random() * 13) + 1;
     await transactions[0][i].setCategory(categories[randomCategory]);
   }
 
