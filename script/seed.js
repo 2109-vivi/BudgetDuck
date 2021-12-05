@@ -97,11 +97,11 @@ async function seed() {
     }),
   ]);
   const currentDate = new Date();
-  await Budget.create({
-    userId: 1,
-    budget: 4000,
-    month: currentDate.getMonth() + 1,
-  });
+  // await Budget.create({
+  //   userId: 1,
+  //   budget: 4000,
+  //   month: currentDate.getMonth() + 1,
+  // });
 
   await Budget.create({
     userId: 2,
@@ -112,7 +112,7 @@ async function seed() {
   await Budget.create({
     userId: 1,
     budget: 5000,
-    month: 11
+    month: 11,
   });
 
   await Budget.create({
@@ -126,6 +126,51 @@ async function seed() {
     budget: 5000,
     month: 9
   });
+  await Budget.create({
+    userId: 1,
+    budget: 5000,
+    month: 8
+  });
+  await Budget.create({
+    userId: 1,
+    budget: 5000,
+    month: 7
+  });
+  await Budget.create({
+    userId: 1,
+    budget: 5000,
+    month: 6
+  });
+  await Budget.create({
+    userId: 1,
+    budget: 5000,
+    month: 5
+  });
+  await Budget.create({
+    userId: 1,
+    budget: 5000,
+    month: 4,
+    year: 2021
+  });
+  await Budget.create({
+    userId: 1,
+    budget: 5000,
+    month: 3,
+    year: 2021
+  });
+  await Budget.create({
+    userId: 1,
+    budget: 5000,
+    month: 2,
+    year: 2021
+  });
+  await Budget.create({
+    userId: 1,
+    budget: 5000,
+    month: 1,
+    year: 2021
+  });
+
 
   for (let i = 0; i < transactions[0].length; i++) {
     //random number from 1 to 13
