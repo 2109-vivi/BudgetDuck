@@ -31,7 +31,7 @@ module.exports = [
     name: 'Cypress Pharmaceutical, Inc.',
     merchantName: null,
     amount: 399.84,
-    date: '2020-12-31',
+    date: '2021-12-31',
     userId: 1,
     categoryId: 2,
   },
