@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { getLinkToken, getAccessToken } from './store/plaid.js';
 import ConnectPlaid from './components/ConnectPlaid.js';
 import TransactionsContainer from './components/TransactionsContainer.js';
-import PieChartComponent from './components/PieChartComponent.js';
+import PieChartComponent from './components/ChartComponents/PieChartComponent.js';
 import Navbar from './components/Navbar';
 import Routes from './Routes';
 import { getTransactionsFromDatabase } from './store/transactions.js';
