@@ -1,46 +1,47 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateBudgetThunk, updateIncomeThunk } from '../store'
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateBudgetThunk, updateIncomeThunk } from '../store';
+import CategoryBudgetList from './CategoryBudgetList';
+import './UserProfile.css';
 
 const UserProfile = () => {
-  const dispatch = useDispatch()
-  const userInfo = useSelector((state) => state.auth)
-  const[budget, setBudget] = useState(userInfo.monthlyBudget)
-  const[income, setIncome] = useState(userInfo.income)
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.auth);
+  const [budget, setBudget] = useState(userInfo.monthlyBudget);
+  const [income, setIncome] = useState(userInfo.income);
 
-const handleBudgetInputChange = (event) => {
+  const handleBudgetInputChange = (event) => {
     setBudget(event.target.value);
-}
-const handleIncomeInputChange = (event) => {
-  setIncome(event.target.value)
-}
-const budgetSubmit = (evt) => {
-  evt.preventDefault()
-  dispatch(updateBudgetThunk(budget))
-}
+  };
+  const handleIncomeInputChange = (event) => {
+    setIncome(event.target.value);
+  };
+  const budgetSubmit = (evt) => {
+    evt.preventDefault();
+    dispatch(updateBudgetThunk(budget));
+  };
 
-const incomeSubmit = (evt) => {
-  evt.preventDefault()
-  dispatch(updateIncomeThunk(income))
-}
+  const incomeSubmit = (evt) => {
+    evt.preventDefault();
+    dispatch(updateIncomeThunk(income));
+  };
 
-  return(
-    <div>
-      {/* {console.log(userInfo)} */}
-      <h1>Hello {userInfo.firstName}!</h1>
-      <h2>Personal Information:</h2>
+  return (
+    <div className='user-profile-component'>
+      <div>
+        <h1>Hello {userInfo.firstName}!</h1>
+        <h2>Personal Information:</h2>
         <h3>Email:{userInfo.email}</h3>
         <h3>FirstName: {userInfo.firstName}</h3>
         <h3>LastName: {userInfo.lastName}</h3>
-      <h2>Account Information</h2>
+        <h2>Account Information</h2>
         <h3>Current Budget:${userInfo.monthlyBudget}</h3>
         <input
           name='budget'
           type='text'
           value={budget}
           onChange={handleBudgetInputChange}
-        >
-        </input>
+        ></input>
         <button onClick={budgetSubmit}>Edit Budget</button>
         <h3>Current Income: ${userInfo.income}</h3>
         <input
@@ -50,8 +51,10 @@ const incomeSubmit = (evt) => {
           onChange={handleIncomeInputChange}
         ></input>
         <button onClick={incomeSubmit}>Edit Income</button>
+      </div>
+      <CategoryBudgetList />
     </div>
-  )
-}
+  );
+};
 
-export default UserProfile
+export default UserProfile;

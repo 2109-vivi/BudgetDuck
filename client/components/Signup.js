@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signup } from '../store';
+import './Signup.css';
 
 const Signup = (props) => {
   const dispatch = useDispatch();
@@ -16,28 +17,37 @@ const Signup = (props) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='email'>
-          Email
-          <input name='email' type='text' />
-        </label>
-        <label htmlFor='password'>
-          Password
-          <input name='password' type='password' />
-        </label>
-        <label name='firstName'>
-          First Name
-          <input name='firstName' type='text' />
-        </label>
-        <label name='lastName'>
-          Last Name
-          <input name='lastName' type='text' />
-        </label>
-        {error && error.response && <div> {error.response.data} </div>}
+    <div className='signup-component-container'>
+      <div className='signup-wrapper'>
+        <h2>Sign up for a Budget Duck account! </h2>
+        <div>
+          <form className='signup-form' onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor='email'>Email</label>
+              <input name='email' type='text' />
+            </div>
 
-        <button type='submit'>Create your account</button>
-      </form>
+            <div>
+              <label htmlFor='password'>Password</label>
+              <input name='password' type='password' />
+            </div>
+
+            <div>
+              <label name='firstName'>First Name</label>
+              <input name='firstName' type='text' />
+            </div>
+
+            <div>
+              <label name='lastName'>Last Name</label>
+              <input name='lastName' type='text' />
+            </div>
+            {error && error.response && <div> {error.response.data} </div>}
+          </form>{' '}
+        </div>
+        <button id='signup-button' type='submit'>
+          Create your account
+        </button>
+      </div>
     </div>
   );
 };

@@ -32,6 +32,7 @@
     "pg": "^8.5.1",
     "plaid": "^9.7.0",
     "react-calendar": "^3.5.0",
+    "react-modal": "^3.14.4",
     "react-plaid-link": "^3.2.1",
     "recharts": "^2.1.6",
     "sequelize": "^6.3.5"

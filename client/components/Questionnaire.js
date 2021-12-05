@@ -12,8 +12,8 @@ class Questionnaire extends React.Component {
     super();
     this.state = {
       currentStep: 1,
-      income: 0,
-      budget: 0,
+      income: '',
+      budget: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
