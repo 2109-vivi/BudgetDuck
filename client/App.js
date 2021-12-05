@@ -8,7 +8,7 @@ import PieChartComponent from './components/ChartComponents/PieChartComponent.js
 import Navbar from './components/Navbar';
 import Routes from './Routes';
 import { getTransactionsFromDatabase } from './store/transactions.js';
-import { fetchAllBudgets } from './store/auth.js';
+import { fetchAllBudgets, getCategoricalBudgets } from './store/auth.js';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -18,14 +18,9 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getTransactionsFromDatabase(!!currentUser));
+    dispatch(fetchAllBudgets());
+    dispatch(getCategoricalBudgets());
   }, [currentUser]);
-
-  useEffect(() => {
-    dispatch(fetchAllBudgets())
-  }, [])
-  // useEffect(() => {
-  //   dispatch(getLinkToken());
-  // }, []);
 
   return (
     <div>
