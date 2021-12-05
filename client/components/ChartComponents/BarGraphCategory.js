@@ -10,23 +10,45 @@ const BarGraphCategory = (props) => {
 
   let transactions = useSelector((state) => state.transactions || []);
   let categories = useSelector((state) => state.auth.categoricalBudgets || []);
-  console.log({categories});
+
 
   const dataArray = transactions.map((transaction) => {
     return {
-      category: transaction.category.categoryName,
+      category: transaction.category?.categoryName,
       amount: transaction.amount,
     };
-  });
+  }) || [];
 
-  let combinedDataArray = categoryMerger(dataArray);
-  console.log({combinedDataArray});
+  let combinedDataArray = categoryMerger(dataArray) || [];
+
   combinedDataArray.forEach((category, index) => {
     //random number from 2000 to 5000
     category.budget = Math.floor(Math.random() * (5000 - 2000 + 1)) + 2000;
     category.color = barColors[index];
   })
+  console.log(categories);
+  console.log(combinedDataArray);
 
+  const budgetForCategory = (arrayFromState, combinedCategories) => {
+    for (let i = 0; i < arrayFromState.length; i++){
+      let categoryFromState = arrayFromState[i];
+      let stateCategoryName = categoryFromState.categoryName; //bank fees, etc.
+
+      for (let j = 0; j < combinedCategories.length; j++){
+        let combinedCategory = combinedCategories[j].category; //bank fees, etc.
+        if (stateCategoryName === combinedCategory){
+          if(categoryFromState.budgetCategories.length !== 0){
+            combinedCategories[j].budget = categoryFromState.budgetCategories[0].budgetForCategory
+          } else {
+            combinedCategories[j].budget = 0;
+          }
+        }
+      }
+    }
+    return combinedCategories;
+  }
+
+  budgetForCategory(categories, combinedDataArray);
 
   return (
     <ResponsiveContainer width="100%" height="100%">
