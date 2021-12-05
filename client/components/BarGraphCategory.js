@@ -116,6 +116,7 @@ const BarGraphCategory = (props) => {
     category.color = barColors[index];
   })
 
+
   return (
     <ResponsiveContainer width="100%" height="100%">
         <BarChart
@@ -131,25 +132,11 @@ const BarGraphCategory = (props) => {
           <Tooltip content={<CustomToolTip />} />
           <Legend
             content={<CategoryLegend data={output}/>}
-            // width='100vh'
             wrapperStyle={{
               lineHeight: '40px',
               position: 'relative',
-              // textAlign: 'center',
-              // top: 40,
-              // right: 40,
-              // backgroundColor: '#808080',
-              // border: '1px solid #d5d5d5',
-
             }}
           />
-          {/* <Bar dataKey="amount" barSize={20} XAxisId={1} fill="#8884d8"> */}
-            {/* {
-              output.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={barColors[index % 20]}/>
-            ))
-            } */}
-          {/* </Bar> */}
           <Bar dataKey="budget" barSize={80} xAxisId={1} fill="#3D3D3D"/>
           <Bar dataKey="amount" barSize={55} XAxisId={0} fill="#8B8E8D"  fillOpacity={0.9} >
             {output.map((entry, index) => (
