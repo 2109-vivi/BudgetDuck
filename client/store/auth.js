@@ -12,6 +12,7 @@ const UPDATE_BUDGET = 'UPDATE_BUDGET';
 const UPDATE_INCOME = 'UPDATE_INCOME';
 const GET_BUDGETS = 'GET_BUDGET';
 const GET_CATEGORICAL_BUDGETS = 'GET_CATEGORICAL_BUDGETS';
+const CLEAR_ERROR = 'CLEAR_ERROR';
 
 /**
  * ACTION CREATORS
@@ -36,6 +37,8 @@ const setCategoricalBudgets = (categoricalBudgets) => ({
   type: GET_CATEGORICAL_BUDGETS,
   categoricalBudgets,
 });
+
+export const _clearError = () => ({ type: CLEAR_ERROR });
 
 /**
  * THUNK CREATORS
@@ -128,27 +131,31 @@ export const updateIncomeThunk = (income) => {
   };
 };
 
-export const fetchAllBudgets = () => {
+export const fetchAllBudgets = (isLoggedIn) => {
   return async (dispatch) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('/api/users/budget', {
-        headers: { token },
-      });
-      dispatch(getBudgets(response.data));
+      if (isLoggedIn) {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('/api/users/budget', {
+          headers: { token },
+        });
+        dispatch(getBudgets(response.data));
+      }
     } catch (e) {
       console.log('Failed to get budgets');
     }
   };
 };
 
-export const getCategoricalBudgets = () => {
+export const getCategoricalBudgets = (isLoggedIn) => {
   return async (dispatch) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('/api/categories');
-      const categoricalBudgets = response.data;
-      dispatch(setCategoricalBudgets(categoricalBudgets));
+      if (isLoggedIn) {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('/api/categories');
+        const categoricalBudgets = response.data;
+        dispatch(setCategoricalBudgets(categoricalBudgets));
+      }
     } catch (e) {
       console.log("couldn't get budgets for categories");
     }
@@ -169,6 +176,8 @@ export default function (state = {}, action) {
       return { ...state, income: action.income };
     case GET_CATEGORICAL_BUDGETS:
       return { ...state, categoricalBudgets: action.categoricalBudgets };
+    case CLEAR_ERROR:
+      return { ...state, error: null };
     default:
       return state;
   }
