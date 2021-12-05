@@ -1,7 +1,8 @@
 const barColors = [
   "#D99694",
   "#F87D79",
-  '#FAC090',
+  '#FFA672',
+  '#FFCC73',
   "#FFFD70",
   "#C3D69B",
   "#78ED8C",
