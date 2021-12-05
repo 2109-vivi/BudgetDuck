@@ -1,40 +1,46 @@
-.questionnaire-component-container {
+.signup-component-container {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 84vh;
 }
 
-.questionnaire-wrapper {
+.signup-wrapper {
   background-color: #9eebd9;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 500px;
+  width: 67vh;
   height: 600px;
   border: 2px black;
   border-radius: 40px;
-  gap: 180px;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
-.questionnaire-step {
+.signup-wrapper > h2 {
+  margin-bottom: 5vh;
+  margin-top: 6vh;
+}
+
+.signup-wrapper > div {
+  height: 50%;
+}
+
+.signup-form {
   display: flex;
   flex-direction: column;
   align-content: center;
-  gap: 20px;
+  gap: 50px;
 }
 
-/* plaid link button */
-
-/* questionaire buttons */
-.questionnaire-buttons-container {
+.signup-form div {
   display: flex;
-  gap: 30px;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px;
 }
-.questionnaire-button {
+
+#signup-button {
   display: inline-block;
   outline: none;
   cursor: pointer;
@@ -55,7 +61,9 @@
   background-color: #15883e;
   height: 48px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  margin-top: 13%;
 }
-.questionnaire-button:hover {
+
+#signup-button:hover {
   background-color: #1db954;
 }
