@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import CategoryLegend from './BarGraphCategoryLegend';
 import CustomToolTip from './BarGraphCategoryToolTip';
+import barColors from './assets/categoryColors'
+import categoryMerger from './assets/categoryMerger';
 
 const BarGraphCategory = (props) => {
 
   let transactions = useSelector((state) => state.transactions || []);
-  console.log(transactions);
-
-  const barColors = ["#D99694", "#F87D79", '#FAC090', "#FFFD70", "#C3D69B", "#78ED8C", "#00FFFF", "#93CDDD", "#558ED5", "#9675F9", "#FA75F8", "#E5B2FF", "#CEAE8E"];
+  let categories = useSelector((state) => state.auth.categoricalBudgets || []);
+  console.log({categories});
 
   const dataArray = transactions.map((transaction) => {
     return {
@@ -18,20 +19,8 @@ const BarGraphCategory = (props) => {
     };
   });
 
-  let combinedDataArray = [];
-
-  dataArray.forEach((item) => {
-    let existing = combinedDataArray.filter((value) => {
-      return value.category === item.category;
-    });
-    if (existing.length) {
-      let existingIndex = combinedDataArray.indexOf(existing[0]);
-        combinedDataArray[existingIndex].amount = +combinedDataArray[existingIndex].amount + +item.amount
-    } else {
-      combinedDataArray.push(item);
-    }
-  });
-
+  let combinedDataArray = categoryMerger(dataArray);
+  console.log({combinedDataArray});
   combinedDataArray.forEach((category, index) => {
     //random number from 2000 to 5000
     category.budget = Math.floor(Math.random() * (5000 - 2000 + 1)) + 2000;
