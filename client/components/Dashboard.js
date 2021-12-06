@@ -26,7 +26,7 @@ export const Dashboard = (props) => {
         <h4 className={"list-header"}>
           All Transactions
           <Link to={"/transactions"}>
-            <button>+</button>
+            <button className={"dash-edit-button"}>+</button>
           </Link>
         </h4>
 
