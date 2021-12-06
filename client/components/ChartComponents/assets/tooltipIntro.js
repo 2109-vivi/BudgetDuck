@@ -1,7 +1,7 @@
 const getIntroOfPage = (label) => {
   switch(label) {
     case 'Transfer':
-      return 'banana.';
+      return 'Transfer is a type of transaction that is related to transfer';
     case 'Food and Drink':
       return 'Food and Drink is a type of transaction that is related to food and drink.';
     case 'Recreation':
