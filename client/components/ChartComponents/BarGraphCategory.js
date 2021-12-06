@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import CategoryLegend from './BarGraphCategoryLegend';
-import CustomToolTip from './BarGraphCategoryToolTip';
+import CustomToolTip from './BarGraphCategoryTooltip';
 import barColors from './assets/categoryColors'
 import {budgetMerger, categoryMerger, colorMerger} from './assets/mergerHelperFuncs';
 
