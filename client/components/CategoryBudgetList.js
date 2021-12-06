@@ -58,8 +58,15 @@ const CategoryBudgetListEntry = (props) => {
     setIsOpen(false);
   }
 
-  function handleClick(newBudget) {
-    dispatch(updateCategoricalBudget(props.category.id, newBudget));
+  async function handleClick(newBudget) {
+    const responseHelperText = await dispatch(updateCategoricalBudget(props.category.id, newBudget));
+    if (typeof responseHelperText == 'string') {
+      const helperText = document.getElementsByClassName('cbl-modal-helper-text')[0];
+      helperText.classList.remove('hidden');
+      return false;
+    } else {
+      return true;
+    }
   }
   function handleChange(evt) {
     setNewBudget(evt.target.value);
@@ -83,26 +90,33 @@ const CategoryBudgetListEntry = (props) => {
         <h3 className='modal-category-name'>{props.category.categoryName}</h3>
         <small className='modal-small-text'>Change the budget for this category</small>
         <div className='modal-input-container'>
-          <input
-            name='newBudget'
-            type='text'
-            value={newBudget}
-            onChange={handleChange}
-            placeholder={
-              props.category.budgetCategories.length != 0
-                ? `$${props.category.budgetCategories[0].budgetForCategory}`
-                : '$0'
-            }
-          ></input>
-          <div> </div>
-          <button
-            className='modal-save-button'
-            onClick={(e) => {
-              handleClick(newBudget);
-            }}
-          >
-            Save
-          </button>
+          <small className='cbl-modal-helper-text hidden'>
+            Your categorical budgets shouldn't exceed your monthly budget
+          </small>
+          <div className='modal-input-button-container'>
+            <input
+              name='newBudget'
+              type='text'
+              value={newBudget}
+              onChange={handleChange}
+              placeholder={
+                props.category.budgetCategories.length != 0
+                  ? `$${props.category.budgetCategories[0].budgetForCategory}`
+                  : '$0'
+              }
+            ></input>
+
+            <button
+              className='modal-save-button'
+              onClick={async (e) => {
+                if ((await handleClick(newBudget)) == true) {
+                  closeModal(e);
+                }
+              }}
+            >
+              Save
+            </button>
+          </div>
         </div>
       </Modal>
     </div>
