@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { PieChart, Pie, Sector, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import barColors from './assets/categoryColors';
 
@@ -21,12 +21,12 @@ const budgetData= budgetCategories.filter((item)=> {
   }
 })
 
-//This gets the total amount allocated towards budgets
+//This gets the total amount allocated towards all budgets
 const totalAmountAllocated = budgetData.reduce((acc,total) => {
   return acc + total.budget
 },0)
 
-//Adds another data point which consists of the amount that is unallocated
+//Adds another data point that consists of the amount that is unallocated
 budgetData.push({
     "name": "Unallocated",
     "budget": monthlyBudget - totalAmountAllocated//monthlyBudget - budgetcategory total
