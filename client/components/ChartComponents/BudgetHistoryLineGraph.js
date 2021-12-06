@@ -23,14 +23,15 @@ const BudgetHistoryLineGraph = () => {
         return element.year == budgetYear.date.slice(0,4)//Filters based on the transactions with the same YEAR
       })
       .map((item) => {
-        return +item.amount //rounds item amount up
+        return +item.amount
       })
       .filter((amount) => {
-        return amount > 0 //Filters all transactions only if they have a non-zero amount
+        return amount > 0 //Filters all transactions only if they have a non-zero amount (prevents desposits from rendering.)
       })
       .reduce((acc, total) => {
         return acc + total //Totals all the transactions for each month
-        },0).toFixed(2)
+        },0)
+      .toFixed(2)//cuts the number to 2 decimals (notice that line 19 has a "+" to turn it into an int)
     }
   })
 
