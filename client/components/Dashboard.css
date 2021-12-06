@@ -4,11 +4,11 @@
   display: flex;
   background-color:#3dd7b2;
   border: 1px solid black;
-  margin-top: 30px;
-  margin-left: 20px;
+  margin-top: 10px;
   border-radius: 25px;
-  height: 600px;
+  height: 900px;
   width: auto;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .left-container {
@@ -34,17 +34,38 @@
   justify-content: space-between;
   background-color:#C4C4C4;
   align-items: center;
-
   border-radius: 25px;
   padding: 20px;
   margin: 10px;
   right: 10px;
   height: 20px;
+  -webkit-transition: .2s;
+  transition: .2s;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.expand-listed-transaction {
+  display: flex;
+  justify-content: space-between;
+  background-color:#C4C4C4;
+  align-items: center;
+  border-radius: 25px;
+  padding: 20px;
+  margin: 10px;
+  right: 10px;
+  height: 40px;
+  -webkit-transition: .2s;
+  transition: .2s;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .listed-transaction:hover {
   background-color: whitesmoke;
   color:#3dd7b2;
   transition: 0.5s;
+}
+.expanded-transaction-container{
+  flex-direction: column;
+
 }
 
 .right-container {
@@ -52,26 +73,32 @@
   flex-wrap: wrap;
   display: flex;
   height: 100%;
-  max-width: 50%;
-  padding: 10px;
+  justify-content: center;
   border-radius: 25px;
   border: 1px black;
 }
 .half-containers {
   flex: 0 0 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  justify-content: center;
   align-items: center;
-  overflow:auto;
+  overflow:inherit;
   height: 50%;
   border-radius: 25px;
   border: 1px black;
+  left: 10px;
   background-color: #3dd7b2;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 ::-webkit-scrollbar {
+  border-radius: 25px;
   width: 10px;
 }
 
 ::-webkit-scrollbar-track {
+  border-radius: 25px;
   background: #f1f1f1;
 }
 
@@ -82,3 +109,21 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.dash-edit-button{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  border-radius: 25px;
+  position:relative;
+  height:20px;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+.dash-edit-button:hover{
+  background:#fff;
+  color:#1AAB8A;
+  border-radius: 25px;
+}
+
+
