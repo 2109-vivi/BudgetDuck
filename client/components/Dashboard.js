@@ -1,12 +1,12 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { connect } from "react-redux";
-import BudgetChart from "../components/ChartComponents/BudgetChart";
-import { DashboardSingleTransaction } from "./DashboardSingleTransaction";
-import DashboardCalendar from "./DashboardCalendar";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import BudgetChart from '../components/ChartComponents/BudgetChart';
+import { DashboardSingleTransaction } from './DashboardSingleTransaction';
+import DashboardCalendar from './DashboardCalendar';
+import { Link } from 'react-router-dom';
 
-import "./Dashboard.css";
+import './Dashboard.css';
 //API CALLS TO /api/transactions
 
 /**
@@ -21,12 +21,12 @@ export const Dashboard = (props) => {
   console.log(transactions);
 
   return (
-    <div className={"dash-container"}>
-      <div className={"left-container"}>
-        <h4 className={"list-header"}>
+    <div className={'dash-container'}>
+      <div className={'left-container'}>
+        <h4 className={'list-header'}>
           All Transactions
-          <Link to={"/transactions"}>
-            <button className={"dash-edit-button"}>+</button>
+          <Link to={'/transactions'}>
+            <button className={'dash-edit-button'}>+</button>
           </Link>
         </h4>
 
@@ -38,11 +38,11 @@ export const Dashboard = (props) => {
           );
         })}
       </div>
-      <div className={"right-container"}>
-          <div className={"half-containers"}>{BudgetChart()}</div>
-          <Link to="/graphs">
-          <div className={"half-containers"}>{DashboardCalendar()}</div>
-          </Link>
+      <div className={'right-container'}>
+        <div className={'half-containers'}>{BudgetChart()}</div>
+        <Link to='/graphs'>
+          <div className={'half-containers'}>{DashboardCalendar()}</div>
+        </Link>
       </div>
     </div>
   );
