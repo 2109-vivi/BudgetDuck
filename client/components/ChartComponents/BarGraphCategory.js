@@ -19,6 +19,7 @@ const BarGraphCategory = (props) => {
     };
   }) || [];
 
+  console.log(categories);
   let combinedDataArray = categoryMerger(dataArray) || [];
   colorMerger(combinedDataArray);
   budgetMerger(categories, combinedDataArray);
