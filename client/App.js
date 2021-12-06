@@ -12,15 +12,15 @@ import { fetchAllBudgets, getCategoricalBudgets } from './store/auth.js';
 
 const App = () => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.auth.id);
+  const isLoggedIn = useSelector((state) => !!state.auth.id);
   // const linkToken = useSelector((state) => state.plaid.linkToken);
   // const accessToken = useSelector((state) => state.plaid.accessToken);
 
   useEffect(() => {
-    dispatch(getTransactionsFromDatabase(!!currentUser));
-    dispatch(fetchAllBudgets());
-    dispatch(getCategoricalBudgets());
-  }, [currentUser]);
+    dispatch(getTransactionsFromDatabase(isLoggedIn));
+    dispatch(fetchAllBudgets(isLoggedIn));
+    dispatch(getCategoricalBudgets(isLoggedIn));
+  }, [isLoggedIn]);
 
   return (
     <div>

@@ -10,8 +10,8 @@ router.get('/', requireToken, async (req, res, next) => {
     const { user } = req.body;
     const allTransactions = await Transaction.findAll({
       where: { userId: user.id },
-      include: [
-        { model: Category, as: 'category' }]
+      include: [{ model: Category, as: 'category' }],
+      order: [['date', 'DESC']],
     });
     res.send(allTransactions);
   } catch (e) {
@@ -32,7 +32,7 @@ router.post('/', requireToken, async (req, res, next) => {
     //we are able to make a query for the transaction including the category
     //so that the front end components do not shit the bed
     newTransaction.dataValues.category = await Category.findOne({
-      where: { id: transaction.categoryId }
+      where: { id: transaction.categoryId },
     });
     res.send(newTransaction);
   } catch (e) {
@@ -48,10 +48,10 @@ router.put('/:id', requireToken, async (req, res, next) => {
       where: { id: req.params.id, userId: user.id },
     });
     await updatedTransaction.update({
-      ...transaction
+      ...transaction,
     });
     updatedTransaction.dataValues.category = await Category.findOne({
-      where: { id: transaction.categoryId }
+      where: { id: transaction.categoryId },
     });
     res.send(updatedTransaction);
   } catch (e) {
@@ -71,6 +71,5 @@ router.delete('/:id', requireToken, async (req, res, next) => {
     next(e);
   }
 });
-
 
 module.exports = router;

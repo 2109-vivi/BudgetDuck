@@ -104,9 +104,7 @@ export const editTransactionThunk = (transaction, id) => async (dispatch) => {
 export const deleteTransactionThunk = (id) => async (dispatch) => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.delete(`/api/transactions/${id}`, {
-      headers: { token },
-    });
+    const response = await axios.delete(`/api/transactions/${id}`, { headers: { token } });
     console.log(response);
     dispatch(deleteTransaction(response.data));
   } catch (error) {
@@ -129,9 +127,7 @@ export default function (state = [], action) {
         }
       });
     case DELETE_TRANSACTIONS:
-      return state.filter(
-        (transaction) => transaction.id !== action.transactions.id
-      );
+      return state.filter((transaction) => transaction.id !== action.transactions.id);
     case CLEAR_TRANSACTIONS:
       return [];
     default:
