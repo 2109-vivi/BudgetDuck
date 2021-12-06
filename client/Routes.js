@@ -13,6 +13,7 @@ import EditTransactions from './components/EditTransactions';
 import UserProfile from './components/UserProfile';
 import BudgetHistoryLineGraph from './components/ChartComponents/BudgetHistoryLineGraph';
 import GraphContainer from './components/ChartComponents/GraphContainer';
+import CategoryBudgetPieChart from './components/ChartComponents/PieChartCategoryBudget';
 
 /**
  * COMPONENT
@@ -37,6 +38,7 @@ class Routes extends Component {
               <Route path='/dashboard' component={Dashboard} />
               <Route path='/userProfile' component={UserProfile} />
               <Route path='/linegraph' component={BudgetHistoryLineGraph} />
+              <Route path='/categoryBudgetPieChart' component={CategoryBudgetPieChart}/>
             </Switch>
             <Switch>
               <Route exact path='/transactions' component={AllTransactions} />
