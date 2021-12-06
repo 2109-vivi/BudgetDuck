@@ -12,8 +12,9 @@ import AddTransactions from './components/AddTransactions';
 import EditTransactions from './components/EditTransactions';
 import EditSingleTransaction from './components/EditSingleTransaction';
 import UserProfile from './components/UserProfile';
-import BudgetHistoryLineGraph from './components/BudgetHistoryLineGraph';
-import CategoryBudgetPieChart from './components/CategoryBudgetPie';
+import BudgetHistoryLineGraph from './components/ChartComponents/BudgetHistoryLineGraph';
+import GraphContainer from './components/ChartComponents/GraphContainer';
+import CategoryBudgetPieChart from './components/ChartComponents/PieChartCategoryBudget';
 
 /**
  * COMPONENT
