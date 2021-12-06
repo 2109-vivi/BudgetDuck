@@ -48,7 +48,7 @@ const totalTransactionAmount = transactions.filter((item) => {
               <XAxis dataKey="name" />
               <YAxis type="number" domain={[0, budget]}/>
               <Tooltip />
-              <Bar dataKey="Amount" fill="#118C4F"  radius={[50, 50, 0, 0]}/>
+              <Bar dataKey="Amount" fill="#118C4F"/>
             </BarChart>
           </ResponsiveContainer>
         </div>

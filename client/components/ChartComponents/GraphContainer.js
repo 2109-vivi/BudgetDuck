@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import BarGraphCategory from './BarGraphCategory';
 import BudgetChart from './BudgetChart';
 import PieChartComponent from './PieChartComponent';
+import PieChartCategoryBudget from './PieChartCategoryBudget';
 import './GraphContainer.css';
 import BudgetHistoryLineGraph from './BudgetHistoryLineGraph';
 
@@ -36,7 +37,7 @@ const GraphContainer = () => {
       ?
       <BudgetHistoryLineGraph />
       :
-      <PieChartComponent />
+      <PieChartCategoryBudget />
     }
     </div>
   </div>
