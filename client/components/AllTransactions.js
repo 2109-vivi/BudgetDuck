@@ -23,9 +23,10 @@ const AllTransactions = (props) => {
       <main className='transactions-list-expanded'>
         {transactions.map((transaction) => (
           <div className='detailed-transaction' key={transaction.id} style={{ padding: '10px' }}>
-            <div className='edit-transaction-trans-name'>{transaction.name}</div>
-            <div className='edit-transaction-trans-category'>{transaction.category?.categoryName}</div>
-            <div className='edit-transaction-trans-amount'>
+            <div className='transaction-comp-exp-trans-name'>{transaction.name}</div>
+            <div className='transaction-comp-exp-trans-category'>{transaction.category?.categoryName}</div>
+            <div className='transaction-comp-exp-trans-date'>{transaction.date}</div>
+            <div className='transaction-comp-exp-trans-amount'>
               ${(Math.round(transaction.amount * Math.pow(10, 2)) / Math.pow(10, 2)).toFixed(2)}
             </div>
           </div>

@@ -41,14 +41,22 @@
   background-color: #90ed8f;
 }
 
-.edit-transaction-trans-name {
+.transaction-comp-exp-trans-name {
   min-width: 420px;
 }
 
-.edit-transaction-trans-category {
+.transaction-comp-exp-trans-category {
   min-width: 125px;
 }
 
-.edit-transaction-button-container {
+.transaction-comp-exp-trans-amount {
+  text-align: right;
+  min-width: 100px;
+}
+.transaction-comp-exp-trans-date {
+  padding-right: 10px;
+}
+
+.transaction-comp-exp-button-container {
   display: flex;
 }
