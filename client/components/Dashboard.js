@@ -5,6 +5,7 @@ import BudgetChart from "../components/ChartComponents/BudgetChart";
 import { DashboardSingleTransaction } from "./DashboardSingleTransaction";
 import DashboardCalendar from "./DashboardCalendar";
 import { Link } from "react-router-dom";
+import {currentMonth} from "../components/ChartComponents/assets/constants"
 
 import "./Dashboard.css";
 //API CALLS TO /api/transactions
@@ -17,8 +18,6 @@ export const Dashboard = (props) => {
   const { username } = props;
 
   const transactions = useSelector((state) => state.transactions);
-
-  const currentMonth = new Date().getMonth()+1
 
   console.log(transactions);
 
