@@ -44,7 +44,7 @@ colorsArray.push('#808080')
   </h1>
   <ResponsiveContainer width='100%' height= {500}>
     <PieChart>
-    <Pie data={budgetData} dataKey="budget" nameKey="name" cx="50%" cy="50%" outerRadius={200} fill="#8884d8" isAnimationActive={false} label={true} unit="$">
+    <Pie data={budgetData} dataKey="budget" nameKey="name" cx="50%" cy="50%" outerRadius={200} fill="#8884d8" isAnimationActive={false} label={true}>
     {budgetData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={colorsArray[index % colorsArray.length]} />
           ))}

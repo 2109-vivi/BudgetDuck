@@ -1,0 +1,9 @@
+.graph-navigation-container {
+  display: flex;
+  gap: 20px;
+}
+
+.graph-container {
+  height: 80vh;
+  min-height: 80vh;
+}

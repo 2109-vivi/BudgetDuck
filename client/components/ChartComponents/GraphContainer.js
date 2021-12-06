@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import BarGraphCategory from './BarGraphCategory';
 import BudgetChart from './BudgetChart';
 import PieChartComponent from './PieChartComponent';
+import PieChartCategoryBudget from './PieChartCategoryBudget';
+import './GraphContainer.css';
+import BudgetHistoryLineGraph from './BudgetHistoryLineGraph';
 
 const GraphContainer = () => {
 
@@ -14,15 +17,13 @@ const GraphContainer = () => {
 
   return (
   <div>
-    <div>
-      <a href="#" id='bar-category' onClick={handleClick}>Category </a>
-      <a href="#" id='bar-budget' onClick={handleClick}>Overall Budget </a>
-      <a href="#" id='pie-category' onClick={handleClick}>Pie</a>
+    <div className="graph-navigation-container">
+      <a href="#" id='bar-category' onClick={handleClick}>Categorical Budget</a>
+      <a href="#" id='bar-budget' onClick={handleClick}>Single Budget</a>
+      <a href="#" id='pie-category' onClick={handleClick}>Categorical Spending</a>
+      <a href="#" id='line-graph' onClick={handleClick}>Budget History</a>
     </div>
-  <div
-    className="graph-container"
-    style={{ height: '80vh', minHeight: '80vh', }}
-  >
+  <div className="graph-container">
     {
       graphType === 'bar-category'
       ?
@@ -32,7 +33,11 @@ const GraphContainer = () => {
       ?
       <BudgetChart />
       :
-      <PieChartComponent />
+      graphType === 'line-graph'
+      ?
+      <BudgetHistoryLineGraph />
+      :
+      <PieChartCategoryBudget />
     }
     </div>
   </div>

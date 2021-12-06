@@ -47,8 +47,13 @@ const totalTransactionAmount = transactions.filter((item) => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis type="number" domain={[0, budget]}/>
+<<<<<<< HEAD
               <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
               <Bar dataKey="Amount" fill="#118C4F"  radius={[50, 50, 0, 0]}/>
+=======
+              <Tooltip />
+              <Bar dataKey="Amount" fill="#118C4F"/>
+>>>>>>> 0d796ccd383f0a4073f19a73e134365f4e5b65fc
             </BarChart>
           </ResponsiveContainer>
         </div>
