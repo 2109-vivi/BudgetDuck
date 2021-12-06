@@ -49,7 +49,7 @@ colorsArray.push('#808080')
             <Cell key={`cell-${index}`} fill={colorsArray[index % colorsArray.length]} />
           ))}
     </Pie>
-    <Tooltip/>
+    <Tooltip formatter={(value) => `$${value}`}/>
     <Legend />
     </PieChart>
   </ResponsiveContainer>
