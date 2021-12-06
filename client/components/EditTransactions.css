@@ -32,13 +32,26 @@
 .detailed-transaction {
   display: flex;
   justify-content: space-between;
-  background-color: #c6f2c5;
+  background-color: #54aa5f;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   transition-duration: 0.3s;
 }
+
 .detailed-transaction:hover {
   background-color: #90ed8f;
+}
+
+.edit-entry-grey {
+  background-color: rgb(129 136 159);
+  transition-duration: 0.3s;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.edit-entry-grey:hover {
+  background-color: rgb(74, 120, 255);
 }
 
 .transaction-comp-exp-trans-name {
@@ -59,4 +72,13 @@
 
 .transaction-comp-exp-button-container {
   display: flex;
+}
+
+.edit-transaction-delete-button {
+  cursor: pointer;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 500px;
+  background-color: #ff6363;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }

@@ -59,6 +59,7 @@ const CategoryBudgetListEntry = (props) => {
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
       borderRadius: '16px',
+      boxShadow: 'rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px',
     },
   };
   function openModal() {
@@ -96,7 +97,7 @@ const CategoryBudgetListEntry = (props) => {
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel='Example Modal' style={modalStyles}>
         <div className='modal-close-button-container'>
           <button className='modal-close-button' onClick={closeModal}>
-            X
+            Close
           </button>
         </div>
         <h3 className='modal-category-name'>{props.category.categoryName}</h3>
@@ -126,7 +127,7 @@ const CategoryBudgetListEntry = (props) => {
                 }
               }}
             >
-              Save
+              Save Change
             </button>
           </div>
         </div>

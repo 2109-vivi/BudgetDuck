@@ -64,6 +64,7 @@ const EditTransactionsEntry = (props) => {
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
       borderRadius: '16px',
+      boxShadow: 'rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px',
     },
   };
 
@@ -84,7 +85,7 @@ const EditTransactionsEntry = (props) => {
 
   return (
     <div className='edit-transaction-entry-wrapper' onClick={openModal}>
-      <div className='detailed-transaction' key={transaction.id} style={{ padding: '10px' }}>
+      <div className=' edit-entry-grey' key={transaction.id} style={{ padding: '10px' }}>
         <div className='transaction-comp-exp-trans-name'>{transaction.name}</div>
         <div className='transaction-comp-exp-trans-category'>{transaction.category.categoryName}</div>
         <div className='transaction-comp-exp-trans-date'>{transaction.date}</div>
@@ -92,7 +93,9 @@ const EditTransactionsEntry = (props) => {
           ${(Math.round(transaction.amount * Math.pow(10, 2)) / Math.pow(10, 2)).toFixed(2)}
         </div>
         <div className='edit-transaction-button-container'>
-          <button onClick={() => handleDelete(transaction.id)}>Delete Transaction</button>
+          <button className='edit-transaction-delete-button' onClick={() => handleDelete(transaction.id)}>
+            Delete Transaction
+          </button>
         </div>
       </div>
 

@@ -10,7 +10,6 @@ import Budget from './components/ChartComponents/BudgetChart';
 import AllTransactions from './components/AllTransactions';
 import AddTransactions from './components/AddTransactions';
 import EditTransactions from './components/EditTransactions';
-import EditSingleTransaction from './components/EditSingleTransaction';
 import UserProfile from './components/UserProfile';
 import BudgetHistoryLineGraph from './components/ChartComponents/BudgetHistoryLineGraph';
 import GraphContainer from './components/ChartComponents/GraphContainer';
@@ -42,7 +41,6 @@ class Routes extends Component {
             <Switch>
               <Route exact path='/transactions' component={AllTransactions} />
               <Route exact path='/transactions/edit' component={EditTransactions} />
-              <Route path='/transactions/edit/:id' component={EditSingleTransaction} />
               <Route path='/transactions/add' component={AddTransactions} />
             </Switch>
           </>
