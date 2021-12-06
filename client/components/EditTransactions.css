@@ -1,34 +1,84 @@
-html {
-  height: 100%;
+.transactions-component-expanded {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  border-radius: 50px;
+  background-color: #a2dabc;
+  padding: 40px 70px 70px 70px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
-.modal {
-  position: fixed;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.25);
-  text-align: center;
-  margin: auto;
-  width: 50%;
-  height: 50%;
+.transactions-header {
+  display: flex;
+  justify-content: space-between;
 }
 
-.modal_content {
-  background-color: white;
-  position: absolute;
-  top: 20%;
-  left: 30%;
-  width: 40%;
-  padding: 20px;
-  border-radius: 5px;
-  border: 2px solid black;
+.transactions-header-buttons {
+  margin-left: 20px;
+}
+.edit-transactions-small-text-wrapper {
+  margin-right: 30px;
+}
+.edit-transactions-small-text-wrapper > small {
+  padding-top: 20px;
 }
 
-.close {
-  color: Black;
-  float: right;
+.transactions-list-expanded {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.close:hover {
-  color: cyan;
+.detailed-transaction {
+  display: flex;
+  justify-content: space-between;
+  background-color: #54aa5f;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  transition-duration: 0.3s;
+}
+
+.detailed-transaction:hover {
+  background-color: #90ed8f;
+}
+
+.edit-entry-grey {
+  background-color: rgb(129 136 159);
+  transition-duration: 0.3s;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.edit-entry-grey:hover {
+  background-color: rgb(74, 120, 255);
+}
+
+.transaction-comp-exp-trans-name {
+  min-width: 420px;
+}
+
+.transaction-comp-exp-trans-category {
+  min-width: 125px;
+}
+
+.transaction-comp-exp-trans-amount {
+  text-align: right;
+  min-width: 100px;
+}
+.transaction-comp-exp-trans-date {
+  padding-right: 10px;
+}
+
+.transaction-comp-exp-button-container {
+  display: flex;
+}
+
+.edit-transaction-delete-button {
   cursor: pointer;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 500px;
+  background-color: #ff6363;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }

@@ -8,11 +8,17 @@ Modal.setAppElement('#app');
 
 const CategoryBudgetList = () => {
   const categoricalBudgets = useSelector((state) => state.auth.categoricalBudgets);
+  const monthlyBudget = useSelector((state) => state.auth.monthlyBudget);
 
-  const handleClick = (evt) => {
-    console.log('clicked');
-  };
-
+  const totalCategoricalBudget = categoricalBudgets
+    ? categoricalBudgets.reduce((total, catBudget) => {
+        if (catBudget.budgetCategories.length != 0) {
+          return total + catBudget.budgetCategories[0].budgetForCategory;
+        } else {
+          return total;
+        }
+      }, 0)
+    : 0;
   return (
     <div className='category-budget-list-wrapper'>
       <div className='cbl-header'>
@@ -24,11 +30,17 @@ const CategoryBudgetList = () => {
       <div className='category-list-container'>
         {categoricalBudgets != null ? (
           categoricalBudgets.map((category) => {
-            return <CategoryBudgetListEntry key={category.id} category={category} handleClick={handleClick} />;
+            return <CategoryBudgetListEntry key={category.id} category={category} />;
           })
         ) : (
           <div> Loading... </div>
         )}
+        <div className='cbl-monthly-budget-container'>
+          <div>Monthly Budget: ${monthlyBudget}</div>
+          <div>Categorical Budget Total: ${totalCategoricalBudget}</div>
+          <br />
+          <div>Unallocated Budget: ${monthlyBudget - totalCategoricalBudget}</div>
+        </div>
       </div>
     </div>
   );
@@ -47,6 +59,7 @@ const CategoryBudgetListEntry = (props) => {
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
       borderRadius: '16px',
+      boxShadow: 'rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px',
     },
   };
   function openModal() {
@@ -84,7 +97,7 @@ const CategoryBudgetListEntry = (props) => {
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel='Example Modal' style={modalStyles}>
         <div className='modal-close-button-container'>
           <button className='modal-close-button' onClick={closeModal}>
-            X
+            Close
           </button>
         </div>
         <h3 className='modal-category-name'>{props.category.categoryName}</h3>
@@ -114,7 +127,7 @@ const CategoryBudgetListEntry = (props) => {
                 }
               }}
             >
-              Save
+              Save Change
             </button>
           </div>
         </div>
