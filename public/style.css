@@ -14,3 +14,7 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+#app-container {
+  margin: 20px 62px 20px 62px;
+}

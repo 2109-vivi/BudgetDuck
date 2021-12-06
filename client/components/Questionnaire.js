@@ -5,6 +5,7 @@ import { getLinkToken, getAccessToken } from '../store/plaid.js';
 import { getTransactionsFromPlaid } from '../store/transactions';
 import ConnectPlaid from './ConnectPlaid.js';
 import { updateBudgetThunk, updateIncomeThunk } from '../store/auth.js';
+import history from '../history';
 import './Questionnaire.css';
 
 class Questionnaire extends React.Component {
@@ -35,6 +36,7 @@ class Questionnaire extends React.Component {
 
     this.props.updateBudget(budget);
     this.props.updateIncome(income);
+    history.push('/dashboard');
   }
 
   next() {
