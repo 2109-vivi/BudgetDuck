@@ -5,12 +5,15 @@ import CategoryLegend from './BarGraphCategoryLegend';
 import CustomToolTip from './BarGraphCategoryTooltip';
 import barColors from './assets/categoryColors'
 import {budgetMerger, categoryMerger, colorMerger} from './assets/mergerHelperFuncs';
+import { currentMonth } from './assets/constants';
+
 
 const BarGraphCategory = (props) => {
 
   let transactions = useSelector((state) => state.transactions || []);
   let categories = useSelector((state) => state.auth.categoricalBudgets || []);
 
+  transactions = transactions.filter(transaction => transaction.date.slice(5, 7) == currentMonth);
 
   const dataArray = transactions.map((transaction) => {
     return {
@@ -19,7 +22,7 @@ const BarGraphCategory = (props) => {
     };
   }) || [];
 
-  console.log(categories);
+
   let combinedDataArray = categoryMerger(dataArray) || [];
   colorMerger(combinedDataArray);
   budgetMerger(categories, combinedDataArray);
