@@ -3,9 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import BudgetChart from "../components/ChartComponents/BudgetChart";
 import { DashboardSingleTransaction } from "./DashboardSingleTransaction";
+import DashboardCalendar from "./DashboardCalendar";
 import { Link } from "react-router-dom";
 
-import './Dashboard.css'
+import "./Dashboard.css";
 //API CALLS TO /api/transactions
 
 /**
@@ -24,7 +25,9 @@ export const Dashboard = (props) => {
       <div className={"left-container"}>
         <h4 className={"list-header"}>
           All Transactions
-          <button>+</button>
+          <Link to={"/transactions"}>
+            <button>+</button>
+          </Link>
         </h4>
 
         {transactions.map((transaction) => {
@@ -34,13 +37,12 @@ export const Dashboard = (props) => {
             </div>
           );
         })}
-
       </div>
       <div className={"right-container"}>
-        <div className={"half-containers"}>Categorical Spending Component</div>
-        <Link to="/budget">
           <div className={"half-containers"}>{BudgetChart()}</div>
-        </Link>
+          <Link to="/graphs">
+          <div className={"half-containers"}>{DashboardCalendar()}</div>
+          </Link>
       </div>
     </div>
   );
