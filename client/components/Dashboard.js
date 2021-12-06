@@ -5,6 +5,7 @@ import BudgetChart from "../components/ChartComponents/BudgetChart";
 import { DashboardSingleTransaction } from "./DashboardSingleTransaction";
 import DashboardCalendar from "./DashboardCalendar";
 import { Link } from "react-router-dom";
+import {currentMonth} from "../components/ChartComponents/assets/constants"
 
 import "./Dashboard.css";
 //API CALLS TO /api/transactions
@@ -29,8 +30,9 @@ export const Dashboard = (props) => {
             <button className={"dash-edit-button"}>+</button>
           </Link>
         </h4>
-
-        {transactions.map((transaction) => {
+        {transactions.filter((item) => {
+          return currentMonth == item.date.slice(5,7)
+        }).map((transaction) => {
           return (
             <div key={transaction.id}>
               <DashboardSingleTransaction transaction={transaction} />
