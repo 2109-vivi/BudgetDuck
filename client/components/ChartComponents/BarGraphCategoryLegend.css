@@ -1,0 +1,23 @@
+.category-bargraph-legend-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.category-bargraph-legend-icon {
+  display: inline-block;
+  width: 15px;
+  height: 10px;
+  border: 1px solid #000;
+}
+
+.bargraph-legend-items{
+  margin-left: 5px;
+  color: black;
+}
+
+.category-bargraph-budget-icon {
+  margin-left: 5px;
+  color: #3D3D3D;
+}

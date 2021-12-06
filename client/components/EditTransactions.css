@@ -52,6 +52,7 @@
 }
 .edit-entry-grey:hover {
   background-color: rgb(74, 120, 255);
+  cursor: pointer;
 }
 
 .transaction-comp-exp-trans-name {

@@ -1,5 +1,9 @@
 import barColors from './categoryColors'
 
+export function stringToNum (string) {
+  return (Math.round(+string * 100) / 100).toFixed(2)
+}
+
 export function categoryMerger(data) {
   let combinedDataArray = [];
   data.forEach((item) => {
