@@ -176,7 +176,6 @@ export const updateCategoricalBudget = (categoryId, newBudget) => {
         { headers: { token } }
       );
       const newCategoricalBudget = response.data;
-      console.log(newCategoricalBudget);
       dispatch(_updateCatgoricalBudget(newCategoricalBudget));
     } catch (e) {
       return "Your categorical budgets shouldn't exceed your monthly budget";

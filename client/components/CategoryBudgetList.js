@@ -8,7 +8,17 @@ Modal.setAppElement('#app');
 
 const CategoryBudgetList = () => {
   const categoricalBudgets = useSelector((state) => state.auth.categoricalBudgets);
+  const monthlyBudget = useSelector((state) => state.auth.monthlyBudget);
 
+  const totalCategoricalBudget = categoricalBudgets
+    ? categoricalBudgets.reduce((total, catBudget) => {
+        if (catBudget.budgetCategories.length != 0) {
+          return total + catBudget.budgetCategories[0].budgetForCategory;
+        } else {
+          return total;
+        }
+      }, 0)
+    : 0;
   return (
     <div className='category-budget-list-wrapper'>
       <div className='cbl-header'>
@@ -25,6 +35,12 @@ const CategoryBudgetList = () => {
         ) : (
           <div> Loading... </div>
         )}
+        <div className='cbl-monthly-budget-container'>
+          <div>Monthly Budget: ${monthlyBudget}</div>
+          <div>Categorical Budget Total: ${totalCategoricalBudget}</div>
+          <br />
+          <div>Unallocated Budget: ${monthlyBudget - totalCategoricalBudget}</div>
+        </div>
       </div>
     </div>
   );
