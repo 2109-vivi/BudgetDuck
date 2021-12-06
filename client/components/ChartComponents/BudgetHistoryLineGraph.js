@@ -1,26 +1,13 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, } from 'recharts'
+import monthChart from './assets/month'
 
 
 const BudgetHistoryLineGraph = () => {
   const budgetHistory = useSelector((state) => state.auth.historicalBudgets || [])
   const transactions = useSelector((state) => state.transactions || [])
 
-  const monthChart = {
-    1: "January",
-    2: "February",
-    3: "March",
-    4:"April",
-    5:"May",
-    6:"June",
-    7:"July",
-    8:"August",
-    9:"September",
-    10:"October",
-    11:"November",
-    12: "December",
-  }
 //Sorts so months are formatted Jan -> Dec
   const budgetData = budgetHistory.sort((a,b) =>  {
     return a.month - b.month

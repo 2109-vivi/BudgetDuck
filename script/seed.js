@@ -22,7 +22,7 @@ async function seed() {
       password: '123',
       firstName: 'cody',
       lastName: 'lastname',
-      monthlyBudget: 4000,
+      monthlyBudget: 8000,
       income: 90000,
     }),
   ]);
@@ -74,7 +74,7 @@ async function seed() {
   const currentDate = new Date();
   // await Budget.create({
   //   userId: 1,
-  //   budget: 4000,
+  //   budget: 10000,
   //   month: currentDate.getMonth() + 1,
   // });
 
