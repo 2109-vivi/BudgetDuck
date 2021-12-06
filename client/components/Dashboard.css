@@ -63,6 +63,10 @@
   color:#3dd7b2;
   transition: 0.5s;
 }
+.expanded-transaction-container{
+  flex-direction: column;
+
+}
 
 .right-container {
   flex: 0 1 50%;
@@ -89,10 +93,12 @@
 }
 
 ::-webkit-scrollbar {
+  border-radius: 25px;
   width: 10px;
 }
 
 ::-webkit-scrollbar-track {
+  border-radius: 25px;
   background: #f1f1f1;
 }
 

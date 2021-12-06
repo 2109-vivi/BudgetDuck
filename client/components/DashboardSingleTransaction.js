@@ -5,7 +5,7 @@ export const DashboardSingleTransaction = (props) => {
   let [isExpanded, setExpand] = useState(false);
 
   return (
-    <div onClick={() => setExpand(!isExpanded)}>
+    <div className={"expanded-transaction-container"} onClick={() => setExpand(!isExpanded)}>
       {isExpanded ? (
         <div key={props.transaction.id} className="expand-listed-transaction">
           <h5>{props.transaction.name}</h5>
