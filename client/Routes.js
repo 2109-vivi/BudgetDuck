@@ -27,7 +27,7 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
 
     return (
-      <div>
+      <div id='app-container'>
         {isLoggedIn ? (
           <>
             <Switch>
@@ -41,15 +41,8 @@ class Routes extends Component {
             </Switch>
             <Switch>
               <Route exact path='/transactions' component={AllTransactions} />
-              <Route
-                exact
-                path='/transactions/edit'
-                component={EditTransactions}
-              />
-              <Route
-                path='/transactions/edit/:id'
-                component={EditSingleTransaction}
-              />
+              <Route exact path='/transactions/edit' component={EditTransactions} />
+              <Route path='/transactions/edit/:id' component={EditSingleTransaction} />
               <Route path='/transactions/add' component={AddTransactions} />
             </Switch>
           </>

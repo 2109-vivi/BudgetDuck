@@ -9,10 +9,6 @@ Modal.setAppElement('#app');
 const CategoryBudgetList = () => {
   const categoricalBudgets = useSelector((state) => state.auth.categoricalBudgets);
 
-  const handleClick = (evt) => {
-    console.log('clicked');
-  };
-
   return (
     <div className='category-budget-list-wrapper'>
       <div className='cbl-header'>
@@ -24,7 +20,7 @@ const CategoryBudgetList = () => {
       <div className='category-list-container'>
         {categoricalBudgets != null ? (
           categoricalBudgets.map((category) => {
-            return <CategoryBudgetListEntry key={category.id} category={category} handleClick={handleClick} />;
+            return <CategoryBudgetListEntry key={category.id} category={category} />;
           })
         ) : (
           <div> Loading... </div>

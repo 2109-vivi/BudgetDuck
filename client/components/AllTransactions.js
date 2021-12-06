@@ -8,25 +8,29 @@ const AllTransactions = (props) => {
   return transactions.length === 0 ? (
     <h1>loading</h1>
   ) : (
-    <div>
+    <div className='transactions-component-expanded'>
       <h1>Transactions</h1>
-      <header>
-        <Link to="/transactions/add">Add Transaction</Link>
-        <Link style={{padding: '10px'}} to="/transactions/edit">Edit Transactions</Link>
-      </header>
-      <main>
-      {transactions.map((transaction) => (
-        <div
-          className='detailed-transaction'
-          key={transaction.id}
-          style={{ padding: '10px' }}
-        >
-          <div>{transaction.name}</div>
-          <div>{transaction.category?.categoryName}</div>
-          <div>${(Math.round(transaction.amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)}</div>
+      <header className='transactions-header'>
+        <div className='transactions-header-buttons'>
+          <Link style={{ padding: '10px' }} to='/transactions/add'>
+            Add Transaction
+          </Link>
+          <Link style={{ padding: '10px' }} to='/transactions/edit'>
+            Edit Transactions
+          </Link>
         </div>
-      ))}
-    </main>
+      </header>
+      <main className='transactions-list-expanded'>
+        {transactions.map((transaction) => (
+          <div className='detailed-transaction' key={transaction.id} style={{ padding: '10px' }}>
+            <div className='edit-transaction-trans-name'>{transaction.name}</div>
+            <div className='edit-transaction-trans-category'>{transaction.category?.categoryName}</div>
+            <div className='edit-transaction-trans-amount'>
+              ${(Math.round(transaction.amount * Math.pow(10, 2)) / Math.pow(10, 2)).toFixed(2)}
+            </div>
+          </div>
+        ))}
+      </main>
     </div>
   );
 };
