@@ -18,6 +18,8 @@ export const Dashboard = (props) => {
 
   const transactions = useSelector((state) => state.transactions);
 
+  const currentMonth = new Date().getMonth()+1
+
   console.log(transactions);
 
   return (
@@ -29,8 +31,9 @@ export const Dashboard = (props) => {
             <button className={"dash-edit-button"}>+</button>
           </Link>
         </h4>
-
-        {transactions.map((transaction) => {
+        {transactions.filter((item) => {
+          return currentMonth == item.date.slice(5,7)
+        }).map((transaction) => {
           return (
             <div key={transaction.id}>
               <DashboardSingleTransaction transaction={transaction} />
