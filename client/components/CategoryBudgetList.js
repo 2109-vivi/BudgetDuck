@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateCategoricalBudget } from '../store/auth';
 import './CategoryBudgetList.css';
 import Modal from 'react-modal';
 
 Modal.setAppElement('#app');
 
 const CategoryBudgetList = () => {
-  const categoricalBudgets = useSelector(
-    (state) => state.auth.categoricalBudgets
-  );
+  const categoricalBudgets = useSelector((state) => state.auth.categoricalBudgets);
 
   const handleClick = (evt) => {
     console.log('clicked');
@@ -25,13 +24,7 @@ const CategoryBudgetList = () => {
       <div className='category-list-container'>
         {categoricalBudgets != null ? (
           categoricalBudgets.map((category) => {
-            return (
-              <CategoryBudgetListEntry
-                key={category.id}
-                category={category}
-                handleClick={handleClick}
-              />
-            );
+            return <CategoryBudgetListEntry key={category.id} category={category} handleClick={handleClick} />;
           })
         ) : (
           <div> Loading... </div>
@@ -42,6 +35,8 @@ const CategoryBudgetList = () => {
 };
 
 const CategoryBudgetListEntry = (props) => {
+  const dispatch = useDispatch();
+  const [newBudget, setNewBudget] = useState('');
   const [modalIsOpen, setIsOpen] = useState(false);
   const modalStyles = {
     content: {
@@ -51,19 +46,30 @@ const CategoryBudgetListEntry = (props) => {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
+      borderRadius: '16px',
     },
   };
   function openModal() {
     setIsOpen(true);
   }
 
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-  }
-
   function closeModal(e) {
     e.stopPropagation();
     setIsOpen(false);
+  }
+
+  async function handleClick(newBudget) {
+    const responseHelperText = await dispatch(updateCategoricalBudget(props.category.id, newBudget));
+    if (typeof responseHelperText == 'string') {
+      const helperText = document.getElementsByClassName('cbl-modal-helper-text')[0];
+      helperText.classList.remove('hidden');
+      return false;
+    } else {
+      return true;
+    }
+  }
+  function handleChange(evt) {
+    setNewBudget(evt.target.value);
   }
 
   return (
@@ -75,26 +81,42 @@ const CategoryBudgetListEntry = (props) => {
           ? `$${props.category.budgetCategories[0].budgetForCategory}`
           : '$0'}
       </div>
-      <Modal
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        contentLabel='Example Modal'
-        style={modalStyles}
-      >
-        <button onClick={closeModal}>X</button>
-        <div className='modal-category-name'>{props.category.categoryName}</div>
-        <div className='edit-category-budget-field'>
-          <input
-            name='newBudget'
-            type='text'
-            placeholder={
-              props.category.budgetCategories.length != 0
-                ? `$${props.category.budgetCategories[0].budgetForCategory}`
-                : '$0'
-            }
-          ></input>
-          <button>Change budget!</button>
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel='Example Modal' style={modalStyles}>
+        <div className='modal-close-button-container'>
+          <button className='modal-close-button' onClick={closeModal}>
+            X
+          </button>
+        </div>
+        <h3 className='modal-category-name'>{props.category.categoryName}</h3>
+        <small className='modal-small-text'>Change the budget for this category</small>
+        <div className='modal-input-container'>
+          <small className='cbl-modal-helper-text hidden'>
+            Your categorical budgets shouldn't exceed your monthly budget
+          </small>
+          <div className='modal-input-button-container'>
+            <input
+              name='newBudget'
+              type='text'
+              value={newBudget}
+              onChange={handleChange}
+              placeholder={
+                props.category.budgetCategories.length != 0
+                  ? `$${props.category.budgetCategories[0].budgetForCategory}`
+                  : '$0'
+              }
+            ></input>
+
+            <button
+              className='modal-save-button'
+              onClick={async (e) => {
+                if ((await handleClick(newBudget)) == true) {
+                  closeModal(e);
+                }
+              }}
+            >
+              Save
+            </button>
+          </div>
         </div>
       </Modal>
     </div>

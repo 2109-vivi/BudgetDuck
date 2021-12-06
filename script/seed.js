@@ -25,14 +25,6 @@ async function seed() {
       monthlyBudget: 4000,
       income: 90000,
     }),
-    User.create({
-      email: 'murphy@gmail.com',
-      password: '123',
-      firstName: 'murphy',
-      lastName: 'lastname',
-      monthlyBudget: 10000,
-      income: 270000,
-    }),
   ]);
 
   const categoriesArray = [
@@ -58,9 +50,7 @@ async function seed() {
     categories.push(toAdd);
   }
 
-  const transactions = await Promise.all([
-    Transaction.bulkCreate(userTransactionsArray),
-  ]);
+  const transactions = await Promise.all([Transaction.bulkCreate(userTransactionsArray)]);
 
   await users[0].setTransactions(transactions[0]);
 
@@ -80,21 +70,6 @@ async function seed() {
       categoryId: 3,
       budgetForCategory: 1000,
     }),
-    BudgetCategory.create({
-      userId: 1,
-      categoryId: 4,
-      budgetForCategory: 1000,
-    }),
-    BudgetCategory.create({
-      userId: 1,
-      categoryId: 5,
-      budgetForCategory: 1000,
-    }),
-    BudgetCategory.create({
-      userId: 1,
-      categoryId: 6,
-      budgetForCategory: 1000,
-    }),
   ]);
   const currentDate = new Date();
   // await Budget.create({
@@ -104,7 +79,7 @@ async function seed() {
   // });
 
   await Budget.create({
-    userId: 2,
+    userId: 1,
     budget: 10000,
     month: currentDate.getMonth() + 1,
   });
@@ -118,59 +93,58 @@ async function seed() {
   await Budget.create({
     userId: 1,
     budget: 5000,
-    month: 10
+    month: 10,
   });
 
   await Budget.create({
     userId: 1,
     budget: 5000,
-    month: 9
+    month: 9,
   });
   await Budget.create({
     userId: 1,
     budget: 5000,
-    month: 8
+    month: 8,
   });
   await Budget.create({
     userId: 1,
     budget: 5000,
-    month: 7
+    month: 7,
   });
   await Budget.create({
     userId: 1,
     budget: 5000,
-    month: 6
+    month: 6,
   });
   await Budget.create({
     userId: 1,
     budget: 5000,
-    month: 5
+    month: 5,
   });
   await Budget.create({
     userId: 1,
     budget: 5000,
     month: 4,
-    year: 2021
+    year: 2021,
   });
   await Budget.create({
     userId: 1,
     budget: 5000,
     month: 3,
-    year: 2021
+    year: 2021,
   });
   await Budget.create({
     userId: 1,
     budget: 5000,
     month: 2,
-    year: 2021
+    year: 2021,
   });
   await Budget.create({
     userId: 1,
     budget: 5000,
     month: 1,
-    year: 2021
+    year: 2021,
   });
-
 
   for (let i = 0; i < transactions[0].length; i++) {
     //random number from 1 to 13
