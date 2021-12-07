@@ -42,7 +42,6 @@ const PieChartComponent = (props) => {
     return `$${value.value}`;
   };
 
-  console.log(output);
   return (
     <div>
       <PieChart width={900} height={900}>

@@ -12,7 +12,6 @@ const GraphContainer = () => {
 
   const handleClick = (e) => {
     setGraphType(e.target.id);
-    console.log(graphType);
   };
 
   return (

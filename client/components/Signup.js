@@ -14,7 +14,6 @@ const Signup = (props) => {
   }, []);
 
   const handleSubmit = (evt) => {
-    console.log('hitting submit');
     evt.preventDefault();
     const email = evt.target.email.value;
     const password = evt.target.password.value;

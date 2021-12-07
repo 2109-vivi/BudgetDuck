@@ -31,7 +31,7 @@ router.post('/create_link_token', async (req, res) => {
       user: {
         client_user_id: '123-test-user-id',
       },
-      client_name: 'Plaid Test App',
+      client_name: 'Budget Duck',
       products: [Products.Auth, Products.Transactions],
       country_codes: ['US'],
       language: 'en',

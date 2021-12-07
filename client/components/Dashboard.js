@@ -19,8 +19,6 @@ export const Dashboard = (props) => {
 
   const transactions = useSelector((state) => state.transactions);
 
-  console.log(transactions);
-
   return (
     <div className={"dash-container"}>
       <div className={"left-container"}>

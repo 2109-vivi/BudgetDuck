@@ -5,6 +5,7 @@ import { deleteTransactionThunk, editTransactionThunk } from '../store/transacti
 import Modal from 'react-modal';
 import './EditTransactions.css';
 import history from '../history';
+import { toast, ToastContainer } from 'react-toastify';
 
 const EditTransactions = (props) => {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ const EditTransactionsEntry = (props) => {
     date: transaction.date,
     categoryId: transaction.categoryId,
   });
+  const [errors, setErrors] = useState({});
   const modalStyles = {
     content: {
       top: '50%',
@@ -79,10 +81,45 @@ const EditTransactionsEntry = (props) => {
     setIsOpen(false);
   };
 
-  const handleSubmit = (e) => {
+  async function handleValidation() {
+    const { name, amount, date } = values;
+    let errorMessages = {};
+    let formValidation = true;
+
+    //name check
+    if (!name || name.length === 0) {
+      formValidation = false;
+      errorMessages.name = 'Name is required';
+    }
+    //amount check
+    if (!amount || amount.length === 0) {
+      formValidation = false;
+      errorMessages.amount = 'Amount is required';
+    } else if (isNaN(amount)) {
+      formValidation = false;
+      errorMessages.amount = 'Amount must be a number';
+    } else if (amount < 0) {
+      formValidation = false;
+      errorMessages.amount = 'Amount must be positive';
+    }
+
+    //date check
+    if (!date || date.length === 0) {
+      formValidation = false;
+      errorMessages.date = 'Date is required';
+    }
+    return formValidation;
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    let valid = await handleValidation();
+    if(!valid){
+      toast.error('Please fill out all fields correctly');
+    } else {
     dispatch(editTransactionThunk(values, transaction.id));
     history.push('/transactions');
+    }
   };
 
   return (
@@ -164,6 +201,7 @@ const EditTransactionsEntry = (props) => {
           </p>
         </form>
       </Modal>
+      <ToastContainer />
     </div>
   );
 };
