@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -22,12 +22,13 @@ const DashboardCalendar = (props) => {
   const transactions = useSelector((state) => state.transactions);
   const today = new Date();
   const currentMonth = today.getMonth() + 1;
+  const [month, setMonth] = useState(currentMonth);
   const dailyBudget = (monthlyBudget / daysInEachMonth[currentMonth]).toFixed(2);
   const transObj = {};
 
   const monthsTransactions = transactions
     .filter((transaction) => {
-      return currentMonth == transaction.date.slice(5, 7) && transaction.amount >= 0;
+      return month == transaction.date.slice(5, 7) && transaction.amount >= 0;
     })
     .map((transaction) => {
       if (transObj[+transaction.date.slice(8, 10)]) {
@@ -36,14 +37,13 @@ const DashboardCalendar = (props) => {
         transObj[+transaction.date.slice(8, 10)] = [transaction];
       }
     });
-  console.log(transObj);
   const budgetCheck = (date) => {
-    if (date.getMonth() + 1 != currentMonth) {
+    if (date.getMonth() + 1 != month) {
       return 'grey';
     }
     if (transObj[+date.toString().slice(8, 10)]) {
       let budgetCheck = transObj[+date.toString().slice(8, 10)].reduce((accum, trans) => {
-        return accum + trans.amount;
+        return accum + +trans.amount;
       }, 0);
       if (budgetCheck < dailyBudget) {
         return 'green';
@@ -53,14 +53,18 @@ const DashboardCalendar = (props) => {
     }
   };
 
+  const onChange = (activeStartDate) => {
+    setMonth(activeStartDate.getMonth() + 1);
+  };
   return (
     <div className='dashboard-calendar-container'>
       <Calendar
         calendarType='US'
-        tileClassName={({ activeStartDate, date, view }) => {
+        tileClassName={({ date }) => {
           return budgetCheck(date);
         }}
-        // style={}
+        onActiveStartDateChange={({ activeStartDate }) => onChange(activeStartDate)}
+        className='react-dashboard-calendar'
       />
     </div>
   );
