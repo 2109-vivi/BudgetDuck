@@ -9,7 +9,7 @@ To use this app you will have to take the following steps:
   parameter in `package.json`):
 
 ```
-createdb <YOUR APP NAME HERE FROM package.json>
+createdb <APP NAME HERE FROM package.json>
 ```
 
 ## Start

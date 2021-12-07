@@ -15,10 +15,42 @@ const AddTransactions = (props) => {
     categoryId: 1,
   });
 
+  const [errors, setErrors] = useState({});
+
+  const handleValidation = () => {
+    const { name, amount, date } = values;
+    let errors = {};
+    let formValidation = true;
+
+    //name check
+    if(!name || name.length === 0){
+      formValidation = false;
+      errors.name = 'Name is required';
+      setErrors(errors);
+    }
+    //amount check
+    if(!amount || amount.length === 0){
+      formValidation = false;
+      errors.amount = 'Amount is required';
+    }
+    setErrors(errors);
+
+    //date check
+    if(!date || date.length === 0){
+      formValidation = false;
+      errors.date = 'Date is required';
+      setErrors(errors);
+    }
+    return formValidation;
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createTransactionThunk(values));
-    history.push('/transactions');
+    if(handleValidation()){
+      dispatch(createTransactionThunk(values));
+      history.push('/transactions');
+    }
+    console.log(errors);
   }
 
   return (
