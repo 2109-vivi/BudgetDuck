@@ -5,33 +5,55 @@ const {
 } = require('../db');
 
 // get all categories and budgets by user
-router.get('/', async (req, res, next) => {
+router.get('/', requireToken,  async (req, res, next) => {
   try {
-    res.send(
-      await Category.findAll({
-        include: [
-          {
-            model: BudgetCategory,
-            attributes: ['budgetForCategory'],
-          },
-        ],
+    const { user } = req.body;
+      const allCategories = await Category.findAll({
         attributes: ['id', 'categoryName'],
+        raw : true
       })
-    );
+      const userBudget = await BudgetCategory.findAll({
+        where: {
+          userId : user.id
+        },
+        raw:true
+      })
+    //If the user has no budgets at all, fill each category with with an object with the key of budgetCategories and a value of an empty array
+    if(userBudget.length ===0){
+      allCategories.map((category) => {
+        category.budgetCategories = []
+      })
+    }
+    else{
+      //If the user has more than 0 budgets, loop through  all categories and if their id matches with categoryId in userBudget create an object with a key of budgetCategories with [{"budgetForCategory": budgetCategory}] as the value (line 32)
+      allCategories.map((category) => {
+        userBudget.map((budget) => {
+        if( category.id === budget.categoryId) {
+            category.budgetCategories = [{"budgetForCategory": budget.budgetForCategory}]
+        }
+        else if (!category.budgetCategories){
+          category.budgetCategories = []
+        }
+      })
+    })
+    }
+
+    res.send(allCategories)
   } catch (e) {
     next(e);
   }
 });
 
-// get all transactions associated with a User by categoryId
+// get all category budgets associated with a User by their user.id
 router.get('/:id', requireToken, async (req, res, next) => {
   try {
     const { user } = req.body;
-
-    const transactionsPerCategory = await Transaction.findAll({
-      where: { userId: user.id, categoryId: req.params.id },
+    const categoryBudgets = await BudgetCategory.findAll({
+      where: {
+       userId: user.id
+      },
     });
-    res.send(transactionsPerCategory);
+    res.send(categoryBudgets);
   } catch (e) {
     next(e);
   }

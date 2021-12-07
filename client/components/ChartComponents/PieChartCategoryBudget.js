@@ -11,7 +11,7 @@ const monthlyBudget = useSelector((state) => state.auth.monthlyBudget)
 
 //Filter the state to get all the budgets that contain an amount and its value is greater than 0
 const budgetData= budgetCategories.filter((item)=> {
-  if(item.budgetCategories.length > 0 && item.budgetCategories[0] !== 0){
+  if(item.budgetCategories.length > 0 && item.budgetCategories[0].budgetForCategory !== 0){
     return item
   }
 }).map((element) => {
@@ -49,7 +49,7 @@ colorsArray.push('#808080')
           ))}
     </Pie>
     <Tooltip formatter={(value) => `$${value}`}/>
-    <Legend />
+    <Legend verticalAlign="bottom" wrapperStyle={{ position: 'relative' }}/>
     </PieChart>
   </ResponsiveContainer>
   </div>
