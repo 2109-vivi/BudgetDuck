@@ -44,7 +44,7 @@ const BudgetHistoryLineGraph = () => {
       <LineChart data={budgetData}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" domain= {[5, "dataMax"]}/>
-        <YAxis domain ={[0, dataMax => Math.floor(dataMax + 1000)]}/>
+        <YAxis domain ={[0, dataMax => Math.round((dataMax + 1000)/1000)* 1000]}/>
         <Tooltip formatter={(value) => `$${value}`} />
         <Legend verticalAlign="bottom" wrapperStyle={{ position: 'relative' }}/>
         <Line type="linear" dataKey="Budget" stroke="#118C4F" activeDot={{ r: 8 }} />

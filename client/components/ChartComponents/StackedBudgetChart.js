@@ -26,7 +26,7 @@ const StackedBudgetChart = () => {
     return acc + total
   },0)
 
-  //Adds an unallocated key to our datobject with totalBudgetCategoryAmount
+  //Adds an unallocated key to our datobject with the difference between monthly Budget and totalBudgetCategoryAmount
   dataObj[0]["Unallocated"] = monthlyBudget - totalBudgetCategoryAmount
   //Adds a name key with the current month
   dataObj[0]["name"]= `Budget for ${monthChart[currentMonth]}`
@@ -36,7 +36,7 @@ const StackedBudgetChart = () => {
   const colorsArray = barColors.slice(0,Object.keys(dataObj[0]).length-2)
   colorsArray.push('#808080')
 
-  //This is to set colors for each budget category so they stack accordingly. I set an empty array and add each Bar component to it (this is so recharts can read it). From there, we have our colors array already imported as barColors. I set up an counter to track the index, and then incremented each iteration so we get a different color each time. Please no more colors my brain hurts
+  //This is to set colors for each budget category so they stack accordingly. I set an empty array and add each Bar component to it (this is so recharts can read it). From there, we have our colors array already imported as barColors. I set up an counter to track the index, and then incremented each iteration so we get a different color each time.Please no more colors my brain hurts
 
   let index =0
   let bars = []
@@ -51,7 +51,6 @@ const StackedBudgetChart = () => {
   return (
     <div>
       {console.log(budgetCategories)}
-      {/* {console.log(colorsArray)} */}
       <h1 style={{textAlign : 'center'}}>
     Stacked Budget Chart
       </h1>
@@ -61,7 +60,7 @@ const StackedBudgetChart = () => {
           <XAxis dataKey="name" />
           <YAxis domain={[0, dataMax => Math.round((dataMax + 1000)/1000)* 1000 ]}/>
           <Tooltip formatter={(value) => `$${value}`}/>
-          <Legend />
+          <Legend verticalAlign="bottom" wrapperStyle={{ position: 'relative' }}/>
           {bars}
         </BarChart>
       </ResponsiveContainer>

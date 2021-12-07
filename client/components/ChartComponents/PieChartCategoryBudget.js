@@ -50,7 +50,7 @@ colorsArray.push('#808080')
           ))}
     </Pie>
     <Tooltip formatter={(value) => `$${value}`}/>
-    <Legend />
+    <Legend verticalAlign="bottom" wrapperStyle={{ position: 'relative' }}/>
     </PieChart>
   </ResponsiveContainer>
   </div>
