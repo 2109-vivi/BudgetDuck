@@ -1,33 +1,32 @@
 const getIntroOfPage = (label) => {
   switch(label) {
     case 'Transfer':
-      return 'Transfer is a type of transaction that is related to transfer';
+      return 'Transfer is based around moving money/funds from one account to another.';
     case 'Food and Drink':
-      return 'Food and Drink is a type of transaction that is related to food and drink.';
+      return 'Food and Drink refers purchases made in restaurants, cafes, etc, and in this case, groceries.';
     case 'Recreation':
-      return 'Recreation is a type of transaction that is related to recreation.';
+      return 'Recreation refers to transactions made for entertainment, such as movies, concerts, etc.';
     case 'Service':
-      return 'Service is a type of transaction that is related to services.';
+      return 'Service refers to transactions such as laundry, cleaning, lawnmowing, etc.';
     case 'Community':
-      return 'Community is a type of transaction that is related to community.';
+      return 'Community is related to transactions such as social services, government institutions, schools, animal shelters, etc.';
     case 'Shops':
-      return 'Shops is a type of transaction that is related to shops.';
+      return 'Shops are related to both e-commerce and retail transactions made in stores.';
     case 'Cash Advance':
-      return 'Cash Advance is a type of transaction that is related to cash advance.';
+      return 'A Cash Advance is a request for funds from a bank using credit, which has a high apr rate.';
     case 'Travel':
-      return 'Travel is a type of transaction that is related to travel.';
+      return 'Travel refers to anything related to traveling, whether international or domestic (e.g., uber, airplane tickets, etc).';
     case 'Healthcare':
-      return 'Healthcare is a type of transaction that is related to healthcare.';
+      return 'Healthcare refers to purchases made in pharmacies, or payments towards hospitals/clinics.';
     case 'Interest':
-      return 'Interest is a type of transaction that is related to interest.';
+      return 'Interest payments are made towards the monetary charge for borrowed money ';
     case 'Payment':
-      return 'Payment is a type of transaction that is related to payment.';
+      return 'Payments refer to payments of bank transactions or statements.';
     case 'Tax':
-      return 'Tax is a type of transaction that is related to tax.';
+      return 'Taxes are payments made towards government or state mandated taxes.';
     default:
       return 'Other is a type of transaction that is not related to any of the other categories.';
   }
-  return `${label} is a type of transaction that is related ${label}s.`;
 }
 
 export default getIntroOfPage;
