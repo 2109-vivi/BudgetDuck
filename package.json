@@ -34,6 +34,7 @@
     "react-calendar": "^3.5.0",
     "react-modal": "^3.14.4",
     "react-plaid-link": "^3.2.1",
+    "react-toastify": "^8.1.0",
     "recharts": "^2.1.6",
     "sequelize": "^6.3.5"
   },

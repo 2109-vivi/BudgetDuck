@@ -38,7 +38,6 @@ colorsArray.push('#808080')
 
   return(
   <div>
-    {/* {console.log(colorsArray)} */}
   <h1 style={{textAlign : 'center'}}>
     Category Budget Distribution
   </h1>
