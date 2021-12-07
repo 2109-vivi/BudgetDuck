@@ -156,7 +156,9 @@ export const getCategoricalBudgets = (isLoggedIn) => {
     try {
       if (isLoggedIn) {
         const token = localStorage.getItem('token');
-        const response = await axios.get('/api/categories');
+        const response = await axios.get('/api/categories', {headers: {
+          token
+        }});
         const categoricalBudgets = response.data;
         dispatch(setCategoricalBudgets(categoricalBudgets));
       }
