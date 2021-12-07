@@ -6,6 +6,7 @@ import history from '../history';
 
 const AddTransactions = (props) => {
   const dispatch = useDispatch();
+  const categories = useSelector((state) => state.auth.categoricalBudgets);
 
   const [values, setValues] = useState({
     name: '',
@@ -56,11 +57,11 @@ const AddTransactions = (props) => {
             <h4>Category: </h4>
           </label>
           <select className='select' name='priority' onChange={(e) => setValues({...values, categoryId: e.target.value})}>
-            {/* filler Array number values */}
-          { Array.from({length: 6}, (ele, index) => index + 1)
-          .map( number => { return (
-            <option key={number} value={number}>{number}</option> )})
-          }
+            {categories?.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.categoryName}
+              </option>
+            ))}
           </select>
         </div>
         <div>

@@ -9,6 +9,7 @@ import history from '../history';
 const EditTransactions = (props) => {
   const dispatch = useDispatch();
   const transactions = useSelector((state) => state.transactions);
+  const categories = useSelector((state) => state.auth.categoricalBudgets);
 
   const handleEdit = (id) => {
     history.push(`/transactions/edit/${id}`);
@@ -48,6 +49,7 @@ const EditTransactions = (props) => {
 const EditTransactionsEntry = (props) => {
   const dispatch = useDispatch();
   const { transaction, handleDelete } = props;
+  const categories = useSelector((state) => state.auth.categoricalBudgets);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [values, setValues] = useState({
     name: transaction.name,
@@ -137,14 +139,11 @@ const EditTransactionsEntry = (props) => {
               name='priority'
               onChange={(e) => setValues({ ...values, categoryId: +e.target.value })}
             >
-              {/* filler Array number values */}
-              {Array.from({ length: 6 }, (ele, index) => index + 1).map((number) => {
-                return (
-                  <option key={number} value={number}>
-                    {number}
-                  </option>
-                );
-              })}
+              {categories?.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.categoryName}
+                </option>
+              ))}
             </select>
           </div>
           <div>
