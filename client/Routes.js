@@ -14,6 +14,7 @@ import UserProfile from './components/UserProfile';
 import BudgetHistoryLineGraph from './components/ChartComponents/BudgetHistoryLineGraph';
 import GraphContainer from './components/ChartComponents/GraphContainer';
 import CategoryBudgetPieChart from './components/ChartComponents/PieChartCategoryBudget';
+import StackedBudgetChart from './components/ChartComponents/StackedBudgetChart';
 
 /**
  * COMPONENT
@@ -39,6 +40,7 @@ class Routes extends Component {
               <Route path='/userProfile' component={UserProfile} />
               <Route path='/linegraph' component={BudgetHistoryLineGraph} />
               <Route path='/categoryBudgetPieChart' component={CategoryBudgetPieChart}/>
+              <Route path= '/stackedBudgetChart' component={StackedBudgetChart} />
             </Switch>
             <Switch>
               <Route exact path='/transactions' component={AllTransactions} />
