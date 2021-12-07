@@ -94,7 +94,7 @@ router.post('/transactions', requireToken, async (req, res) => {
             categoryId = category.id;
           }
         });
-        const transToAdd = await Transaction.create({
+        const transToCreate = await Transaction.create({
           bankTransactionId: transactionFromPlaid.transaction_id,
           name: transactionFromPlaid.name,
           merchantName: transactionFromPlaid.merchant_name,
@@ -103,6 +103,22 @@ router.post('/transactions', requireToken, async (req, res) => {
           userId: user.id,
           categoryId: categoryId,
         });
+        const transToAdd = await Transaction.findOne({
+          where: {
+            userId: user.id,
+            id: transToCreate.id,
+          },
+          include: [
+            {
+              model: Category,
+              where: {
+                id: categoryId,
+              },
+              as: 'category',
+            },
+          ],
+        });
+
         responseArray.push(transToAdd);
       }
     }

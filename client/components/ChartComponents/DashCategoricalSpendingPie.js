@@ -12,7 +12,7 @@ const DashCategoricalSpendingPie = (props) => {
   const postData = [];
   transactions.filter((transaction) => {
     if (transaction.date.slice(0, 7) == monthYear.toISOString().slice(0, 7)) {
-      if (preData[transaction.category.categoryName]) {
+      if (preData[transaction] && preData[transaction.category.categoryName]) {
         preData[transaction.category.categoryName] += +transaction.amount;
         totalMonthlySpending += +transaction.amount;
       } else {
@@ -48,13 +48,14 @@ const DashCategoricalSpendingPie = (props) => {
 
   return (
     <div className='dash-categorical-spending-chart-container'>
+      <div style={{ textAlign: 'center', paddingTop: '1%' }}>Your Spending By Category</div>
       <div
         className='categorical-spending-pie-pick-month'
         style={{ display: 'flex', justifyContent: 'center', height: '5%' }}
       >
-        <button onClick={() => handleClick('prev')}>prev month</button>
+        <button onClick={() => handleClick('prev')}>Prev month</button>
         <div>{`${monthYear.toDateString().slice(4, 7)} ${monthYear.toDateString().slice(11, 15)} `}</div>
-        <button onClick={() => handleClick('next')}>next month</button>
+        <button onClick={() => handleClick('next')}>Next month</button>
       </div>
       <div style={{ height: '95%' }}>
         <ResponsiveContainer width='100%' height={400}>
@@ -78,16 +79,6 @@ const DashCategoricalSpendingPie = (props) => {
         </ResponsiveContainer>
       </div>
     </div>
-  );
-};
-
-const CustomLabel = ({ entry, totalMonthlySpending }) => {
-  return (
-    <g>
-      <foreignObject x={0} y={0} width={100} height={100}>
-        `${entry.category} - ${((entry.value / totalMonthlySpending) * 100).toFixed(0)}%`
-      </foreignObject>
-    </g>
   );
 };
 
