@@ -31,13 +31,17 @@ const BarGraphCategory = (props) => {
 
   const prevMonth = (e) => {
     e.preventDefault();
-    setMonth(month - 1 < 1 ? 12 : month - 1);
-    console.log(month);
+    setMonth(month - 1 < 1
+      ? 12
+      : month - 1
+      );
   }
   const nextMonth = (e) => {
     e.preventDefault();
-    setMonth(month + 1 > 12 ? 1 : month + 1);
-    console.log(month);
+    setMonth(month + 1 > 12
+      ? 1
+      : month + 1
+      );
   }
 
   return (
@@ -46,10 +50,10 @@ const BarGraphCategory = (props) => {
       <h1>{monthChart[month]}</h1>
       <ul style={{textAlign: 'right', listStyle: 'none', marginTop: '-35px'}}>
         <li style={{display: 'inline-block', paddingLeft: '10px'}}>
-          <a id='prev' onClick={prevMonth} href="#">Previous Month</a>
+          <a onClick={prevMonth} href="#">Previous Month</a>
         </li>
         <li style={{display: 'inline-block', paddingLeft: '10px', paddingRight: '10px'}}>
-          <a id='next' onClick={nextMonth} href="#">Next Month</a>
+          <a onClick={nextMonth} href="#">Next Month</a>
         </li>
       </ul>
     </div>
