@@ -4,6 +4,7 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 import CategoryLegend from './BarGraphCategoryLegend';
 import CustomToolTip from './BarGraphCategoryTooltip';
 import barColors from './assets/categoryColors'
+import monthChart from './assets/month'
 import {budgetMerger, categoryMerger, colorMerger} from './assets/mergerHelperFuncs';
 import { currentMonth } from './assets/constants';
 
@@ -11,9 +12,10 @@ import { currentMonth } from './assets/constants';
 const BarGraphCategory = (props) => {
 
   let transactions = useSelector((state) => state.transactions || []);
-  let categories = useSelector((state) => state.auth.categoricalBudgets || []);
+  const categories = useSelector((state) => state.auth.categoricalBudgets || []);
+  const [month, setMonth] = React.useState(currentMonth);
 
-  transactions = transactions.filter(transaction => transaction.date.slice(5, 7) == currentMonth);
+  transactions = transactions.filter(transaction => transaction.date.slice(5, 7) == month);
 
   const dataArray = transactions.map((transaction) => {
     return {
@@ -27,7 +29,30 @@ const BarGraphCategory = (props) => {
   colorMerger(combinedDataArray);
   budgetMerger(categories, combinedDataArray);
 
+  const prevMonth = (e) => {
+    e.preventDefault();
+    setMonth(month - 1 < 1 ? 12 : month - 1);
+    console.log(month);
+  }
+  const nextMonth = (e) => {
+    e.preventDefault();
+    setMonth(month + 1 > 12 ? 1 : month + 1);
+    console.log(month);
+  }
+
   return (
+    <>
+    <div>
+      <h1>{monthChart[month]}</h1>
+      <ul style={{textAlign: 'right', listStyle: 'none', marginTop: '-35px'}}>
+        <li style={{display: 'inline-block', paddingLeft: '10px'}}>
+          <a id='prev' onClick={prevMonth} href="#">Previous Month</a>
+        </li>
+        <li style={{display: 'inline-block', paddingLeft: '10px', paddingRight: '10px'}}>
+          <a id='next' onClick={nextMonth} href="#">Next Month</a>
+        </li>
+      </ul>
+    </div>
     <ResponsiveContainer width="100%" height="100%">
         <BarChart
           width={500}
@@ -55,6 +80,7 @@ const BarGraphCategory = (props) => {
           </Bar>
       </BarChart>
       </ResponsiveContainer>
+    </>
   );
 }
 
