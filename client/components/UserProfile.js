@@ -7,8 +7,8 @@ import './UserProfile.css';
 const UserProfile = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.auth);
-  const [budget, setBudget] = useState(userInfo.monthlyBudget);
-  const [income, setIncome] = useState(userInfo.income);
+  const [budget, setBudget] = useState(userInfo.monthlyBudget || 0);
+  const [income, setIncome] = useState(userInfo.income || 0);
 
   const handleBudgetInputChange = (event) => {
     setBudget(event.target.value);
