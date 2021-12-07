@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import BudgetChart from '../components/ChartComponents/BudgetChart';
 import { DashboardSingleTransaction } from './DashboardSingleTransaction';
 import DashboardCalendar from './DashboardCalendar';
+import DashCategoricalSpendingPie from './ChartComponents/DashCategoricalSpendingPie';
 import { Link } from 'react-router-dom';
 import { currentMonth } from '../components/ChartComponents/assets/constants';
 
@@ -27,7 +28,7 @@ export const Dashboard = (props) => {
     <div className={'dash-container'}>
       <div className={'left-container'}>
         <h2 className={'list-header'}>
-          All Transactions
+          This Month's Transactions
           <Link to={'/transactions'}>
             <button className={'dash-edit-button'}>+</button>
           </Link>
@@ -47,10 +48,13 @@ export const Dashboard = (props) => {
         </div>
       </div>
       <div className={'right-container'}>
-        <div className={'half-containers'}>PLACEHJOLDER FOR TOP RIGHT COMPOENENT</div>
-        {/* <div className={'half-containers'}>{BudgetChart()}</div> */}
-        {/* <div className={'half-containers'}>{DashboardCalendar()}</div> */}
-        <div className='half-containers'>{showCalendar ? <DashboardCalendar /> : <BudgetChart />}</div>
+        <div className={'half-containers dash-pie-chart-container'}>
+          <DashCategoricalSpendingPie />
+        </div>
+
+        <div className='half-containers budget-chart-calendar-container'>
+          {showCalendar ? <DashboardCalendar /> : <BudgetChart />}
+        </div>
         <button className='dashboard-toggle-button' onClick={handleClick}>
           Swap View
         </button>

@@ -87,22 +87,24 @@ router.post('/transactions', requireToken, async (req, res) => {
 
     let responseArray = [];
     for (const transactionFromPlaid of transactions) {
-      let categoryId;
-      categories.forEach((category) => {
-        if (transactionFromPlaid.category[0] == category.categoryName) {
-          categoryId = category.id;
-        }
-      });
-      const transToAdd = await Transaction.create({
-        bankTransactionId: transactionFromPlaid.transaction_id,
-        name: transactionFromPlaid.name,
-        merchantName: transactionFromPlaid.merchant_name,
-        amount: transactionFromPlaid.amount,
-        date: transactionFromPlaid.date,
-        userId: user.id,
-        categoryId: categoryId,
-      });
-      responseArray.push(transToAdd);
+      if (transactionFromPlaid.amount > 0) {
+        let categoryId;
+        categories.forEach((category) => {
+          if (transactionFromPlaid.category[0] == category.categoryName) {
+            categoryId = category.id;
+          }
+        });
+        const transToAdd = await Transaction.create({
+          bankTransactionId: transactionFromPlaid.transaction_id,
+          name: transactionFromPlaid.name,
+          merchantName: transactionFromPlaid.merchant_name,
+          amount: transactionFromPlaid.amount,
+          date: transactionFromPlaid.date,
+          userId: user.id,
+          categoryId: categoryId,
+        });
+        responseArray.push(transToAdd);
+      }
     }
     // returns only transactions that are not currently in our db
     res.send(responseArray);

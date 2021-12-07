@@ -6,7 +6,7 @@
   border: 1px solid #999;
   margin-top: 10px;
   border-radius: 50px;
-  height: 900px;
+  min-height: 900px;
   width: auto;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -82,7 +82,7 @@
 }
 .half-containers {
   width: 100%;
-  min-height: 50%;
+
   /* flex: 0 0 100%;
   flex-grow: 1;
   flex-shrink: 1;
@@ -111,13 +111,20 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+.dash-categorical-spending-chart-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
 .dashboard-calendar-container {
   height: 100%;
 }
 
 .dashboard-toggle-button {
   position: relative;
-  bottom: 52%;
+  bottom: 51%;
   left: 47%;
   cursor: pointer;
   border-radius: 50px;
