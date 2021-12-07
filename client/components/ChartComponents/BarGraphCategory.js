@@ -4,7 +4,7 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 import CategoryLegend from './BarGraphCategoryLegend';
 import CustomToolTip from './BarGraphCategoryTooltip';
 import barColors from './assets/categoryColors'
-import monthChart from './assets/month'
+import {monthChart} from './assets/constants'
 import {budgetMerger, categoryMerger, colorMerger} from './assets/mergerHelperFuncs';
 import { currentMonth } from './assets/constants';
 
