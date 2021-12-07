@@ -50,7 +50,7 @@ const StackedBudgetChart = () => {
 
   return (
     <div>
-      {console.log(budgetCategories)}
+      {/* {console.log(budgetCategories)} */}
       <h1 style={{textAlign : 'center'}}>
     Stacked Budget Chart
       </h1>
