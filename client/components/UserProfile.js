@@ -6,6 +6,7 @@ import { getTransactionsFromPlaid } from '../store/transactions';
 import CategoryBudgetList from './CategoryBudgetList';
 import './UserProfile.css';
 import ConnectPlaid from './ConnectPlaid';
+import StackedBudgetChart from './ChartComponents/StackedBudgetChart';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -41,12 +42,12 @@ const UserProfile = () => {
         <div className='personal-information-wrapper'>
           <h1 style={{ marginTop: '1%' }}>Hello {userInfo.firstName}!</h1>
           <h2>Personal Information</h2>
-          <h3>Email:{userInfo.email}</h3>
-          <h3>FirstName: {userInfo.firstName}</h3>
-          <h3>LastName: {userInfo.lastName}</h3>
+          <h3>Email: {userInfo.email}</h3>
+          <h3>First Name: {userInfo.firstName}</h3>
+          <h3>Last Name: {userInfo.lastName}</h3>
         </div>
         <div className='account-information-wrapper'>
-          <h2 style={{ marginTop: '2%' }}>Account Information</h2>
+          <h2 style={{ marginTop: '2%', marginBottom: '0px' }}>Account Information</h2>
           <h3>Current Budget: ${userInfo.monthlyBudget}</h3>
           <div>
             <input name='budget' type='text' value={budget} onChange={handleBudgetInputChange}></input>
@@ -71,7 +72,13 @@ const UserProfile = () => {
           />
         </div>
       </div>
-      <CategoryBudgetList />
+
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <CategoryBudgetList />
+        <div className='user-profile-stacked-budgetchart'>
+          <StackedBudgetChart />
+        </div>
+      </div>
     </div>
   );
 };

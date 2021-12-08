@@ -32,7 +32,10 @@ export const getAccessToken = (linkToken) => {
           linkToken,
         });
         const accessToken = response.data.access_token;
-        localStorage.setItem('access_token', accessToken);
+        const token = localStorage.getItem('token');
+        if (response) {
+          await axios.put('/api/users/plaid-access-token', { accessToken }, { headers: { token } });
+        }
         dispatch(setAccessToken(accessToken));
         return accessToken;
       }

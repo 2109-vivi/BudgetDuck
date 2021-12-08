@@ -10,14 +10,23 @@
   background-color: #9eebd9;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  width: 500px;
-  height: 600px;
+  width: 40%;
+  height: 100%;
   border: 2px black;
   border-radius: 40px;
-  gap: 180px;
+  gap: 20vh;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.questionnaire-step-3 {
+  gap: 0vh;
+  width: 55%;
+}
+
+.questionnaire-buttons-container-step-3 {
+  margin-top: 5%;
 }
 
 .questionnaire-step {
@@ -28,11 +37,14 @@
 }
 
 /* plaid link button */
-
+.plaid-link-button-questionnaire {
+  max-width: 30%;
+}
 /* questionaire buttons */
 .questionnaire-buttons-container {
   display: flex;
   gap: 30px;
+  margin-bottom: 5%;
 }
 .questionnaire-button {
   display: inline-block;

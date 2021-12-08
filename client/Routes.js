@@ -25,38 +25,75 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, hasAccessToken } = this.props;
 
-    return (
-      <div id='app-container'>
-        {isLoggedIn ? (
-          <>
-            <Switch>
-              <Route path='/' exact component={Dashboard} />
-              <Route path='/budget' component={Budget} />
-              <Route path='/graphs' component={GraphContainer} />
-              <Route path='/questionnaire' component={Questionnaire} />
-              <Route path='/dashboard' component={Dashboard} />
-              <Route path='/userProfile' component={UserProfile} />
-              <Route path='/linegraph' component={BudgetHistoryLineGraph} />
-              <Route path='/categoryBudgetPieChart' component={CategoryBudgetPieChart}/>
-              <Route path= '/stackedBudgetChart' component={StackedBudgetChart} />
-            </Switch>
-            <Switch>
-              <Route exact path='/transactions' component={AllTransactions} />
-              <Route exact path='/transactions/edit' component={EditTransactions} />
-              <Route path='/transactions/add' component={AddTransactions} />
-            </Switch>
-          </>
-        ) : (
+    // return (
+    //   <div id='app-container'>
+    //     {isLoggedIn ? (
+    //       <>
+    //         <Switch>
+    //           <Route path='/' exact component={Dashboard} />
+    //           <Route path='/budget' component={Budget} />
+    //           <Route path='/graphs' component={GraphContainer} />
+    //           <Route path='/questionnaire' component={Questionnaire} />
+    //           <Route path='/dashboard' component={Dashboard} />
+    //           <Route path='/userProfile' component={UserProfile} />
+    //           <Route path='/linegraph' component={BudgetHistoryLineGraph} />
+    //           <Route path='/categoryBudgetPieChart' component={CategoryBudgetPieChart} />
+    //           <Route path='/stackedBudgetChart' component={StackedBudgetChart} />
+    //         </Switch>
+    //         <Switch>
+    //           <Route exact path='/transactions' component={AllTransactions} />
+    //           <Route exact path='/transactions/edit' component={EditTransactions} />
+    //           <Route path='/transactions/add' component={AddTransactions} />
+    //         </Switch>
+    //       </>
+    //     ) : (
+    //       <Switch>
+    //         <Route path='/' exact component={Login} />
+    //         <Route path='/login' component={Login} />
+    //         <Route path='/signup' component={Signup} />
+    //       </Switch>
+    //     )}
+    //   </div>
+    // );
+
+    if (isLoggedIn && hasAccessToken) {
+      return (
+        <>
           <Switch>
-            <Route path='/' exact component={Login} />
-            <Route path='/login' component={Login} />
-            <Route path='/signup' component={Signup} />
+            <Route path='/' exact component={Dashboard} />
+            <Route path='/budget' component={Budget} />
+            <Route path='/graphs' component={GraphContainer} />
+            <Route path='/dashboard' component={Dashboard} />
+            <Route path='/userProfile' component={UserProfile} />
+            <Route path='/linegraph' component={BudgetHistoryLineGraph} />
+            <Route path='/categoryBudgetPieChart' component={CategoryBudgetPieChart} />
+            <Route path='/stackedBudgetChart' component={StackedBudgetChart} />
           </Switch>
-        )}
-      </div>
-    );
+          <Switch>
+            <Route exact path='/transactions' component={AllTransactions} />
+            <Route exact path='/transactions/edit' component={EditTransactions} />
+            <Route path='/transactions/add' component={AddTransactions} />
+          </Switch>
+        </>
+      );
+    } else if (isLoggedIn && !hasAccessToken) {
+      return (
+        <Switch>
+          <Route path='/questionnaire' exact component={Questionnaire} />
+          <Redirect to='/questionnaire' />
+        </Switch>
+      );
+    } else if (!isLoggedIn) {
+      return (
+        <Switch>
+          <Route path='/' exact component={Login} />
+          <Route path='/login' component={Login} />
+          <Route path='/signup' component={Signup} />
+        </Switch>
+      );
+    }
   }
 }
 
@@ -68,6 +105,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    hasAccessToken: !!state.auth.plaidAccessToken,
   };
 };
 

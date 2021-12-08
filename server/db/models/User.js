@@ -47,6 +47,9 @@ const User = db.define('user', {
   dateOfLastPull: {
     type: Sequelize.DATEONLY,
   },
+  plaidAccessToken: {
+    type: Sequelize.STRING,
+  },
 });
 
 module.exports = User;

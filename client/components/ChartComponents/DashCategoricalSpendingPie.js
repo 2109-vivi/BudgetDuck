@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { PieChart, Pie, Sector, Cell, Tooltip, ResponsiveContainer, Legend, Label } from 'recharts';
 import barColors from './assets/categoryColors';
+import { stringToNum } from './assets/mergerHelperFuncs';
 
 const DashCategoricalSpendingPie = (props) => {
   const [monthYear, setMonthYear] = useState(new Date());
@@ -32,18 +33,36 @@ const DashCategoricalSpendingPie = (props) => {
       : setMonthYear(new Date(monthYear.setMonth(monthYear.getMonth() + 1)));
   };
 
-  // console.log(totalMonthlySpending);
-
-  // const renderLabel = (entry) => {
-  //   return `${entry.category} - ${((entry.value / totalMonthlySpending) * 100).toFixed(0)}%`;
-  // };
-
   const renderLabel = ({ x, y, cx, value, category }) => {
     return (
       <text x={x} y={y} fontSize='16' textAnchor={x > cx ? 'start' : 'end'} fill='#888'>
-        {`${category} - ${((value / totalMonthlySpending) * 100).toFixed(0)}%`}
+        {`${category} - $${value}`}
       </text>
     );
+  };
+  const CustomTooltip = ({ active, payload, label }) => {
+    console.log('payload', payload); //you check payload
+    if (active && payload && payload.length) {
+      const category = payload[0]?.name;
+      const total = stringToNum(payload[0]?.value);
+
+      return (
+        <div
+          className='custom-tooltip'
+          style={{
+            border: '1px solid #f5f5f5',
+            lineHeight: '24px',
+            backgroundColor: '#FFFFFF',
+            padding: '10px',
+            opacity: '0.8',
+          }}
+        >
+          <p>{category}</p>
+          <p>{((total / totalMonthlySpending) * 100).toFixed(1)}% </p>
+        </div>
+      );
+    }
+    return null;
   };
 
   return (
@@ -60,13 +79,14 @@ const DashCategoricalSpendingPie = (props) => {
       <div style={{ height: '95%' }}>
         <ResponsiveContainer width='100%' height={400}>
           <PieChart>
+            <Tooltip content={<CustomTooltip />} />
             <Pie
               data={postData}
               nameKey='category'
               dataKey='value'
               cx='50%'
               cy='50%'
-              outerRadius={150}
+              outerRadius={100}
               fill='#000000'
               isAnimationActive={true}
               label={renderLabel}
