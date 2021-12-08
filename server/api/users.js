@@ -24,19 +24,18 @@ router.get('/', async (req, res, next) => {
 // get historical budgets per User
 router.get('/budget', requireToken, async (req, res, next) => {
   try {
-    const currentYear = new Date().getFullYear()
-    const { user } = req.body
+    const currentYear = new Date().getFullYear();
+    const { user } = req.body;
     const budgets = await Budget.findAll({
       where: {
         userId: user.id,
-        year: currentYear
-      }
-    })
-    res.send(budgets)
-  }
-  catch (err){
-    console.log("Couldn't get budgets :(")
-    next(err)
+        year: currentYear,
+      },
+    });
+    res.send(budgets);
+  } catch (err) {
+    console.log("Couldn't get budgets :(");
+    next(err);
   }
 });
 
@@ -57,13 +56,13 @@ router.put('/budget', requireToken, async (req, res, next) => {
       const doesBudgetExist = await Budget.findOne({
         where: {
           userId: user.id,
-          month: currentMonth
+          month: currentMonth,
         },
         order: [['month', 'DESC']],
       });
 
       // if there is no historical Budget currently in our db (new user) or a budget for a particular month, create a new Budget for the user
-      if (!doesBudgetExist ) {
+      if (!doesBudgetExist) {
         await Budget.create({
           month: currentMonth,
           budget: monthlyBudget,
@@ -75,7 +74,8 @@ router.put('/budget', requireToken, async (req, res, next) => {
           budget: monthlyBudget,
         });
       }
-      res.status(201).send(monthlyBudget);
+      res.send(monthlyBudget);
+      return;
     }
     res.sendStatus(400);
   } catch (e) {

@@ -110,13 +110,17 @@ class Questionnaire extends React.Component {
     console.log('current step', this.state.currentStep);
     return (
       <div className='questionnaire-component-container'>
-        <div className='questionnaire-wrapper'>
+        <div className={`questionnaire-wrapper ${this.state.currentStep == 3 ? 'questionnaire-step-3' : ''}`}>
           <h2 className='questionnaire-header'>What are your budgeting goals?</h2>
           <Step1 currentStep={this.state.currentStep} handleChange={this.handleChange} income={this.state.income} />
           <Step2 currentStep={this.state.currentStep} handleChange={this.handleChange} budget={this.state.budget} />
           <Step3 currentStep={this.state.currentStep} />
           {this.state.currentStep == 4 ? <Step4 /> : null}
-          <div className='questionnaire-buttons-container'>
+          <div
+            className={`questionnaire-buttons-container ${
+              this.state.currentStep == 3 ? 'questionnaire-buttons-container-step-3' : ''
+            }`}
+          >
             {this.previousButton()}
             {this.nextButton()}
             {this.submitButton()}
