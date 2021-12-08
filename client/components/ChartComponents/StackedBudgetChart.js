@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import barColors from './assets/categoryColors';
 import { currentMonth, monthChart } from './assets/constants';
+import StackedBarCategoryLegend from './StackedBudgetChartLegend';
 
 const StackedBudgetChart = () => {
   const budgetCategories = useSelector((state) => state.auth.categoricalBudgets || []);
@@ -50,7 +51,6 @@ const StackedBudgetChart = () => {
 
   return (
     <div>
-      {/* {console.log(budgetCategories)} */}
       <h1 style={{ textAlign: 'center' }}>Stacked Budget Chart</h1>
       <ResponsiveContainer width='100%' height={300} fill='white'>
         <BarChart data={dataObj}>
@@ -58,7 +58,11 @@ const StackedBudgetChart = () => {
           <XAxis dataKey='name' />
           <YAxis domain={[0, (dataMax) => Math.round((dataMax + 1000) / 1000) * 1000]} />
           <Tooltip formatter={(value) => `$${value}`} />
-          <Legend verticalAlign='bottom' wrapperStyle={{ position: 'relative' }} />
+          <Legend content={<StackedBarCategoryLegend content={dataObj} />}
+            wrapperStyle={{
+              position: 'relative'
+              }}
+          />
           {bars}
         </BarChart>
       </ResponsiveContainer>

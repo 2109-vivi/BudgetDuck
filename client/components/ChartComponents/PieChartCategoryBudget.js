@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { PieChart, Pie, Sector, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import barColors from './assets/categoryColors';
-import { categoryMerger, colorMerger } from './assets/mergerHelperFuncs';
 import PieChartCategoryLegend from './PieChartCategoryLegend';
 
 const CategoryBudgetPieChart = () => {
@@ -45,7 +44,6 @@ const renderLabel = ({ x, y, cx, value }) => {
     </text>
     );
   };
-
 
   return(
   <div>
