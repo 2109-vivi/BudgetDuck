@@ -10,10 +10,10 @@ import ConnectPlaid from './ConnectPlaid';
 const UserProfile = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.auth);
+  const [budget, setBudget] = useState(userInfo.monthlyBudget || 0);
+  const [income, setIncome] = useState(userInfo.income || 0);
   const linkToken = useSelector((state) => state.plaid.linkToken);
   const accessToken = useSelector((state) => state.plaid.accessToken);
-  const [budget, setBudget] = useState(userInfo.monthlyBudget);
-  const [income, setIncome] = useState(userInfo.income);
 
   const handleBudgetInputChange = (event) => {
     setBudget(event.target.value);
