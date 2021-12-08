@@ -52,6 +52,9 @@
   font-size: 13px;
 }
 
+.login-header {
+  text-align: center;
+}
 .login-helper-text {
   min-height: 20px;
   margin: 0px;

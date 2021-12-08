@@ -43,7 +43,7 @@ const BudgetChart = () => {
   return transactions.length > 0 ? (
     <div className='budget-chart-container'>
       <h2 style={{ textAlign: 'center' }}>Your monthly budget is: {`$${budget}`}</h2>
-      <ResponsiveContainer width='100%' height='100%'>
+      <ResponsiveContainer width='100%' height='80%'>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis dataKey='name' />

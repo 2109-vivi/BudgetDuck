@@ -25,7 +25,7 @@ const Signup = (props) => {
   return (
     <div className='signup-component-container'>
       <div className='signup-wrapper'>
-        <h2>Sign up for a Budget Duck account! </h2>
+        <h2 style={{ textAlign: 'center' }}>Sign up for a Budget Duck account! </h2>
         <div className='signup-form-wrapper'>
           <form className='signup-form' onSubmit={handleSubmit}>
             <div className='signup-form-input-wrapper'>
@@ -45,12 +45,8 @@ const Signup = (props) => {
                 <input name='lastName' type='text' placeholder='Last name' />
               </div>
             </div>
-            {(error && error.response && (
-              <div className='helper-text'> {error.response.data} </div>
-            )) || (
-              <div className='helper-text hidden'>
-                you can't see this harhar
-              </div>
+            {(error && error.response && <div className='helper-text'> {error.response.data} </div>) || (
+              <div className='helper-text hidden'>you can't see this harhar</div>
             )}
             <button id='signup-button' type='submit'>
               Create your account

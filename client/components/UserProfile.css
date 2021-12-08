@@ -1,8 +1,11 @@
 .user-profile-component {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
+  align-content: center;
   border-radius: 36px;
   padding-top: 2vh;
+  width: 100%;
 }
 
 .user-information-wrapper {
@@ -13,7 +16,7 @@
   border: 1px solid #999;
   background-color: #c6f2c5;
   padding: 18px;
-  width: 700px;
+  width: 96%;
   gap: 1%;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
@@ -27,6 +30,10 @@
   width: 80%;
   border: 1px solid #999;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.personal-information-wrapper h3 {
+  margin: 3px;
 }
 
 .account-information-wrapper {
@@ -46,4 +53,11 @@
 }
 
 .user-profile-plaid-container {
+}
+
+.user-profile-stacked-budgetchart {
+  border: 1px solid #999;
+  padding: 2%;
+  background-color: #d4e7d7;
+  border-radius: 30px;
 }

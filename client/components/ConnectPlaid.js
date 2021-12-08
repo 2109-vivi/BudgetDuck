@@ -2,6 +2,7 @@ import React from 'react';
 import { PlaidLink } from 'react-plaid-link';
 import { useSelector, useDispatch } from 'react-redux';
 import { me } from '../store/auth';
+import { getCategoricalBudgets } from '../store/auth';
 
 const ConnectPlaid = (props) => {
   const dispatch = useDispatch();
@@ -12,6 +13,11 @@ const ConnectPlaid = (props) => {
     dispatch(me());
   };
 
+  const onEvent = (eventName, metadata) => {
+    if (eventName == 'HANDOFF') {
+      dispatch(getCategoricalBudgets(true));
+    }
+  };
   return (
     <PlaidLink
       className='plaidlinkbutton'
@@ -26,6 +32,7 @@ const ConnectPlaid = (props) => {
       }}
       token={props.linkToken ? props.linkToken : ''}
       onSuccess={onSuccess}
+      onEvent={onEvent}
     >
       <div className='plaid-link-button-text'>
         <div>Connect with Plaid </div>
