@@ -5,12 +5,7 @@ const {
   models: { Transaction },
 } = require('../db');
 
-const {
-  Configuration,
-  PlaidApi,
-  PlaidEnvironments,
-  Products,
-} = require('plaid');
+const { Configuration, PlaidApi, PlaidEnvironments, Products } = require('plaid');
 const Category = require('../db/models/Category');
 
 const configuration = new Configuration({
@@ -50,13 +45,11 @@ router.post('/create_link_token', async (req, res) => {
 
 router.post('/get_access_token', async (req, res) => {
   const { linkToken } = req.body;
-  const response = await plaidClient
-    .itemPublicTokenExchange({ public_token: linkToken })
-    .catch((err) => {
-      if (!linkToken) {
-        return 'no public token';
-      }
-    });
+  const response = await plaidClient.itemPublicTokenExchange({ public_token: linkToken }).catch((err) => {
+    if (!linkToken) {
+      return 'no public token';
+    }
+  });
   return res.send({ access_token: response.data.access_token });
 });
 
@@ -90,19 +83,44 @@ router.post('/transactions', requireToken, async (req, res) => {
     // fetch all transactions according to the date constraints
     const response = await plaidClient.transactionsGet(request);
     let transactions = response.data.transactions;
+    const categories = await Category.findAll({ raw: true });
 
     let responseArray = [];
     for (const transactionFromPlaid of transactions) {
-      const transToAdd = await Transaction.create({
-        bankTransactionId: transactionFromPlaid.transaction_id,
-        name: transactionFromPlaid.name,
-        merchantName: transactionFromPlaid.merchant_name,
-        amount: transactionFromPlaid.amount,
-        date: transactionFromPlaid.date,
-        userId: user.id,
-        categoryId: 1,
-      });
-      responseArray.push(transToAdd);
+      if (transactionFromPlaid.amount > 0) {
+        let categoryId;
+        categories.forEach((category) => {
+          if (transactionFromPlaid.category[0] == category.categoryName) {
+            categoryId = category.id;
+          }
+        });
+        const transToCreate = await Transaction.create({
+          bankTransactionId: transactionFromPlaid.transaction_id,
+          name: transactionFromPlaid.name,
+          merchantName: transactionFromPlaid.merchant_name,
+          amount: transactionFromPlaid.amount,
+          date: transactionFromPlaid.date,
+          userId: user.id,
+          categoryId: categoryId,
+        });
+        const transToAdd = await Transaction.findOne({
+          where: {
+            userId: user.id,
+            id: transToCreate.id,
+          },
+          include: [
+            {
+              model: Category,
+              where: {
+                id: categoryId,
+              },
+              as: 'category',
+            },
+          ],
+        });
+
+        responseArray.push(transToAdd);
+      }
     }
     // returns only transactions that are not currently in our db
     res.send(responseArray);

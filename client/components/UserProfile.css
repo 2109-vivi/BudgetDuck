@@ -4,3 +4,46 @@
   border-radius: 36px;
   padding-top: 2vh;
 }
+
+.user-information-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid #999;
+  background-color: #c6f2c5;
+  padding: 18px;
+  width: 700px;
+  gap: 1%;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.personal-information-wrapper {
+  display: flex;
+  background-color: rgb(128 208 130);
+  flex-direction: column;
+  align-items: center;
+  border-radius: 30px;
+  width: 80%;
+  border: 1px solid #999;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.account-information-wrapper {
+  display: flex;
+  background-color: rgb(128 208 130);
+  flex-direction: column;
+  align-items: center;
+  border-radius: 30px;
+  width: 80%;
+  border: 1px solid #999;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  margin-bottom: 1%;
+}
+
+.account-information-wrapper h3 {
+  margin-bottom: 0px;
+}
+
+.user-profile-plaid-container {
+}

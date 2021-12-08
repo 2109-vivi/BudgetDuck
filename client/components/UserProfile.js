@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateBudgetThunk, updateIncomeThunk } from '../store';
+import { getLinkToken, getAccessToken } from '../store/plaid.js';
+import { getTransactionsFromPlaid } from '../store/transactions';
 import CategoryBudgetList from './CategoryBudgetList';
 import './UserProfile.css';
+import ConnectPlaid from './ConnectPlaid';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.auth);
+  const linkToken = useSelector((state) => state.plaid.linkToken);
+  const accessToken = useSelector((state) => state.plaid.accessToken);
   const [budget, setBudget] = useState(userInfo.monthlyBudget);
   const [income, setIncome] = useState(userInfo.income);
 
@@ -26,31 +31,45 @@ const UserProfile = () => {
     dispatch(updateIncomeThunk(income));
   };
 
+  useEffect(() => {
+    dispatch(getLinkToken());
+  }, []);
+
   return (
     <div className='user-profile-component'>
-      <div>
-        <h1>Hello {userInfo.firstName}!</h1>
-        <h2>Personal Information:</h2>
-        <h3>Email:{userInfo.email}</h3>
-        <h3>FirstName: {userInfo.firstName}</h3>
-        <h3>LastName: {userInfo.lastName}</h3>
-        <h2>Account Information</h2>
-        <h3>Current Budget:${userInfo.monthlyBudget}</h3>
-        <input
-          name='budget'
-          type='text'
-          value={budget}
-          onChange={handleBudgetInputChange}
-        ></input>
-        <button onClick={budgetSubmit}>Edit Budget</button>
-        <h3>Current Income: ${userInfo.income}</h3>
-        <input
-          name='income'
-          type='text'
-          value={income}
-          onChange={handleIncomeInputChange}
-        ></input>
-        <button onClick={incomeSubmit}>Edit Income</button>
+      <div className='user-information-wrapper'>
+        <div className='personal-information-wrapper'>
+          <h1 style={{ marginTop: '1%' }}>Hello {userInfo.firstName}!</h1>
+          <h2>Personal Information</h2>
+          <h3>Email:{userInfo.email}</h3>
+          <h3>FirstName: {userInfo.firstName}</h3>
+          <h3>LastName: {userInfo.lastName}</h3>
+        </div>
+        <div className='account-information-wrapper'>
+          <h2 style={{ marginTop: '2%' }}>Account Information</h2>
+          <h3>Current Budget: ${userInfo.monthlyBudget}</h3>
+          <div>
+            <input name='budget' type='text' value={budget} onChange={handleBudgetInputChange}></input>
+            <button onClick={budgetSubmit}>Edit Budget</button>
+          </div>
+
+          <div>
+            <h3>Current Income: ${userInfo.income}</h3>
+
+            <input name='income' type='text' value={income} onChange={handleIncomeInputChange}></input>
+            <button style={{ marginBottom: '2%' }} onClick={incomeSubmit}>
+              Edit Income
+            </button>
+          </div>
+        </div>
+        <div className='user-profile-plaid-container'>
+          <ConnectPlaid
+            linkToken={linkToken}
+            accessToken={accessToken}
+            getAccessToken={getAccessToken}
+            getTransactionsFromPlaid={getTransactionsFromPlaid}
+          />
+        </div>
       </div>
       <CategoryBudgetList />
     </div>
