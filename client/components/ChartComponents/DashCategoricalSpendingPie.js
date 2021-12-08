@@ -66,7 +66,7 @@ const DashCategoricalSpendingPie = (props) => {
 
   return (
     <div className='dash-categorical-spending-chart-container'>
-      <div style={{ textAlign: 'center', paddingTop: '1%' }}>Your Spending By Category</div>
+      <div style={{ textAlign: 'center', paddingTop: '6%' }}>Your Spending By Category</div>
       <div
         className='categorical-spending-pie-pick-month'
         style={{ display: 'flex', justifyContent: 'center', height: '5%' }}
