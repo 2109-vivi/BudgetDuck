@@ -73,7 +73,7 @@ const UserProfile = () => {
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '10px' }}>
+      <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
         <CategoryBudgetList />
         <div className='user-profile-stacked-budgetchart'>
           <StackedBudgetChart />
