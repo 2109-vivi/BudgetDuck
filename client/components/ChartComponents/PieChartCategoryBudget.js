@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { PieChart, Pie, Sector, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import barColors from './assets/categoryColors';
+import { categoryMerger, colorMerger } from './assets/mergerHelperFuncs';
+import PieChartCategoryLegend from './PieChartCategoryLegend';
 
 const CategoryBudgetPieChart = () => {
 const budgetCategories = useSelector((state) => state.auth.categoricalBudgets || [])
@@ -44,6 +46,7 @@ const renderLabel = ({ x, y, cx, value }) => {
     );
   };
 
+
   return(
   <div>
   <h1 style={{textAlign : 'center'}}>
@@ -57,7 +60,11 @@ const renderLabel = ({ x, y, cx, value }) => {
           ))}
     </Pie>
     <Tooltip formatter={(value) => `$${value}`}/>
-    <Legend verticalAlign="bottom" wrapperStyle={{ position: 'relative' }}/>
+    <Legend content={<PieChartCategoryLegend data={budgetData}/>}
+    wrapperStyle={{
+      position: 'relative'
+      }}
+    />
     </PieChart>
   </ResponsiveContainer>
   </div>
