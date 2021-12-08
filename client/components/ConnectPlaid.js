@@ -17,7 +17,6 @@ const ConnectPlaid = (props) => {
   const onEvent = (eventName, metadata) => {
     if (eventName == 'HANDOFF') {
       dispatch(getCategoricalBudgets(true));
-      history.push('/dashboard');
     }
   };
   return (

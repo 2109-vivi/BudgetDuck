@@ -36,6 +36,7 @@ export const getAccessToken = (linkToken) => {
         if (response) {
           await axios.put('/api/users/plaid-access-token', { accessToken }, { headers: { token } });
         }
+        history.push('/dashboard');
         dispatch(setAccessToken(accessToken));
         return accessToken;
       }

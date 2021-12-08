@@ -41,7 +41,6 @@ const DashCategoricalSpendingPie = (props) => {
     );
   };
   const CustomTooltip = ({ active, payload, label }) => {
-    console.log('payload', payload); //you check payload
     if (active && payload && payload.length) {
       const category = payload[0]?.name;
       const total = stringToNum(payload[0]?.value);

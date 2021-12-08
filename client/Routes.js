@@ -27,37 +27,6 @@ class Routes extends Component {
   render() {
     const { isLoggedIn, hasAccessToken } = this.props;
 
-    // return (
-    //   <div id='app-container'>
-    //     {isLoggedIn ? (
-    //       <>
-    //         <Switch>
-    //           <Route path='/' exact component={Dashboard} />
-    //           <Route path='/budget' component={Budget} />
-    //           <Route path='/graphs' component={GraphContainer} />
-    //           <Route path='/questionnaire' component={Questionnaire} />
-    //           <Route path='/dashboard' component={Dashboard} />
-    //           <Route path='/userProfile' component={UserProfile} />
-    //           <Route path='/linegraph' component={BudgetHistoryLineGraph} />
-    //           <Route path='/categoryBudgetPieChart' component={CategoryBudgetPieChart} />
-    //           <Route path='/stackedBudgetChart' component={StackedBudgetChart} />
-    //         </Switch>
-    //         <Switch>
-    //           <Route exact path='/transactions' component={AllTransactions} />
-    //           <Route exact path='/transactions/edit' component={EditTransactions} />
-    //           <Route path='/transactions/add' component={AddTransactions} />
-    //         </Switch>
-    //       </>
-    //     ) : (
-    //       <Switch>
-    //         <Route path='/' exact component={Login} />
-    //         <Route path='/login' component={Login} />
-    //         <Route path='/signup' component={Signup} />
-    //       </Switch>
-    //     )}
-    //   </div>
-    // );
-
     if (isLoggedIn && hasAccessToken) {
       return (
         <>
@@ -70,6 +39,9 @@ class Routes extends Component {
             <Route path='/linegraph' component={BudgetHistoryLineGraph} />
             <Route path='/categoryBudgetPieChart' component={CategoryBudgetPieChart} />
             <Route path='/stackedBudgetChart' component={StackedBudgetChart} />
+            <Route path='/questionnaire'>
+              <Redirect to='/dashboard' />
+            </Route>
           </Switch>
           <Switch>
             <Route exact path='/transactions' component={AllTransactions} />
