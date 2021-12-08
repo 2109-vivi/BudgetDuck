@@ -33,7 +33,6 @@ class Questionnaire extends React.Component {
 
   async handleSubmit(evt) {
     evt.preventDefault();
-    //conditoanlly check if they are connect to plaid (forcing user to connect to plaid)
     history.push('/dashboard');
   }
 
@@ -100,14 +99,13 @@ class Questionnaire extends React.Component {
     if (this.state.currentStep == 4) {
       return (
         <button className='questionnaire-button' onClick={this.handleSubmit}>
-          Go to our site woohoo
+          Go to Budget Duck!
         </button>
       );
     }
     return null;
   }
   render() {
-    console.log('current step', this.state.currentStep);
     return (
       <div className='questionnaire-component-container'>
         <div className={`questionnaire-wrapper ${this.state.currentStep == 3 ? 'questionnaire-step-3' : ''}`}>
@@ -123,7 +121,8 @@ class Questionnaire extends React.Component {
           >
             {this.previousButton()}
             {this.nextButton()}
-            {this.submitButton()}
+            {/* {this.submitButton()} */}
+            {this.props.hasAccessToken ? this.submitButton() : null}
           </div>
         </div>
       </div>
@@ -158,7 +157,7 @@ const Step2 = (props) => {
 
   return (
     <div className='questionnaire-step'>
-      <label htmlFor='budget'>What would you like your budget to be?</label>
+      <label htmlFor='budget'>What would you like your monthly budget to be?</label>
       <input
         className='questionnaire-input'
         name='budget'
@@ -176,7 +175,11 @@ const Step3 = (props) => {
     return null;
   }
 
-  return <CategoryBudgetList />;
+  return (
+    <>
+      <CategoryBudgetList />
+    </>
+  );
 };
 
 const Step4 = () => {
@@ -190,11 +193,13 @@ const Step4 = () => {
 
   return (
     <div className='plaid-link-wrapper questionnaire-step'>
+      <h3 style={{ textAlign: 'center' }}>Please Log In to Plaid To Fetch Your Transaction Data</h3>
       <ConnectPlaid
         linkToken={linkToken}
         accessToken={accessToken}
         getAccessToken={getAccessToken}
         getTransactionsFromPlaid={getTransactionsFromPlaid}
+        className='plaid-link-button-questionnaire'
       />
     </div>
   );
@@ -206,4 +211,10 @@ const mapDispatchToProps = (dispatch) => {
     updateIncome: (income) => dispatch(updateIncomeThunk(income)),
   };
 };
-export default connect(null, mapDispatchToProps)(Questionnaire);
+
+const mapStateToProps = (state) => {
+  return {
+    hasAccessToken: !!state.plaid.accessToken,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Questionnaire);

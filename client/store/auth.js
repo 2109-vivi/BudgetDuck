@@ -14,6 +14,7 @@ const GET_BUDGETS = 'GET_BUDGET';
 const GET_CATEGORICAL_BUDGETS = 'GET_CATEGORICAL_BUDGETS';
 const UPDATE_CATEGORICAL_BUDGET = 'UPDATE_CATEGORICAL_BUDGET';
 const CLEAR_ERROR = 'CLEAR_ERROR';
+const GET_PLAID_ACCESS_TOKEN = 'GET_PLAID_ACCESS_TOKEN';
 
 /**
  * ACTION CREATORS
@@ -42,6 +43,10 @@ const _updateCatgoricalBudget = (categoricalBudget) => ({
   type: UPDATE_CATEGORICAL_BUDGET,
   categoricalBudget,
 });
+const getPlaidAccessToken = (plaidAccessToken) => ({
+  type: GET_PLAID_ACCESS_TOKEN,
+  plaidAccessToken,
+});
 
 export const _clearError = () => ({ type: CLEAR_ERROR });
 
@@ -53,7 +58,7 @@ export const me = () => async (dispatch) => {
   if (token) {
     const res = await axios.get('/auth/me', {
       headers: {
-        authorization: token,
+        token,
       },
     });
     return dispatch(setAuth(res.data));
@@ -156,9 +161,11 @@ export const getCategoricalBudgets = (isLoggedIn) => {
     try {
       if (isLoggedIn) {
         const token = localStorage.getItem('token');
-        const response = await axios.get('/api/categories', {headers: {
-          token
-        }});
+        const response = await axios.get('/api/categories', {
+          headers: {
+            token,
+          },
+        });
         const categoricalBudgets = response.data;
         dispatch(setCategoricalBudgets(categoricalBudgets));
       }
@@ -184,6 +191,7 @@ export const updateCategoricalBudget = (categoryId, newBudget) => {
     }
   };
 };
+
 /**
  * REDUCER
  */

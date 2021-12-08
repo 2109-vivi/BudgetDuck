@@ -37,7 +37,9 @@
 }
 
 /* plaid link button */
-
+.plaid-link-button-questionnaire {
+  max-width: 30%;
+}
 /* questionaire buttons */
 .questionnaire-buttons-container {
   display: flex;

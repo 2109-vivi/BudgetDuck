@@ -95,3 +95,17 @@ router.put('/income', requireToken, async (req, res, next) => {
     next(e);
   }
 });
+
+// set plaidAccessToken to prove that questionnaire was finished
+router.put('/plaid-access-token', requireToken, async (req, res, next) => {
+  try {
+    console.log('accessToken from request =======>>> ', req.body.accessToken);
+    const { user, accessToken } = req.body;
+    await user.update({
+      plaidAccessToken: accessToken,
+    });
+    res.sendStatus(201);
+  } catch (e) {
+    next(e);
+  }
+});

@@ -41,9 +41,9 @@ const UserProfile = () => {
         <div className='personal-information-wrapper'>
           <h1 style={{ marginTop: '1%' }}>Hello {userInfo.firstName}!</h1>
           <h2>Personal Information</h2>
-          <h3>Email:{userInfo.email}</h3>
-          <h3>FirstName: {userInfo.firstName}</h3>
-          <h3>LastName: {userInfo.lastName}</h3>
+          <h3>Email: {userInfo.email}</h3>
+          <h3>First Name: {userInfo.firstName}</h3>
+          <h3>Last Name: {userInfo.lastName}</h3>
         </div>
         <div className='account-information-wrapper'>
           <h2 style={{ marginTop: '2%' }}>Account Information</h2>

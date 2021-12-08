@@ -66,64 +66,71 @@ router.post('/transactions', requireToken, async (req, res) => {
 
   let request = {
     access_token: accessToken,
-    start_date: dateOfLastPull,
+    start_date: '2015-01-01',
     end_date,
   };
 
-  // if the user never pulled from plaid, update their lastPulledDate to today, and change the start_date to way back when
-  if (dateOfLastPull == null) {
-    let dateToday = new Date();
-    dateToday = dateToday.toISOString().slice(0, 10);
-    await user.update({
-      dateOfLastPull: dateToday,
-    });
-    request.start_date = '2015-01-01';
+  let dateToday = new Date();
+  dateToday = dateToday.toISOString().slice(0, 10);
+  // if the user already pulled from Plaid before, change the start_date for the query to the date of the last pull
+  if (dateOfLastPull != null) {
+    request.start_date = user.dateOfLastPull;
+    if (dateOfLastPull == dateToday) request.start_date = end_date;
   }
   try {
     // fetch all transactions according to the date constraints
     const response = await plaidClient.transactionsGet(request);
-    let transactions = response.data.transactions;
-    const categories = await Category.findAll({ raw: true });
+    // if the response succeeds, update the user's dateOfLastPull to today
+    if (response.status != 400) {
+      await user.update({
+        dateOfLastPull: dateToday,
+      });
 
-    let responseArray = [];
-    for (const transactionFromPlaid of transactions) {
-      if (transactionFromPlaid.amount > 0) {
-        let categoryId;
-        categories.forEach((category) => {
-          if (transactionFromPlaid.category[0] == category.categoryName) {
-            categoryId = category.id;
-          }
-        });
-        const transToCreate = await Transaction.create({
-          bankTransactionId: transactionFromPlaid.transaction_id,
-          name: transactionFromPlaid.name,
-          merchantName: transactionFromPlaid.merchant_name,
-          amount: transactionFromPlaid.amount,
-          date: transactionFromPlaid.date,
-          userId: user.id,
-          categoryId: categoryId,
-        });
-        const transToAdd = await Transaction.findOne({
-          where: {
+      let transactions = response.data.transactions;
+      const categories = await Category.findAll({ raw: true });
+
+      let responseArray = [];
+      for (const transactionFromPlaid of transactions) {
+        if (transactionFromPlaid.amount > 0) {
+          let categoryId;
+          categories.forEach((category) => {
+            if (transactionFromPlaid.category[0] == category.categoryName) {
+              categoryId = category.id;
+            }
+          });
+          const transToCreate = await Transaction.create({
+            bankTransactionId: transactionFromPlaid.transaction_id,
+            name: transactionFromPlaid.name,
+            merchantName: transactionFromPlaid.merchant_name,
+            amount: transactionFromPlaid.amount,
+            date: transactionFromPlaid.date,
             userId: user.id,
-            id: transToCreate.id,
-          },
-          include: [
-            {
-              model: Category,
-              where: {
-                id: categoryId,
-              },
-              as: 'category',
+            categoryId: categoryId,
+          });
+          const transToAdd = await Transaction.findOne({
+            where: {
+              userId: user.id,
+              id: transToCreate.id,
             },
-          ],
-        });
+            include: [
+              {
+                model: Category,
+                where: {
+                  id: categoryId,
+                },
+                as: 'category',
+              },
+            ],
+          });
 
-        responseArray.push(transToAdd);
+          responseArray.push(transToAdd);
+        }
       }
+      // returns only transactions that are not currently in our db
+      res.send(responseArray);
+    } else {
+      res.sendStatus(400);
     }
-    // returns only transactions that are not currently in our db
-    res.send(responseArray);
   } catch (e) {
     console.log(e);
   }

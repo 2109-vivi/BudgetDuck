@@ -19,9 +19,7 @@ router.post('/signup', async (req, res, next) => {
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
       res.status(401).send('Email is already taken!');
-    } else if (
-      err.message == 'Validation error: Validation isEmail on email failed'
-    ) {
+    } else if (err.message == 'Validation error: Validation isEmail on email failed') {
       res.status(401).send('You must enter a valid Email');
     } else if (err.name == 'SequelizeValidationError') {
       res.status(401).send('You must enter your first and last name');
@@ -33,7 +31,7 @@ router.post('/signup', async (req, res, next) => {
 
 router.get('/me', async (req, res, next) => {
   try {
-    res.send(await User.findByToken(req.headers.authorization));
+    res.send(await User.findByToken(req.headers.token));
   } catch (ex) {
     next(ex);
   }
