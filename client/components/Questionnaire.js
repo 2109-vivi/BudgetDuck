@@ -44,7 +44,6 @@ class Questionnaire extends React.Component {
   }
 
   next() {
-    console.log(this.state.currentStep);
     let currentStep = this.state.currentStep;
     currentStep = currentStep + 1;
     this.setState({

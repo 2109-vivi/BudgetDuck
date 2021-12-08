@@ -3,6 +3,7 @@ import { PlaidLink } from 'react-plaid-link';
 import { useSelector, useDispatch } from 'react-redux';
 import { me } from '../store/auth';
 import { getCategoricalBudgets } from '../store/auth';
+import history from '../history';
 
 const ConnectPlaid = (props) => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const ConnectPlaid = (props) => {
   const onEvent = (eventName, metadata) => {
     if (eventName == 'HANDOFF') {
       dispatch(getCategoricalBudgets(true));
+      history.push('/dashboard');
     }
   };
   return (
