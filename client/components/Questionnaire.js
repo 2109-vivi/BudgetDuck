@@ -4,6 +4,7 @@ import axios from 'axios';
 import { getLinkToken, getAccessToken } from '../store/plaid.js';
 import { getTransactionsFromPlaid } from '../store/transactions';
 import ConnectPlaid from './ConnectPlaid.js';
+import CategoryBudgetList from './CategoryBudgetList';
 import { updateBudgetThunk, updateIncomeThunk } from '../store/auth.js';
 import history from '../history';
 import './Questionnaire.css';
@@ -32,16 +33,21 @@ class Questionnaire extends React.Component {
 
   async handleSubmit(evt) {
     evt.preventDefault();
-    const { income, budget } = this.state;
-
-    this.props.updateBudget(budget);
-    this.props.updateIncome(income);
+    //conditoanlly check if they are connect to plaid (forcing user to connect to plaid)
     history.push('/dashboard');
   }
 
+  handleIncomeInputChange() {
+    this.props.updateIncome(this.state.income);
+  }
+  handleBudgetInputChange() {
+    this.props.updateBudget(this.state.budget);
+  }
+
   next() {
+    console.log(this.state.currentStep);
     let currentStep = this.state.currentStep;
-    currentStep = currentStep >= 2 ? 3 : currentStep + 1;
+    currentStep = currentStep + 1;
     this.setState({
       currentStep: currentStep,
     });
@@ -49,7 +55,7 @@ class Questionnaire extends React.Component {
 
   prev() {
     let currentStep = this.state.currentStep;
-    currentStep = currentStep <= 1 ? 1 : currentStep - 1;
+    currentStep = currentStep - 1;
     this.setState({
       currentStep: currentStep,
     });
@@ -59,11 +65,7 @@ class Questionnaire extends React.Component {
     let currentStep = this.state.currentStep;
     if (currentStep !== 1) {
       return (
-        <button
-          className='questionnaire-button'
-          type='button'
-          onClick={this.prev}
-        >
+        <button className='questionnaire-button' type='button' onClick={this.prev}>
           Previous
         </button>
       );
@@ -73,12 +75,19 @@ class Questionnaire extends React.Component {
 
   nextButton() {
     let currentStep = this.state.currentStep;
-    if (currentStep < 3) {
+    if (currentStep < 4) {
       return (
         <button
           className='questionnaire-button'
           type='button'
-          onClick={this.next}
+          onClick={() => {
+            if (currentStep == 1) {
+              this.handleIncomeInputChange();
+            } else if (currentStep == 2) {
+              this.handleBudgetInputChange();
+            }
+            this.next();
+          }}
         >
           Next
         </button>
@@ -88,7 +97,7 @@ class Questionnaire extends React.Component {
   }
 
   submitButton() {
-    if (this.state.currentStep == 3) {
+    if (this.state.currentStep == 4) {
       return (
         <button className='questionnaire-button' onClick={this.handleSubmit}>
           Go to our site woohoo
@@ -97,25 +106,16 @@ class Questionnaire extends React.Component {
     }
     return null;
   }
-
   render() {
+    console.log('current step', this.state.currentStep);
     return (
       <div className='questionnaire-component-container'>
         <div className='questionnaire-wrapper'>
-          <h2 className='questionnaire-header'>
-            What are your budgeting goals?
-          </h2>
-          <Step1
-            currentStep={this.state.currentStep}
-            handleChange={this.handleChange}
-            income={this.state.income}
-          />
-          <Step2
-            currentStep={this.state.currentStep}
-            handleChange={this.handleChange}
-            budget={this.state.budget}
-          />
-          {this.state.currentStep == 3 ? <Step3 /> : null}
+          <h2 className='questionnaire-header'>What are your budgeting goals?</h2>
+          <Step1 currentStep={this.state.currentStep} handleChange={this.handleChange} income={this.state.income} />
+          <Step2 currentStep={this.state.currentStep} handleChange={this.handleChange} budget={this.state.budget} />
+          <Step3 currentStep={this.state.currentStep} />
+          {this.state.currentStep == 4 ? <Step4 /> : null}
           <div className='questionnaire-buttons-container'>
             {this.previousButton()}
             {this.nextButton()}
@@ -167,7 +167,15 @@ const Step2 = (props) => {
   );
 };
 
-const Step3 = () => {
+const Step3 = (props) => {
+  if (props.currentStep != 3) {
+    return null;
+  }
+
+  return <CategoryBudgetList />;
+};
+
+const Step4 = () => {
   const dispatch = useDispatch();
   const linkToken = useSelector((state) => state.plaid.linkToken);
   const accessToken = useSelector((state) => state.plaid.accessToken);

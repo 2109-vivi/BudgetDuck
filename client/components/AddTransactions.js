@@ -1,6 +1,8 @@
 import React, {useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Prompt } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { createTransactionThunk } from '../store/transactions';
 import history from '../history';
 
@@ -15,14 +17,52 @@ const AddTransactions = (props) => {
     categoryId: 1,
   });
 
-  const handleSubmit = (e) => {
+  const [errors, setErrors] = useState({});
+
+  async function handleValidation() {
+    const { name, amount, date } = values;
+    let errorMessages = {};
+    let formValidation = true;
+
+    //name check
+    if (!name || name.length === 0) {
+      formValidation = false;
+      errorMessages.name = 'Name is required';
+    }
+    //amount check
+    if (!amount || amount.length === 0) {
+      formValidation = false;
+      errorMessages.amount = 'Amount is required';
+    } else if (isNaN(amount)) {
+      formValidation = false;
+      errorMessages.amount = 'Amount must be a number';
+    } else if (amount < 0) {
+      formValidation = false;
+      errorMessages.amount = 'Amount must be positive';
+    }
+
+    //date check
+    if (!date || date.length === 0) {
+      formValidation = false;
+      errorMessages.date = 'Date is required';
+    }
+    return formValidation;
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(createTransactionThunk(values));
-    history.push('/transactions');
+    let valid = await handleValidation();
+    if(!valid){
+      toast.error('Please fill out all fields correctly');
+    } else {
+      dispatch(createTransactionThunk(values));
+      history.push('/transactions');
+      toast('Transaction added!');
+    }
   }
 
   return (
-  <div>
+  <div className='app-container'>
     <form id='transaction-form' onSubmit={(e)=>{handleSubmit(e)}}>
       <h1>Create a Transaction</h1>
       <div>
@@ -81,6 +121,7 @@ const AddTransactions = (props) => {
         <Link to={`/transactions`}>Back</Link>
       </div>
     </form>
+        <ToastContainer />
   </div>
   );
 }
