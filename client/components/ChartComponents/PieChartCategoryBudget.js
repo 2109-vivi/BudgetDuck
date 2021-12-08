@@ -36,6 +36,14 @@ budgetData.push({
 const colorsArray = barColors.slice(0,budgetData.length-1)
 colorsArray.push('#808080')
 
+const renderLabel = ({ x, y, cx, value }) => {
+  return (
+    <text x={x} y={y} fontSize='16' textAnchor={x > cx ? 'start' : 'end'} fill='#888'>
+      {value}
+    </text>
+    );
+  };
+
   return(
   <div>
   <h1 style={{textAlign : 'center'}}>
@@ -43,7 +51,7 @@ colorsArray.push('#808080')
   </h1>
   <ResponsiveContainer width='100%' height= {500}>
     <PieChart>
-    <Pie data={budgetData} dataKey="budget" nameKey="name" cx="50%" cy="50%" outerRadius={200} fill="#8884d8" isAnimationActive={true} label={true}>
+    <Pie data={budgetData} dataKey="budget" nameKey="name" cx="50%" cy="50%" outerRadius={200} fill="#8884d8" isAnimationActive={true} label={renderLabel}>
     {budgetData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={colorsArray[index % colorsArray.length]} />
           ))}
