@@ -144,7 +144,7 @@ const Step1 = (props) => {
         placeholder='Enter your yearly income!'
         value={props.income}
         onChange={props.handleChange}
-        autocomplete='off'
+        autoComplete='off'
       />
     </div>
   );
@@ -165,7 +165,7 @@ const Step2 = (props) => {
         placeholder='Enter your monthly budget!'
         value={props.budget}
         onChange={props.handleChange}
-        autocomplete='off'
+        autoComplete='off'
       />
     </div>
   );

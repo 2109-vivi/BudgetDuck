@@ -30,19 +30,19 @@ const Signup = (props) => {
           <form className='signup-form' onSubmit={handleSubmit}>
             <div className='signup-form-input-wrapper'>
               <div>
-                <input name='email' type='text' placeholder='Email' autocomplete='off' />
+                <input name='email' type='text' placeholder='Email' autoComplete='off' />
               </div>
 
               <div>
-                <input name='password' type='password' placeholder='Password' autocomplete='off' />
+                <input name='password' type='password' placeholder='Password' autoComplete='off' />
               </div>
 
               <div>
-                <input name='firstName' type='text' placeholder='First name' autocomplete='off' />
+                <input name='firstName' type='text' placeholder='First name' autoComplete='off' />
               </div>
 
               <div>
-                <input name='lastName' type='text' placeholder='Last name' autocomplete='off' />
+                <input name='lastName' type='text' placeholder='Last name' autoComplete='off' />
               </div>
             </div>
             {(error && error.response && <div className='helper-text'> {error.response.data} </div>) || (

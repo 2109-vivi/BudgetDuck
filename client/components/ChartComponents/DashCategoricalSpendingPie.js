@@ -13,7 +13,9 @@ const DashCategoricalSpendingPie = (props) => {
   const postData = [];
   transactions.filter((transaction) => {
     if (transaction.date.slice(0, 7) == monthYear.toISOString().slice(0, 7)) {
-      if (preData[transaction] && preData[transaction.category.categoryName]) {
+      console.log(transaction);
+      console.log(preData);
+      if (preData[transaction.category.categoryName]) {
         preData[transaction.category.categoryName] += +transaction.amount;
         totalMonthlySpending += +transaction.amount;
       } else {

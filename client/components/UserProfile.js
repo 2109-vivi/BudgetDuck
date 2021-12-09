@@ -55,7 +55,7 @@ const UserProfile = () => {
               type='text'
               value={budget}
               onChange={handleBudgetInputChange}
-              autocomplete='off'
+              autoComplete='off'
             ></input>
             <button onClick={budgetSubmit}>Edit Budget</button>
           </div>
@@ -68,7 +68,7 @@ const UserProfile = () => {
               type='text'
               value={income}
               onChange={handleIncomeInputChange}
-              autocomplete='off'
+              autoComplete='off'
             ></input>
             <button style={{ marginBottom: '2%' }} onClick={incomeSubmit}>
               Edit Income
