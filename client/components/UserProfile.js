@@ -50,14 +50,26 @@ const UserProfile = () => {
           <h2 style={{ marginTop: '2%', marginBottom: '0px' }}>Account Information</h2>
           <h3>Current Budget: ${userInfo.monthlyBudget}</h3>
           <div>
-            <input name='budget' type='text' value={budget} onChange={handleBudgetInputChange}></input>
+            <input
+              name='budget'
+              type='text'
+              value={budget}
+              onChange={handleBudgetInputChange}
+              autoComplete='off'
+            ></input>
             <button onClick={budgetSubmit}>Edit Budget</button>
           </div>
 
           <div>
             <h3>Current Income: ${userInfo.income}</h3>
 
-            <input name='income' type='text' value={income} onChange={handleIncomeInputChange}></input>
+            <input
+              name='income'
+              type='text'
+              value={income}
+              onChange={handleIncomeInputChange}
+              autoComplete='off'
+            ></input>
             <button style={{ marginBottom: '2%' }} onClick={incomeSubmit}>
               Edit Income
             </button>

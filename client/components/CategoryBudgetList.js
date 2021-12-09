@@ -112,6 +112,7 @@ const CategoryBudgetListEntry = (props) => {
               type='text'
               value={newBudget}
               onChange={handleChange}
+              autoComplete='off'
               placeholder={
                 props.category.budgetCategories.length != 0
                   ? `$${props.category.budgetCategories[0].budgetForCategory}`
