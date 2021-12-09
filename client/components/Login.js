@@ -27,18 +27,14 @@ const Login = (props) => {
           <h2 className='login-header'>Sign in to your Budget Duck account</h2>
           <form onSubmit={handleSubmit} className='login-component-form'>
             <div className='login-input-wrapper'>
-              <input name='email' type='text' placeholder='Email' />
+              <input name='email' type='text' placeholder='Email' autocomplete='off' />
             </div>
 
             <div className='login-input-wrapper'>
-              <input name='password' type='password' placeholder='Password' />
+              <input name='password' type='password' placeholder='Password' autocomplete='off' />
             </div>
-            {(error && error.response && (
-              <div className='helper-text'> {error.response.data}</div>
-            )) || (
-              <div className='helper-text hidden'>
-                you can't see this harhar
-              </div>
+            {(error && error.response && <div className='helper-text'> {error.response.data}</div>) || (
+              <div className='helper-text hidden'>you can't see this harhar</div>
             )}
             <div>
               <button id='login-button' type='submit'>
