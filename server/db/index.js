@@ -14,7 +14,7 @@ User.hasMany(Transaction);
 Transaction.belongsTo(User);
 
 // one-to-many
-Category.hasMany(Transaction);
+Category.hasMany(Transaction, { foreignKey: 'categoryId', targetKey: 'categoryId' });
 Transaction.belongsTo(Category);
 
 // one-to-many

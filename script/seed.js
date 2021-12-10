@@ -20,10 +20,11 @@ async function seed() {
     User.create({
       email: 'cody@gmail.com',
       password: '123',
-      firstName: 'cody',
-      lastName: 'lastname',
-      monthlyBudget: 8000,
+      firstName: 'Cody',
+      lastName: 'Applebottom',
+      monthlyBudget: 4000,
       income: 90000,
+      plaidAccessToken: 123123,
     }),
   ]);
 
@@ -57,18 +58,38 @@ async function seed() {
   const budgetCategory = await Promise.all([
     BudgetCategory.create({
       userId: 1,
-      categoryId: 1,
-      budgetForCategory: 1000,
+      categoryId: 4,
+      budgetForCategory: 400,
     }),
     BudgetCategory.create({
       userId: 1,
-      categoryId: 2,
-      budgetForCategory: 1000,
+      categoryId: 5,
+      budgetForCategory: 200,
     }),
     BudgetCategory.create({
       userId: 1,
-      categoryId: 3,
-      budgetForCategory: 1000,
+      categoryId: 7,
+      budgetForCategory: 2200,
+    }),
+    BudgetCategory.create({
+      userId: 1,
+      categoryId: 8,
+      budgetForCategory: 300,
+    }),
+    BudgetCategory.create({
+      userId: 1,
+      categoryId: 9,
+      budgetForCategory: 300,
+    }),
+    BudgetCategory.create({
+      userId: 1,
+      categoryId: 10,
+      budgetForCategory: 400,
+    }),
+    BudgetCategory.create({
+      userId: 1,
+      categoryId: 13,
+      budgetForCategory: 200,
     }),
   ]);
   const currentDate = new Date();
@@ -80,77 +101,77 @@ async function seed() {
 
   await Budget.create({
     userId: 1,
-    budget: 10000,
+    budget: 4000,
     month: currentDate.getMonth() + 1,
   });
 
   await Budget.create({
     userId: 1,
-    budget: 5000,
+    budget: 4100,
     month: 11,
   });
 
   await Budget.create({
     userId: 1,
-    budget: 5000,
+    budget: 4100,
     month: 10,
   });
 
   await Budget.create({
     userId: 1,
-    budget: 5000,
+    budget: 4100,
     month: 9,
   });
   await Budget.create({
     userId: 1,
-    budget: 5000,
+    budget: 4100,
     month: 8,
   });
   await Budget.create({
     userId: 1,
-    budget: 5000,
+    budget: 4050,
     month: 7,
   });
   await Budget.create({
     userId: 1,
-    budget: 5000,
+    budget: 4000,
     month: 6,
   });
   await Budget.create({
     userId: 1,
-    budget: 5000,
+    budget: 4000,
     month: 5,
   });
   await Budget.create({
     userId: 1,
-    budget: 5000,
+    budget: 4000,
     month: 4,
     year: 2021,
   });
   await Budget.create({
     userId: 1,
-    budget: 5000,
+    budget: 3900,
     month: 3,
     year: 2021,
   });
   await Budget.create({
     userId: 1,
-    budget: 5000,
+    budget: 3900,
     month: 2,
     year: 2021,
   });
   await Budget.create({
     userId: 1,
-    budget: 5000,
+    budget: 3900,
     month: 1,
     year: 2021,
   });
 
-  for (let i = 0; i < transactions[0].length; i++) {
-    //random number from 1 to 13
-    let randomCategory = Math.floor(Math.random() * 14);
-    await transactions[0][i].setCategory(categories[randomCategory]);
-  }
+  // for (let i = 0; i < transactions[0].length; i++) {
+  //   //random number from 1 to 13
+  //   let randomCategory = Math.floor(Math.random() * 14);
+  //   await transactions[0][i].setCategory(categories[randomCategory]);
+  // }
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${transactions[0].length} transactions`);
