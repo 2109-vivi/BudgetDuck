@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import './AddTransactions.css';
 
 const AllTransactions = (props) => {
   const transactions = useSelector((state) => state.transactions);
@@ -11,11 +12,11 @@ const AllTransactions = (props) => {
     <div className='transactions-component-expanded'>
       <h1>Transactions</h1>
       <header className='transactions-header'>
-        <div className='transactions-header-buttons'>
-          <Link style={{ padding: '10px' }} to='/transactions/add'>
+        <div className='transactions-header-buttons' style={{ marginBottom: '20px' }}>
+          <Link className='add-transaction-button' style={{ padding: '10px' }} to='/transactions/add'>
             Add Transaction
           </Link>
-          <Link style={{ padding: '10px' }} to='/transactions/edit'>
+          <Link className='add-transaction-button' style={{ padding: '10px' }} to='/transactions/edit'>
             Edit Transactions
           </Link>
         </div>

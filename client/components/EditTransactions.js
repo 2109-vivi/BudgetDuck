@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import './EditTransactions.css';
 import history from '../history';
 import { toast, ToastContainer } from 'react-toastify';
+import './AddTransactions.css';
 
 const EditTransactions = (props) => {
   const dispatch = useDispatch();
@@ -26,11 +27,11 @@ const EditTransactions = (props) => {
     <div className='transactions-component-expanded'>
       <h1>Edit Transactions</h1>
       <header className='transactions-header'>
-        <div className='transactions-header-buttons'>
-          <Link style={{ padding: '10px' }} to='/transactions/add'>
+        <div className='transactions-header-buttons' style={{ marginBottom: '20px' }}>
+          <Link className='add-transaction-button' style={{ padding: '10px' }} to='/transactions/add'>
             Add Transaction
           </Link>
-          <Link style={{ padding: '10px' }} to='/transactions'>
+          <Link className='add-transaction-button' style={{ padding: '10px' }} to='/transactions'>
             Back to Transactions
           </Link>
         </div>
@@ -114,11 +115,11 @@ const EditTransactionsEntry = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let valid = await handleValidation();
-    if(!valid){
+    if (!valid) {
       toast.error('Please fill out all fields correctly');
     } else {
-    dispatch(editTransactionThunk(values, transaction.id));
-    history.push('/transactions');
+      dispatch(editTransactionThunk(values, transaction.id));
+      history.push('/transactions');
     }
   };
 
