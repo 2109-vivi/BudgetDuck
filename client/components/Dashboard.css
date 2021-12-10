@@ -124,6 +124,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   height: 96%;
   border: 1px solid #999;
   border-radius: 25px;
@@ -136,6 +137,7 @@
 .categorical-spending-pie-pick-month {
   padding-top: 2%;
   gap: 5%;
+  width: 60%;
 }
 
 .categorical-spending-pie-pick-month button {
@@ -163,13 +165,13 @@
 .dashboard-toggle-button {
   position: relative;
   bottom: 49%;
-  left: 82%;
+  left: 81%;
   cursor: pointer;
   border-radius: 50px;
   border: 1px solid #999;
   transition-duration: 0.3s;
   max-height: 20px;
-  max-width: 155px;
+  max-width: 115px;
 }
 
 .dashboard-toggle-button:hover {
