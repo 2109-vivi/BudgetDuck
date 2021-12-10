@@ -33,7 +33,7 @@ export const Dashboard = (props) => {
             <button className={'dash-edit-button'}>+</button>
           </Link>
         </h2>
-        <div style={{ overflow: 'auto', maxHeight: '90%' }}>
+        <div style={{ overflow: 'auto', maxHeight: '85%' }}>
           {transactions
             .filter((item) => {
               return currentMonth == item.date.slice(5, 7);

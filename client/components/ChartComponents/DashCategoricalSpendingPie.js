@@ -13,7 +13,6 @@ const DashCategoricalSpendingPie = (props) => {
   const postData = [];
   transactions.filter((transaction) => {
     if (transaction.date.slice(0, 7) == monthYear.toISOString().slice(0, 7)) {
-      console.log(transaction);
       console.log(preData);
       if (preData[transaction.category.categoryName]) {
         preData[transaction.category.categoryName] += +transaction.amount;
@@ -68,7 +67,7 @@ const DashCategoricalSpendingPie = (props) => {
 
   return (
     <div className='dash-categorical-spending-chart-container'>
-      <div style={{ textAlign: 'center', paddingTop: '6%' }}>Your Spending By Category</div>
+      <div style={{ textAlign: 'center', paddingTop: '2%' }}>Your Spending By Category</div>
       <div
         className='categorical-spending-pie-pick-month'
         style={{ display: 'flex', justifyContent: 'center', height: '5%' }}
@@ -78,7 +77,7 @@ const DashCategoricalSpendingPie = (props) => {
         <button onClick={() => handleClick('next')}>Next month</button>
       </div>
       <div style={{ height: '95%' }}>
-        <ResponsiveContainer width='100%' height={400}>
+        <ResponsiveContainer width={700} height='100%'>
           <PieChart>
             <Tooltip content={<CustomTooltip />} />
             <Pie

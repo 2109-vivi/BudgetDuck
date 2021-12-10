@@ -24,6 +24,10 @@ const Transaction = db.define('transaction', {
     type: Sequelize.DATEONLY,
     allowNull: false,
   },
+  categoryId: {
+    type: Sequelize.INTEGER,
+    foreignKey: true,
+  },
 });
 
 module.exports = Transaction;
