@@ -24,7 +24,6 @@ async function seed() {
       lastName: 'Applebottom',
       monthlyBudget: 4000,
       income: 90000,
-      plaidAccessToken: 123123,
     }),
   ]);
 
